@@ -831,10 +831,20 @@ describe('SupplyListComponent#toLabel()', () => {
     expect(label).toContain('Expo');
   });
 
-  it('should not pluralize size when quantity is 1', () => {
+  it('should place size before the item without pluralizing it', () => {
     const label = supplylistTable.toLabel({ ...base, size: { exactly: 'pack', anyOf: [] }, quantity: 1 } as unknown as SupplyList);
-    expect(label).toContain('pack of');
+    expect(label).toBe('1x pack crayon');
     expect(label).not.toContain('packs');
+  });
+
+  it('should format a quantity of large glue sticks naturally', () => {
+    const label = supplylistTable.toLabel({
+      ...base,
+      quantity: 2,
+      size: { exactly: 'Large', anyOf: [] },
+      item: ['Glue Sticks']
+    });
+    expect(label).toBe('2x Large Glue Sticks');
   });
 
   it('should omit size section when size is empty string', () => {

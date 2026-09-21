@@ -286,9 +286,7 @@ export class SupplyListComponent {
     if (qty) parts.push(`${qty}x`);
     if (s.packageSize > 1) parts.push(`${s.packageSize}ct.`);
     const sizeStr = attrStr(s.size);
-    if (sizeStr) {
-      parts.push(`${sizeStr}${(qty ?? 0) > 1 ? 's' : ''} of`);
-    }
+    if (sizeStr) parts.push(sizeStr);
     const itemStr = s.item?.join(' or ') ?? '';
     if (itemStr) {
       const plural = (qty === null || (qty ?? 0) > 1) && !itemStr.endsWith('s');

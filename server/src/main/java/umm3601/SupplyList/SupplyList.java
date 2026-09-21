@@ -81,6 +81,18 @@ public class SupplyList {
       sb.append(packageSize).append("ct ");
     }
 
+    // Size describes the item; it should not be pluralized or rendered as a
+    // container (for example, "2 Large Glue Sticks", not "2 Larges of ...").
+    String sizeStr = formatExactly(size, "");
+    if (!sizeStr.isEmpty()) {
+      sb.append(sizeStr).append(" ");
+    } else {
+      String acceptableSizes = formatAnyOf(size);
+      if (!acceptableSizes.isEmpty()) {
+        sb.append(acceptableSizes.trim()).append(" ");
+      }
+    }
+
     // Item (pluralize if quantity > 1)
     if (item != null && !item.isEmpty()) {
       sb.append(String.join(" or ", item));
@@ -96,7 +108,6 @@ public class SupplyList {
     exactlyStr += formatExactly(color, exactlyStr.isEmpty() ? "" : ", ");
     exactlyStr += formatExactly(brand, exactlyStr.isEmpty() ? "" : ", ");
     exactlyStr += formatExactly(material, exactlyStr.isEmpty() ? "" : ", ");
-    exactlyStr += formatExactly(size, exactlyStr.isEmpty() ? "" : ", ");
     if (!exactlyStr.isEmpty()) {
       sb.append(exactlyStr);
     }
@@ -106,7 +117,6 @@ public class SupplyList {
     anyOfStr += formatAnyOf(color);
     anyOfStr += formatAnyOf(brand);
     anyOfStr += formatAnyOf(material);
-    anyOfStr += formatAnyOf(size);
     if (!anyOfStr.isEmpty()) {
       sb.append(anyOfStr);
     }

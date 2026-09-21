@@ -703,7 +703,7 @@ class PurchaseListServiceSpec {
     PurchaseListSnapshot snapshot = purchaseListService.calculateNewPurchaseList();
 
     assertEquals(1, snapshot.items.size());
-    assertEquals("8 Pack of Blue Washable Crayola Marker (Plastic)", snapshot.items.get(0).description);
+    assertEquals("8 Pack of Crayola Blue Washable Markers (Plastic)", snapshot.items.get(0).description);
   }
 
   @Test
@@ -757,6 +757,18 @@ class PurchaseListServiceSpec {
 
     assertEquals(1, snapshot.items.size());
     assertEquals("Folder", snapshot.items.get(0).description);
+  }
+
+  @Test
+  void doesNotRepeatMaterialAlreadyInSupplyListItem() {
+    db.getCollection("family").insertOne(familyDoc(SCHOOL, "1", TEACHER, 1));
+    db.getCollection("supplylist").insertOne(supplyListDoc(SCHOOL, "1", TEACHER, "Construction Paper", 1)
+      .append("material", attributeExactly("Paper")));
+
+    PurchaseListSnapshot snapshot = purchaseListService.calculateNewPurchaseList();
+
+    assertEquals(1, snapshot.items.size());
+    assertEquals("Construction Paper", snapshot.items.get(0).description);
   }
 
   private Document inventoryDoc(String internalId, String item, int quantity) {

@@ -142,8 +142,8 @@ public class SupplyListController {
     return Filters.in(field, patterns);
   }
 
-  // AttributeOptions fields can express required values in exactly and acceptable
-  // alternatives in anyOf, so a query should match either side.
+  // AttributeOptions fields can express one required value in exactly and
+  // acceptable alternatives in anyOf, so a query should match both forms.
   private Bson attributeOptionsFilter(String field, String raw) {
     return Filters.or(
       multipleIntakeFilter(field + ".exactly", raw),

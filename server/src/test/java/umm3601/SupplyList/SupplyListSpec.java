@@ -84,4 +84,16 @@ public class SupplyListSpec {
   void listToString() {
     assertEquals(inv1.toString(), "2 20ct Pencils yellow, Ticonderoga");
   }
+
+  @Test
+  void listToStringPlacesSizeBeforeItemWithoutPluralizingSize() {
+    inv1.packageSize = 1;
+    inv1.item = Arrays.asList("Glue Sticks");
+    inv1.size = new SupplyList.AttributeOptions();
+    inv1.size.exactly = "Large";
+    inv1.brand = null;
+    inv1.color = null;
+
+    assertEquals("2 Large Glue Sticks", inv1.toString());
+  }
 }

@@ -16,6 +16,7 @@ import { Observable, of } from 'rxjs';
 import { SupplyListService } from '../supplylist.service';
 import { TermsService } from '../../terms/terms.service';
 import { Terms } from '../../terms/terms';
+import { DescriptionParserService } from '../../terms/description-parser.service';
 import { GRADES } from '../supplylist';
 import { SettingsService } from '../../settings/settings.service';
 import {
@@ -46,6 +47,7 @@ import {
 export class AddSupplyListComponent implements OnInit {
   private supplyListService = inject(SupplyListService);
   private termsService = inject(TermsService);
+  private descriptionParser = inject(DescriptionParserService);
   private settingsService = inject(SettingsService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
@@ -219,169 +221,15 @@ export class AddSupplyListComponent implements OnInit {
    * as-is so the user can fill them manually. After parsing the preview card appears.
    */
   parseDescription(input: string): void {
-    if (!input.trim()) {
-      return;
-    }
-    const lower = input.toLowerCase();
-    const patch: Record<string, string> = {};
-
-    // Detect whether the input uses "or" to join options (anyOf) versus
-    // "and" / commas (exactly). This drives how multi-value fields are stored.
-    const hasOr = /\bor\b/.test(lower);
-    // Separator written into the form field value; toAttr() reads this.
-    const sep = hasOr ? ' | ' : ', ';
-
-    // Quantity: "2 boxes of ...", "2 packs", or a bare leading number.
-    // "2 boxes of ...", "2 packs", or a bare leading number
-    const qtyMatch = lower.match(/^(\d+)\s+(?:box(?:es)?|pack(?:s)?|set(?:s)?|bag(?:s)?|roll(?:s)?|ream(?:s)?|sheet(?:s)?|piece(?:s)?|pair(?:s)?)/);
-    if (qtyMatch) {
-      patch['quantity'] = qtyMatch[1];
-    } else {
-      const leadingNum = lower.match(/^(\d+)\b/);
-      if (leadingNum) {
-        patch['quantity'] = leadingNum[1];
-      }
-    }
-
-    // Package size: "24 count", "24ct", "pack/container/bag of 24", etc.
-    // "24 count", "24ct", "24-count", "pack of 24", "container of 24", "bag of 24"
-    const packageSizeMatch = lower.match(/(\d+)\s*[-]?\s*(?:count|ct|pk|pack)\b/)
-      || lower.match(/(?:pack|box|set|container|bag)\s+of\s+(\d+)/);
-    if (packageSizeMatch) {
-      patch['packageSize'] = packageSizeMatch[1];
-    }
-
-    // Brand: detect this first so it can hint at the item category.
-    // Detect brand first so we can use it as a hint for item inference below.
-    const matchedBrand = this.bestTermMatch(lower, this.terms.brand);
-    if (matchedBrand) {
-      patch['brand'] = matchedBrand;
-    }
-
-    // Item: longest matching term wins to avoid "pen" matching "pencil".
-    // If no item is found directly, use brand hints only when they map to an existing term.
-    let matchedItem = this.bestTermMatch(lower, this.terms.item);
-    if (!matchedItem && matchedBrand) {
-      const hints = this.brandItemHints[matchedBrand.toLowerCase()] ?? [];
-      matchedItem = this.bestTermMatch(hints.join(' '), this.terms.item);
-    }
-    if (matchedItem) {
-      patch['item'] = matchedItem;
-    }
-
-    // Color: collect all matching color terms.
-    // Collect ALL color terms; join with sep so 'or' routes to anyOf in toAttr.
-    const matchedColors = this.allTermMatches(lower, this.terms.color);
-    if (matchedColors.length) {
-      patch['color'] = matchedColors.join(sep);
-    }
-
-    // Size: only use explicit size terms that already exist in the term list.
-    const sizeTermMatches = this.allTermMatches(lower, this.terms.size);
-    if (sizeTermMatches.length) {
-      patch['size'] = sizeTermMatches.join(sep);
-    }
-
-    // Type.
-    const matchedTypes = this.allTermMatches(lower, this.terms.type);
-    if (matchedTypes.length) {
-      patch['type'] = matchedTypes.join(sep);
-    }
-
-    // Material.
-    const matchedMaterials = this.allTermMatches(lower, this.terms.material);
-    if (matchedMaterials.length) {
-      patch['material'] = matchedMaterials.join(sep);
-    }
-
-    // Notes: parenthetical text is a note unless it looks like a count/quantity
-    // or matches a known term (color, size, etc.), in which case it was already
-    // handled above and should not be duplicated into notes.
-    // e.g. "(24 ct.)" is count data and "(for art class)" is a note.
-    const structuredParenPattern = /^\d+\s*(?:count|ct\.?|pk\.?|pack\.?|oz\.?|lb\.?|ml\.?|g\.?|mm\.?|cm\.?|in\.?|ft\.?)?\s*$/i;
-    const allTermWords = [
-      ...this.terms.item, ...this.terms.brand, ...this.terms.color,
-      ...this.terms.size, ...this.terms.type, ...this.terms.material
-    ];
-    const noteFragments = [...input.matchAll(/\(([^)]+)\)/g)]
-      .map(m => m[1].trim())
-      .filter(fragment => {
-        if (!fragment) {
-          return false;
-        }
-        if (structuredParenPattern.test(fragment)) {
-          return false; // looks like "24 ct."; already parsed as count
-        }
-        if (this.bestTermMatch(fragment.toLowerCase(), allTermWords)) {
-          return false; // matches a known term; already captured in a field
-        }
-        return true;
-      });
-    if (noteFragments.length) {
+    if (!input.trim()) return;
+    const parsed = this.descriptionParser.parse(input, this.terms, this.brandItemHints);
+    const { notes, ...patch } = parsed;
+    if (notes.length) {
       const existing = (this.addSupplyListForm.get('notes')?.value ?? '').trim();
-      patch['notes'] = [existing, ...noteFragments].filter(Boolean).join('; ');
+      patch['notes'] = [existing, ...notes].filter(Boolean).join('; ');
     }
-
     this.addSupplyListForm.patchValue(patch);
     this.showPreview = true;
-
-  }
-
-  /** Returns the longest term from the list that appears as a whole word in the input, or null.
-   *  Also matches common plural/singular variants so e.g. "crayons" matches term "crayon". */
-  private bestTermMatch(lower: string, terms: string[]): string | null {
-    let best: string | null = null;
-    for (const term of terms) {
-      const t = term.toLowerCase();
-      const candidates = this.pluralForms(t);
-      const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const matched = candidates.some(c => new RegExp(`(?:^|\\s)${esc(c)}(?:$|\\s)`).test(lower));
-      if (matched && (!best || t.length > best.length)) {
-        best = term; // keep original casing from terms list
-      }
-    }
-    return best;
-  }
-
-  /** Returns ALL terms from the list that appear as whole words in the input.
-   *  Used for multi-value fields like color where several may apply at once. */
-  private allTermMatches(lower: string, terms: string[]): string[] {
-    const results: string[] = [];
-    const seen = new Set<string>();
-    for (const term of terms) {
-      const t = term.toLowerCase();
-      const candidates = this.pluralForms(t);
-      const esc = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const matched = candidates.some(c => new RegExp(`(?:^|\\s)${esc(c)}(?:$|\\s)`).test(lower));
-      if (matched && !seen.has(t)) {
-        seen.add(t);
-        results.push(term);
-      }
-    }
-    return results;
-  }
-
-  /** Generates plausible plural and singular variants of a term. */
-  private pluralForms(t: string): string[] {
-    const forms = new Set<string>([t]);
-    // Add plural
-    if (t.endsWith('y') && t.length > 2 && !/[aeiou]y$/.test(t)) {
-      forms.add(t.slice(0, -1) + 'ies');     // candy to candies
-    } else if (/(?:ch|sh|x|z|s)$/.test(t)) {
-      forms.add(t + 'es');                    // brush to brushes
-    } else if (!t.endsWith('s')) {
-      forms.add(t + 's');                     // crayon to crayons
-    }
-    // Add singular (strip common plural suffixes)
-    if (t.endsWith('ies') && t.length > 4) {
-      forms.add(t.slice(0, -3) + 'y');       // candies to candy
-    } else if (t.endsWith('es') && t.length > 3) {
-      forms.add(t.slice(0, -2));             // brushes to brush
-      forms.add(t.slice(0, -1));             // -es edge case
-    } else if (t.endsWith('s') && t.length > 2) {
-      forms.add(t.slice(0, -1));             // crayons to crayon
-    }
-    return [...forms];
   }
 
   /** Returns the parsed form values in a shape ready for display in the preview. */

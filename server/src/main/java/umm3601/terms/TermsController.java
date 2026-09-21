@@ -29,6 +29,9 @@ import umm3601.Auth.Route;
 public class TermsController {
 
   private static final String API_TERMS = "/api/terms";
+  // Complete item phrases that should take precedence over nested attribute words,
+  // even when they are not yet represented in the current inventory.
+  private static final List<String> CURATED_ITEMS = List.of("Construction Paper");
 
   private final MongoCollection<Document> supplyListCollection;
   private final MongoCollection<Document> inventoryCollection;
@@ -40,8 +43,8 @@ public class TermsController {
 
   /**
    * getTerms merges distinct values from supplylist and inventory collections for each of the term categories:
-   * item, brand, color, size, type, and material. It normalizes the terms by trimming whitespace and converting
-   * plurals to singular form. The merged lists are case-insensitively deduplicated and sorted before being returned
+   * item, brand, color, size, type, and material. It normalizes the terms by trimming whitespace. The merged lists
+   * are case-insensitively deduplicated and sorted before being returned
    * as a JSON response with a 200 OK status.
    * @param ctx
    */
@@ -51,7 +54,8 @@ public class TermsController {
 
     terms.item = merge(
       distinctStrings(supplyListCollection, "item"),
-      distinctStrings(inventoryCollection, "item")
+      distinctStrings(inventoryCollection, "item"),
+      CURATED_ITEMS
     );
 
     terms.brand = merge(
@@ -120,51 +124,18 @@ public class TermsController {
   }
 
   /**
-   * Runs MongoDB distinct(), strips blank values, and normalizes to singular form.
+   * Runs MongoDB distinct() and strips blank values. Stored terms remain canonical;
+   * matching aliases belong in the description parser, not in this endpoint.
    */
   private List<String> distinctStrings(MongoCollection<Document> collection, String field) {
     List<String> result = new ArrayList<>();
     collection.distinct(field, String.class)
         .forEach(v -> {
           if (v != null && !v.isBlank()) {
-            if (v.endsWith("s") && !v.endsWith("ss")) {
-              String singular = singularize(v.trim());
-              result.add(singular);
-            } else {
-              result.add(v.trim());
-            }
+            result.add(v.trim());
           }
         });
     return result;
-  }
-
-  /**
-   * Naive English singularization for common plural forms.
-   * Handles basic cases: boxes -> box, batteries -> battery, etc.
-   * For more robust needs, use a library.
-   */
-  @SuppressWarnings("MagicNumber")
-  public String singularize(String word) {
-    if (word == null || word.isEmpty() || word.length() < 3) {
-      return word;
-    }
-    String lower = word.toLowerCase();
-    if (lower.endsWith("ies") && lower.length() > 3) {
-      // batteries -> battery
-      return word.substring(0, word.length() - 3) + "y";
-    } else if (lower.endsWith("es") && lower.length() > 2) {
-      if (word.contains("Headphones") || word.contains("Shoes")
-      || word.contains("headphones") || word.contains("shoes")) {
-        return word;
-      } else {
-        // boxes -> box, matches -> match
-        return word.substring(0, word.length() - 2);
-      }
-    } else if (lower.endsWith("s") && lower.length() > 1 && !lower.endsWith("ss")) {
-      // pens -> pen, but not 'glass' -> 'glas'
-      return word.substring(0, word.length() - 1);
-    }
-    return word;
   }
 
   /** Merges multiple lists into one sorted, case-deduplicated list. */

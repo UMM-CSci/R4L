@@ -1,4 +1,3 @@
-
 package umm3601.Terms;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -59,7 +58,7 @@ class TermsControllerSpec {
   }
 
   @Test
-  void getTermsMergesSortsDeduplicatesAndSingularizesAllFields() {
+  void getTermsMergesSortsDeduplicatesAndPreservesStoredTerms() {
     DistinctIterable<String> slItem = makeIterable(Arrays.asList("Crayons", "Markers"));
     DistinctIterable<String> slBrandA = makeIterable(Arrays.asList("Crayola", "BIC"));
     DistinctIterable<String> slBrandO = makeIterable(Arrays.asList("Expo"));
@@ -100,10 +99,10 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertEquals(Arrays.asList("Crayon", "Marker", "Pencil"), terms.item);
+      assertEquals(Arrays.asList("Construction Paper", "crayon", "Crayons", "Markers", "Pencil"), terms.item);
       assertEquals(Arrays.asList("BIC", "Crayola", "Expo", "Papermate"), terms.brand);
       assertEquals(Arrays.asList("Blue", "Green", "Red", "Yellow"), terms.color);
-      assertEquals(Arrays.asList("Box", "Large", "Small"), terms.size);
+      assertEquals(Arrays.asList("Boxes", "Large", "Small"), terms.size);
       assertEquals(Arrays.asList("Dry Erase", "Permanent", "Washable"), terms.type);
       assertEquals(Arrays.asList("Metal", "Plastic", "Wood"), terms.material);
       return null;
@@ -129,7 +128,7 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertEquals(List.of("Crayon"), terms.item);
+      assertEquals(List.of("Construction Paper", "Crayon"), terms.item);
       return null;
     }).when(ctx).json(any(Terms.class));
 
@@ -162,38 +161,4 @@ class TermsControllerSpec {
     verify(ctx).status(eq(HttpStatus.OK));
   }
 
-  @Test
-  void singularizeHandlesBasicCases() {
-    assertEquals("box", controller.singularize("boxes"));
-    assertEquals("battery", controller.singularize("batteries"));
-    assertEquals("brush", controller.singularize("brushes"));
-    assertEquals("class", controller.singularize("classes"));
-    assertEquals("glass", controller.singularize("glasses"));
-    assertEquals("bus", controller.singularize("buses"));
-    assertEquals("dress", controller.singularize("dresses"));
-    assertEquals("pen", controller.singularize("pens"));
-    assertEquals("cat", controller.singularize("cats"));
-    assertEquals("blue", controller.singularize("blue"));
-    assertEquals("crayon", controller.singularize("crayon"));
-  }
-
-  @Test
-  void singularizeHandlesNullAndEmpty() {
-    assertEquals(null, controller.singularize(null));
-    assertEquals("", controller.singularize(""));
-  }
-
-  @Test
-  void singularizeDoesNotMangleShortWords() {
-    assertEquals("is", controller.singularize("is"));
-    assertEquals("as", controller.singularize("as"));
-    assertEquals("us", controller.singularize("us"));
-  }
-
-  @Test
-  void singularizeDoesNotMangleWordsEndingWithss() {
-    assertEquals("class", controller.singularize("class"));
-    assertEquals("glass", controller.singularize("glass"));
-    assertEquals("kiss", controller.singularize("kiss"));
-  }
 }

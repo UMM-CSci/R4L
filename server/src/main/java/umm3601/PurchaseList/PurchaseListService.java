@@ -618,14 +618,14 @@ public class PurchaseListService {
     if (supplyList.packageSize != null && supplyList.packageSize > 1) {
       mainParts.add(supplyList.packageSize + "ct");
     }
-    addIfPresent(mainParts, attributeDisplay(supplyList.color));
-    addIfPresent(mainParts, attributeDisplay(supplyList.type));
-    addIfPresent(mainParts, attributeDisplay(supplyList.size));
-    addIfPresent(mainParts, attributeDisplay(supplyList.brand));
+    addIfNotInItem(mainParts, attributeDisplay(supplyList.color), itemLabel);
+    addIfNotInItem(mainParts, attributeDisplay(supplyList.type), itemLabel);
+    addIfNotInItem(mainParts, attributeDisplay(supplyList.size), itemLabel);
+    addIfNotInItem(mainParts, attributeDisplay(supplyList.brand), itemLabel);
     mainParts.add(pluralizedItemLabel(supplyList, itemLabel, quantityPerStudent));
 
     StringJoiner detailParts = new StringJoiner(", ");
-    addIfPresent(detailParts, attributeDisplay(supplyList.material));
+    addIfNotInItem(detailParts, attributeDisplay(supplyList.material), itemLabel);
     addIfPresent(detailParts, supplyList.notes);
 
     String main = mainParts.toString().trim();
@@ -745,6 +745,18 @@ public class PurchaseListService {
     if (hasMeaningfulValue(value)) {
       joiner.add(value.trim());
     }
+  }
+
+  private void addIfNotInItem(StringJoiner joiner, String value, String itemLabel) {
+    if (!hasMeaningfulValue(value)) {
+      return;
+    }
+    String itemWords = " " + fallback(itemLabel).toLowerCase(Locale.US).replaceAll("[^a-z0-9]+", " ").trim() + " ";
+    String valueWords = value.toLowerCase(Locale.US).replaceAll("[^a-z0-9]+", " ").trim();
+    if (!valueWords.isEmpty() && itemWords.contains(" " + valueWords + " ")) {
+      return;
+    }
+    joiner.add(value.trim());
   }
 
   private String fallback(String value, String defaultValue) {

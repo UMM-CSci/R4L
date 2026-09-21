@@ -386,7 +386,9 @@ public class InventoryController {
 
     for (Inventory inv : matching) {
       updateStockState(inv);
-      generateDescription(inv);
+      // A read may display the current generated label, but must not rewrite
+      // a stored (possibly curated) description as a side effect.
+      inv.refreshDescription();
     }
     ctx.json(matching);
     ctx.status(HttpStatus.OK);

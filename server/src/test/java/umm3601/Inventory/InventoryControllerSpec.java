@@ -355,7 +355,7 @@ public class InventoryControllerSpec {
   }
 
   @Test
-  void getInventoriesPersistsGeneratedDescriptionWhenStoredDescriptionIsStale() {
+  void getInventoriesDoesNotPersistGeneratedDescriptionWhenStoredDescriptionIsStale() {
     db.getCollection("inventory").insertOne(
         new Document()
             .append("item", "Notebook")
@@ -379,7 +379,7 @@ public class InventoryControllerSpec {
     Document updated = db.getCollection("inventory")
         .find(new Document("internalID", "IID-0144"))
         .first();
-    assertEquals("College Ruled Notebook", updated.getString("description"));
+    assertEquals("College Ruled Composition Notebook", updated.getString("description"));
   }
 
   @Test
