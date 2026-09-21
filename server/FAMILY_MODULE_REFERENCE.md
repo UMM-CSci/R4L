@@ -366,7 +366,7 @@ The more detailed the inventory entry is, the higher the score, which makes it m
 
 Checks standard attribute rules like:
 
-- `allOf`
+- `exactly`
 - `anyOf`
 
 If no options are provided, the attribute is treated as a match.
@@ -375,7 +375,7 @@ If no options are provided, the attribute is treated as a match.
 
 Specialized version of attribute matching for colors.
 
-It supports color `allOf` and `anyOf` behavior.
+It supports color `exactly` and `anyOf` behavior.
 
 ### Private helper methods for persisting checklist progress
 

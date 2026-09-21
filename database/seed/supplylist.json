@@ -32,8 +32,8 @@
     "quantity": 1,
     "notes": "Large enough for folders",
     "supplyID": "Supply-00000",
-    "invIDs": ["ID-0002"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -69,7 +69,7 @@
     "notes": "Resting rug",
     "supplyID": "Supply-00001",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -104,8 +104,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00002",
-    "invIDs": ["ID-0005"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -141,7 +141,7 @@
     "notes": "",
     "supplyID": "Supply-00003",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -176,8 +176,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00004",
-    "invIDs": ["ID-0232"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -212,8 +212,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00005",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -248,8 +248,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00006",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -284,8 +284,8 @@
     "quantity": 2,
     "notes": "Color of choice and one green folder",
     "supplyID": "Supply-00007",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0085", "ID-0086"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -320,8 +320,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00008",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -356,8 +356,8 @@
     "quantity": 1,
     "notes": "Thick crayons for easier grasping",
     "supplyID": "Supply-00009",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -392,8 +392,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00010",
-    "invIDs": ["ID-0106", "ID-0108"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -428,8 +428,8 @@
     "quantity": 1,
     "notes": "No scented markers",
     "supplyID": "Supply-00011",
-    "invIDs": ["ID-0119", "ID-0123", "ID-0127", "ID-0131"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -464,8 +464,8 @@
     "quantity": 1,
     "notes": "Set of markers; black preferred",
     "supplyID": "Supply-00012",
-    "invIDs": ["ID-0040", "ID-0045", "ID-0073", "ID-0074"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -501,7 +501,7 @@
     "notes": "Must have lid",
     "supplyID": "Supply-00013",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -537,7 +537,7 @@
     "notes": "Velcro preferred over laced",
     "supplyID": "Supply-00014",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -572,8 +572,8 @@
     "quantity": 1,
     "notes": "Backpack or school bag",
     "supplyID": "Supply-00015",
-    "invIDs": ["ID-0002"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -609,7 +609,7 @@
     "notes": "Resting rug or towel",
     "supplyID": "Supply-00016",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -645,7 +645,7 @@
     "notes": "",
     "supplyID": "Supply-00017",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -669,7 +669,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -680,8 +680,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00018",
-    "invIDs": ["ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -716,8 +716,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00019",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -752,8 +752,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00020",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -788,8 +788,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00021",
-    "invIDs": ["ID-0071", "ID-0072"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -824,8 +824,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00022",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -834,7 +834,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -849,7 +849,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -860,8 +860,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00023",
-    "invIDs": ["ID-0003"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -896,8 +896,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00024",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -932,8 +932,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00025",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -968,8 +968,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00026",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0093", "ID-0094"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1004,8 +1004,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00027",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1040,8 +1040,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00028",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1077,7 +1077,7 @@
     "notes": "Used for memory book",
     "supplyID": "Supply-00029",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1086,7 +1086,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -1101,7 +1101,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -1112,8 +1112,8 @@
     "quantity": 1,
     "notes": "Place sheet protectors inside",
     "supplyID": "Supply-00030",
-    "invIDs": ["ID-0003", "ID-0004"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1148,8 +1148,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00031",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1184,8 +1184,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00032",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0093", "ID-0094"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1220,8 +1220,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00033",
-    "invIDs": ["ID-0071", "ID-0072"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1256,8 +1256,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00034",
-    "invIDs": ["ID-0232"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1292,8 +1292,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00035",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1328,8 +1328,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00036",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1364,8 +1364,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00037",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1400,8 +1400,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00038",
-    "invIDs": ["ID-0079", "ID-0080", "ID-0081", "ID-0082"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1436,8 +1436,8 @@
     "quantity": 10,
     "notes": "",
     "supplyID": "Supply-00039",
-    "invIDs": ["ID-0184", "ID-0185", "ID-0186"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1473,7 +1473,7 @@
     "notes": "",
     "supplyID": "Supply-00040",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1508,8 +1508,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00041",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1518,7 +1518,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "",
@@ -1544,8 +1544,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00042",
-    "invIDs": ["ID-0103", "ID-0104", "ID-0105"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1580,8 +1580,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00043",
-    "invIDs": ["ID-0106", "ID-0107"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1616,8 +1616,8 @@
     "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00044",
-    "invIDs": ["ID-0085", "ID-0090", "ID-0095", "ID-0100"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1652,8 +1652,8 @@
     "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00045",
-    "invIDs": ["ID-0086", "ID-0091", "ID-0096", "ID-0101"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1688,8 +1688,8 @@
     "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00046",
-    "invIDs": ["ID-0083", "ID-0088", "ID-0093", "ID-0098"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1724,8 +1724,8 @@
     "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00047",
-    "invIDs": ["ID-0084", "ID-0089", "ID-0094", "ID-0099"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1760,8 +1760,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00048",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1796,8 +1796,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00049",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1832,8 +1832,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00050",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1868,8 +1868,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00051",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1904,8 +1904,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00052",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1940,8 +1940,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00053",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1976,8 +1976,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00054",
-    "invIDs": ["ID-0069", "ID-0070", "ID-0071", "ID-0072"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -1986,7 +1986,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Dry Board Eraser"
+      "Dry Erase Board Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -2012,8 +2012,8 @@
     "quantity": 1,
     "notes": "Or a sock",
     "supplyID": "Supply-00055",
-    "invIDs": ["ID-0035", "ID-0036", "ID-0037", "ID-0038"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2022,7 +2022,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -2037,7 +2037,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -2048,8 +2048,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00056",
-    "invIDs": ["ID-0003", "ID-0004"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2085,7 +2085,7 @@
     "notes": "",
     "supplyID": "Supply-00057",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2094,7 +2094,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -2109,7 +2109,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -2120,8 +2120,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00058",
-    "invIDs": ["ID-0143", "ID-0144", "ID-0151", "ID-0157"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2156,8 +2156,8 @@
     "quantity": 6,
     "notes": "At least one must be green",
     "supplyID": "Supply-00059",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0085", "ID-0086"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2192,8 +2192,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00060",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2228,8 +2228,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00061",
-    "invIDs": ["ID-0019", "ID-0020", "ID-0023", "ID-0024"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2264,8 +2264,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00062",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2300,8 +2300,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00063",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2339,8 +2339,8 @@
     "quantity": 3,
     "notes": "At least one must be black or Blue",
     "supplyID": "Supply-00064",
-    "invIDs": ["ID-0040", "ID-0042", "ID-0073", "ID-0074"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2375,8 +2375,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00065",
-    "invIDs": ["ID-0079", "ID-0080", "ID-0081", "ID-0082"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2411,8 +2411,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00066",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2421,7 +2421,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "",
@@ -2447,8 +2447,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00067",
-    "invIDs": ["ID-0103", "ID-0104", "ID-0105"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2485,8 +2485,8 @@
     "quantity": 2,
     "notes": "Ticonderoga preferred",
     "supplyID": "Supply-00068",
-    "invIDs": ["ID-0182", "ID-0183", "ID-0185", "ID-0186"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2521,8 +2521,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00069",
-    "invIDs": ["ID-0114", "ID-0115", "ID-0116"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2557,8 +2557,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00070",
-    "invIDs": ["ID-0192", "ID-0193", "ID-0194"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2593,8 +2593,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00071",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2630,7 +2630,7 @@
     "notes": "Not bendy",
     "supplyID": "Supply-00072",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2665,8 +2665,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00073",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2701,8 +2701,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00074",
-    "invIDs": ["ID-0232"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2738,7 +2738,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00075",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2773,8 +2773,8 @@
     "quantity": 1,
     "notes": "No wheels",
     "supplyID": "Supply-00076",
-    "invIDs": ["ID-0002"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2810,7 +2810,7 @@
     "notes": "",
     "supplyID": "Supply-00077",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2819,7 +2819,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -2834,7 +2834,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -2846,7 +2846,7 @@
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00078",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2882,7 +2882,7 @@
     "notes": "",
     "supplyID": "Supply-00079",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2918,7 +2918,7 @@
     "notes": "",
     "supplyID": "Supply-00080",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2954,7 +2954,7 @@
     "notes": "",
     "supplyID": "Supply-00081",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -2990,7 +2990,7 @@
     "notes": "",
     "supplyID": "Supply-00082",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3026,7 +3026,7 @@
     "notes": "",
     "supplyID": "Supply-00083",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3035,7 +3035,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Dry Board Eraser"
+      "Dry Erase Board Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -3062,7 +3062,7 @@
     "notes": "",
     "supplyID": "Supply-00084",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3098,7 +3098,7 @@
     "notes": "Package of glue sticks",
     "supplyID": "Supply-00085",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3134,7 +3134,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00086",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3170,7 +3170,7 @@
     "notes": "",
     "supplyID": "Supply-00087",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3206,7 +3206,7 @@
     "notes": "",
     "supplyID": "Supply-00088",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3242,7 +3242,7 @@
     "notes": "",
     "supplyID": "Supply-00089",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3278,7 +3278,7 @@
     "notes": "",
     "supplyID": "Supply-00090",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3314,7 +3314,7 @@
     "notes": "",
     "supplyID": "Supply-00091",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3350,7 +3350,7 @@
     "notes": "",
     "supplyID": "Supply-00092",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3386,7 +3386,7 @@
     "notes": "",
     "supplyID": "Supply-00093",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3422,7 +3422,7 @@
     "notes": "Loose Leaf or Filler Paper",
     "supplyID": "Supply-00094",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3431,7 +3431,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -3446,7 +3446,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -3458,7 +3458,7 @@
     "notes": "",
     "supplyID": "Supply-00095",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3494,7 +3494,7 @@
     "notes": "",
     "supplyID": "Supply-00096",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3530,7 +3530,7 @@
     "notes": "",
     "supplyID": "Supply-00097",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3569,7 +3569,7 @@
     "notes": "Not red",
     "supplyID": "Supply-00098",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3605,7 +3605,7 @@
     "notes": "",
     "supplyID": "Supply-00099",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3641,7 +3641,7 @@
     "notes": "Low odor",
     "supplyID": "Supply-00100",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3650,7 +3650,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Dry Board Eraser"
+      "Dry Erase Board Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -3677,7 +3677,7 @@
     "notes": "",
     "supplyID": "Supply-00101",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3713,7 +3713,7 @@
     "notes": "",
     "supplyID": "Supply-00102",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3749,7 +3749,7 @@
     "notes": "",
     "supplyID": "Supply-00103",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3785,7 +3785,7 @@
     "notes": "",
     "supplyID": "Supply-00104",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3821,7 +3821,7 @@
     "notes": "",
     "supplyID": "Supply-00105",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3857,7 +3857,7 @@
     "notes": "",
     "supplyID": "Supply-00106",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3893,7 +3893,7 @@
     "notes": "",
     "supplyID": "Supply-00107",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3929,7 +3929,7 @@
     "notes": "Pencil/Crayon box",
     "supplyID": "Supply-00108",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3965,7 +3965,7 @@
     "notes": "",
     "supplyID": "Supply-00109",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -3974,7 +3974,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -3989,7 +3989,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4001,7 +4001,7 @@
     "notes": "",
     "supplyID": "Supply-00110",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4037,7 +4037,7 @@
     "notes": "",
     "supplyID": "Supply-00111",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4074,7 +4074,7 @@
     "notes": "Markers or Colored Pencils allowed",
     "supplyID": "Supply-00112",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4110,7 +4110,7 @@
     "notes": "",
     "supplyID": "Supply-00113",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4146,7 +4146,7 @@
     "notes": "",
     "supplyID": "Supply-00114",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4182,7 +4182,7 @@
     "notes": "",
     "supplyID": "Supply-00115",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4218,7 +4218,7 @@
     "notes": "",
     "supplyID": "Supply-00116",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4254,7 +4254,7 @@
     "notes": "No red pens",
     "supplyID": "Supply-00117",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4290,7 +4290,7 @@
     "notes": "",
     "supplyID": "Supply-00118",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4300,7 +4300,7 @@
     "teacher": "",
     "item": [
       "Glue Stick",
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "",
@@ -4327,7 +4327,7 @@
     "notes": "",
     "supplyID": "Supply-00119",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4363,7 +4363,7 @@
     "notes": "OR Disinfectant Wipes",
     "supplyID": "Supply-00120",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4399,7 +4399,7 @@
     "notes": "Alternative to Tissues",
     "supplyID": "Supply-00121",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4435,7 +4435,7 @@
     "notes": "To be dispersed in high school classrooms",
     "supplyID": "Supply-00122",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4471,7 +4471,7 @@
     "notes": "One pocket Folder for each class",
     "supplyID": "Supply-00123",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4480,7 +4480,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -4495,7 +4495,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4507,7 +4507,7 @@
     "notes": "One Notebook for each class",
     "supplyID": "Supply-00124",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4543,7 +4543,7 @@
     "notes": "",
     "supplyID": "Supply-00125",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4579,7 +4579,7 @@
     "notes": "General supply for all classes",
     "supplyID": "Supply-00126",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4615,7 +4615,7 @@
     "notes": "",
     "supplyID": "Supply-00127",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4624,7 +4624,7 @@
     "grade": "7",
     "teacher": "Kayla Morrill",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -4639,7 +4639,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4651,7 +4651,7 @@
     "notes": "For Language Arts",
     "supplyID": "Supply-00128",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4660,7 +4660,7 @@
     "grade": "7",
     "teacher": "Kayla Morrill",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -4675,7 +4675,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4687,7 +4687,7 @@
     "notes": "For Language Arts",
     "supplyID": "Supply-00129",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4696,7 +4696,7 @@
     "grade": "7",
     "teacher": "Kayla Morrill",
     "item": [
-      "Folder"
+      "3-Hole Folder"
     ],
     "brand": {
       "exactly": "",
@@ -4711,7 +4711,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Hole Punch",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4723,7 +4723,7 @@
     "notes": "",
     "supplyID": "Supply-00130",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4732,7 +4732,7 @@
     "grade": "8",
     "teacher": "Kayla Morrill",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -4747,7 +4747,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4759,7 +4759,7 @@
     "notes": "For Language Arts",
     "supplyID": "Supply-00131",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4768,7 +4768,7 @@
     "grade": "8",
     "teacher": "Kayla Morrill",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -4783,7 +4783,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4795,7 +4795,7 @@
     "notes": "For Language Arts",
     "supplyID": "Supply-00132",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4804,7 +4804,7 @@
     "grade": "8",
     "teacher": "Kayla Morrill",
     "item": [
-      "Folder"
+      "3-Hole Folder"
     ],
     "brand": {
       "exactly": "",
@@ -4819,7 +4819,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Hole Punch",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4831,7 +4831,7 @@
     "notes": "",
     "supplyID": "Supply-00133",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4867,7 +4867,7 @@
     "notes": "",
     "supplyID": "Supply-00134",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4876,7 +4876,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -4891,7 +4891,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -4903,7 +4903,7 @@
     "notes": "",
     "supplyID": "Supply-00135",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4939,7 +4939,7 @@
     "notes": "",
     "supplyID": "Supply-00136",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -4975,7 +4975,7 @@
     "notes": "",
     "supplyID": "Supply-00137",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5011,7 +5011,7 @@
     "notes": "",
     "supplyID": "Supply-00138",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5047,7 +5047,7 @@
     "notes": "",
     "supplyID": "Supply-00139",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5083,7 +5083,7 @@
     "notes": "",
     "supplyID": "Supply-00140",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5119,7 +5119,7 @@
     "notes": "",
     "supplyID": "Supply-00141",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5155,7 +5155,7 @@
     "notes": "Crackers, granola bars, fruit Snacks, etc.",
     "supplyID": "Supply-00142",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5191,7 +5191,7 @@
     "notes": "",
     "supplyID": "Supply-00143",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5227,7 +5227,7 @@
     "notes": "",
     "supplyID": "Supply-00144",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5263,7 +5263,7 @@
     "notes": "",
     "supplyID": "Supply-00145",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5299,7 +5299,7 @@
     "notes": "",
     "supplyID": "Supply-00146",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5335,7 +5335,7 @@
     "notes": "Take home Folder",
     "supplyID": "Supply-00147",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5371,7 +5371,7 @@
     "notes": "",
     "supplyID": "Supply-00148",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5407,7 +5407,7 @@
     "notes": "",
     "supplyID": "Supply-00149",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5416,7 +5416,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "",
@@ -5443,7 +5443,7 @@
     "notes": "",
     "supplyID": "Supply-00150",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5452,7 +5452,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -5467,7 +5467,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -5479,7 +5479,7 @@
     "notes": "",
     "supplyID": "Supply-00151",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5515,7 +5515,7 @@
     "notes": "Families A-J",
     "supplyID": "Supply-00152",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5551,7 +5551,7 @@
     "notes": "Families K-Z",
     "supplyID": "Supply-00153",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5587,7 +5587,7 @@
     "notes": "No earbuds or Bluetooth",
     "supplyID": "Supply-00154",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5623,7 +5623,7 @@
     "notes": "",
     "supplyID": "Supply-00155",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5659,7 +5659,7 @@
     "notes": "",
     "supplyID": "Supply-00156",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5695,7 +5695,7 @@
     "notes": "",
     "supplyID": "Supply-00157",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5731,7 +5731,7 @@
     "notes": "",
     "supplyID": "Supply-00158",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5767,7 +5767,7 @@
     "notes": "no lock",
     "supplyID": "Supply-00159",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5803,7 +5803,7 @@
     "notes": "",
     "supplyID": "Supply-00160",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5839,7 +5839,7 @@
     "notes": "",
     "supplyID": "Supply-00161",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5875,7 +5875,7 @@
     "notes": "",
     "supplyID": "Supply-00162",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5911,7 +5911,7 @@
     "notes": "",
     "supplyID": "Supply-00163",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5947,7 +5947,7 @@
     "notes": "Families L-Z",
     "supplyID": "Supply-00164",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5956,7 +5956,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -5971,7 +5971,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -5983,7 +5983,7 @@
     "notes": "",
     "supplyID": "Supply-00165",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -5992,7 +5992,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -6007,7 +6007,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -6019,7 +6019,7 @@
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00166",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6043,7 +6043,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3-hole punched",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -6055,7 +6055,7 @@
     "notes": "",
     "supplyID": "Supply-00167",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6091,7 +6091,7 @@
     "notes": "",
     "supplyID": "Supply-00168",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6127,7 +6127,7 @@
     "notes": "",
     "supplyID": "Supply-00169",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6163,7 +6163,7 @@
     "notes": "PLEASE LABEL WITH INITIALS, not Paper wrapped",
     "supplyID": "Supply-00170",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6199,7 +6199,7 @@
     "notes": "",
     "supplyID": "Supply-00171",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6235,7 +6235,7 @@
     "notes": "",
     "supplyID": "Supply-00172",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6271,7 +6271,7 @@
     "notes": "or 10ct packs",
     "supplyID": "Supply-00173",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6280,7 +6280,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Composition Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -6295,7 +6295,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Composition",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -6307,7 +6307,7 @@
     "notes": "",
     "supplyID": "Supply-00174",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6343,7 +6343,7 @@
     "notes": "",
     "supplyID": "Supply-00175",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6379,7 +6379,7 @@
     "notes": "",
     "supplyID": "Supply-00176",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6415,7 +6415,7 @@
     "notes": "",
     "supplyID": "Supply-00177",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6451,7 +6451,7 @@
     "notes": "or 10ct boxes",
     "supplyID": "Supply-00178",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6487,7 +6487,7 @@
     "notes": "",
     "supplyID": "Supply-00179",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6523,7 +6523,7 @@
     "notes": "",
     "supplyID": "Supply-00180",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6559,7 +6559,7 @@
     "notes": "",
     "supplyID": "Supply-00181",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6595,7 +6595,7 @@
     "notes": "Families K-Z",
     "supplyID": "Supply-00182",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6631,7 +6631,7 @@
     "notes": "Families A-J",
     "supplyID": "Supply-00183",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6667,7 +6667,7 @@
     "notes": "",
     "supplyID": "Supply-00184",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6703,7 +6703,7 @@
     "notes": "No earbuds",
     "supplyID": "Supply-00185",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6739,7 +6739,7 @@
     "notes": "",
     "supplyID": "Supply-00186",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6775,7 +6775,7 @@
     "notes": "",
     "supplyID": "Supply-00187",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6811,7 +6811,7 @@
     "notes": "",
     "supplyID": "Supply-00188",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6847,7 +6847,7 @@
     "notes": "",
     "supplyID": "Supply-00189",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6883,7 +6883,7 @@
     "notes": "Take home Folder",
     "supplyID": "Supply-00190",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6919,7 +6919,7 @@
     "notes": "",
     "supplyID": "Supply-00191",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6955,7 +6955,7 @@
     "notes": "",
     "supplyID": "Supply-00192",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -6991,7 +6991,7 @@
     "notes": "",
     "supplyID": "Supply-00193",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7027,7 +7027,7 @@
     "notes": "",
     "supplyID": "Supply-00194",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7063,7 +7063,7 @@
     "notes": "",
     "supplyID": "Supply-00195",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7099,7 +7099,7 @@
     "notes": "",
     "supplyID": "Supply-00196",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7108,7 +7108,7 @@
     "grade": "3",
     "teacher": "Mrs. Kampmeier",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -7123,7 +7123,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -7135,7 +7135,7 @@
     "notes": "",
     "supplyID": "Supply-00197",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7171,7 +7171,7 @@
     "notes": "",
     "supplyID": "Supply-00198",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7207,7 +7207,7 @@
     "notes": "",
     "supplyID": "Supply-00199",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7243,7 +7243,7 @@
     "notes": "",
     "supplyID": "Supply-00200",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7279,7 +7279,7 @@
     "notes": "",
     "supplyID": "Supply-00201",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7315,7 +7315,7 @@
     "notes": "placed in Ziploc bag",
     "supplyID": "Supply-00202",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7351,7 +7351,7 @@
     "notes": "",
     "supplyID": "Supply-00203",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7387,7 +7387,7 @@
     "notes": "",
     "supplyID": "Supply-00204",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7423,7 +7423,7 @@
     "notes": "",
     "supplyID": "Supply-00205",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7459,7 +7459,7 @@
     "notes": "",
     "supplyID": "Supply-00206",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7495,7 +7495,7 @@
     "notes": "Take home Folder",
     "supplyID": "Supply-00207",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7531,7 +7531,7 @@
     "notes": "",
     "supplyID": "Supply-00208",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7567,7 +7567,7 @@
     "notes": "",
     "supplyID": "Supply-00209",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7603,7 +7603,7 @@
     "notes": "",
     "supplyID": "Supply-00210",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7639,7 +7639,7 @@
     "notes": "",
     "supplyID": "Supply-00211",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7675,7 +7675,7 @@
     "notes": "",
     "supplyID": "Supply-00212",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7684,7 +7684,7 @@
     "grade": "3",
     "teacher": "Ms. Anderson",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -7699,7 +7699,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -7711,7 +7711,7 @@
     "notes": "",
     "supplyID": "Supply-00213",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7747,7 +7747,7 @@
     "notes": "",
     "supplyID": "Supply-00214",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7783,7 +7783,7 @@
     "notes": "",
     "supplyID": "Supply-00215",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7819,7 +7819,7 @@
     "notes": "",
     "supplyID": "Supply-00216",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7855,7 +7855,7 @@
     "notes": "",
     "supplyID": "Supply-00217",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7891,7 +7891,7 @@
     "notes": "placed in Ziploc bag",
     "supplyID": "Supply-00218",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7927,7 +7927,7 @@
     "notes": "",
     "supplyID": "Supply-00219",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7963,7 +7963,7 @@
     "notes": "",
     "supplyID": "Supply-00220",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -7999,7 +7999,7 @@
     "notes": "",
     "supplyID": "Supply-00221",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8035,7 +8035,7 @@
     "notes": "",
     "supplyID": "Supply-00222",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8071,7 +8071,7 @@
     "notes": "",
     "supplyID": "Supply-00223",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8107,7 +8107,7 @@
     "notes": "",
     "supplyID": "Supply-00224",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8143,7 +8143,7 @@
     "notes": "",
     "supplyID": "Supply-00225",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8179,7 +8179,7 @@
     "notes": "",
     "supplyID": "Supply-00226",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8215,7 +8215,7 @@
     "notes": "",
     "supplyID": "Supply-00227",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8251,7 +8251,7 @@
     "notes": "",
     "supplyID": "Supply-00228",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8260,7 +8260,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -8275,7 +8275,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -8287,7 +8287,7 @@
     "notes": "",
     "supplyID": "Supply-00229",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8323,7 +8323,7 @@
     "notes": "",
     "supplyID": "Supply-00230",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8360,7 +8360,7 @@
     "notes": "For listening station and computer time",
     "supplyID": "Supply-00231",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8396,7 +8396,7 @@
     "notes": "",
     "supplyID": "Supply-00232",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8431,8 +8431,8 @@
     "quantity": 1,
     "notes": "For the classroom",
     "supplyID": "Supply-00233",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8467,8 +8467,8 @@
     "quantity": 20,
     "notes": "",
     "supplyID": "Supply-00234",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8503,8 +8503,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00235",
-    "invIDs": ["ID-0079", "ID-0080", "ID-0081", "ID-0082"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8539,8 +8539,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00236",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8575,8 +8575,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00237",
-    "invIDs": ["ID-0188", "ID-0189"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8585,7 +8585,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -8600,7 +8600,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -8611,8 +8611,8 @@
     "quantity": 3,
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00238",
-    "invIDs": ["ID-0143", "ID-0144", "ID-0151", "ID-0157"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8647,8 +8647,8 @@
     "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00239",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0093", "ID-0094"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8683,8 +8683,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00240",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8719,8 +8719,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00241",
-    "invIDs": ["ID-0019", "ID-0020", "ID-0023", "ID-0024"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8755,8 +8755,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00242",
-    "invIDs": ["ID-0192", "ID-0193", "ID-0194"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8791,8 +8791,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00243",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8828,7 +8828,7 @@
     "notes": "For correcting",
     "supplyID": "Supply-00244",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8863,8 +8863,8 @@
     "quantity": 5,
     "notes": "",
     "supplyID": "Supply-00245",
-    "invIDs": ["ID-0069", "ID-0070", "ID-0071", "ID-0072"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8900,7 +8900,7 @@
     "notes": "",
     "supplyID": "Supply-00246",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8937,7 +8937,7 @@
     "notes": "For computer time and testing",
     "supplyID": "Supply-00247",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -8973,7 +8973,7 @@
     "notes": "",
     "supplyID": "Supply-00248",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9009,7 +9009,7 @@
     "notes": "3-5 boxes of pencils",
     "supplyID": "Supply-00249",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9045,7 +9045,7 @@
     "notes": "",
     "supplyID": "Supply-00250",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9081,7 +9081,7 @@
     "notes": "",
     "supplyID": "Supply-00251",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9117,7 +9117,7 @@
     "notes": "",
     "supplyID": "Supply-00252",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9126,7 +9126,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Composition Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -9141,7 +9141,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Composition",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -9153,7 +9153,7 @@
     "notes": "",
     "supplyID": "Supply-00253",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9189,7 +9189,7 @@
     "notes": "",
     "supplyID": "Supply-00254",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9225,7 +9225,7 @@
     "notes": "Correcting pens",
     "supplyID": "Supply-00255",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9261,7 +9261,7 @@
     "notes": "",
     "supplyID": "Supply-00256",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9297,7 +9297,7 @@
     "notes": "",
     "supplyID": "Supply-00257",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9333,7 +9333,7 @@
     "notes": "",
     "supplyID": "Supply-00258",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9369,7 +9369,7 @@
     "notes": "",
     "supplyID": "Supply-00259",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9405,7 +9405,7 @@
     "notes": "",
     "supplyID": "Supply-00260",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9442,7 +9442,7 @@
     "notes": "Optional: choose markers OR Colored Pencils",
     "supplyID": "Supply-00261",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9478,7 +9478,7 @@
     "notes": "Give to advisor on first day",
     "supplyID": "Supply-00262",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9514,7 +9514,7 @@
     "notes": "",
     "supplyID": "Supply-00263",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9523,7 +9523,7 @@
     "grade": "High School",
     "teacher": "Mrs. Dougherty",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -9538,7 +9538,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "1 Subject",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -9550,7 +9550,7 @@
     "notes": "One for every class",
     "supplyID": "Supply-00264",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9586,7 +9586,7 @@
     "notes": "One for every class",
     "supplyID": "Supply-00265",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9622,7 +9622,7 @@
     "notes": "Required for AcpackageSizeing",
     "supplyID": "Supply-00266",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9658,7 +9658,7 @@
     "notes": "For AcpackageSizeing",
     "supplyID": "Supply-00267",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9694,7 +9694,7 @@
     "notes": "",
     "supplyID": "Supply-00268",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9730,7 +9730,7 @@
     "notes": "",
     "supplyID": "Supply-00269",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9766,7 +9766,7 @@
     "notes": "",
     "supplyID": "Supply-00270",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9802,7 +9802,7 @@
     "notes": "",
     "supplyID": "Supply-00271",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9838,7 +9838,7 @@
     "notes": "",
     "supplyID": "Supply-00272",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9874,7 +9874,7 @@
     "notes": "Required for Grades 7-9",
     "supplyID": "Supply-00273",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9910,7 +9910,7 @@
     "notes": "Recommended for college-level math",
     "supplyID": "Supply-00274",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9946,7 +9946,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00275",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -9982,7 +9982,7 @@
     "notes": "",
     "supplyID": "Supply-00276",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10018,7 +10018,7 @@
     "notes": "",
     "supplyID": "Supply-00277",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10054,7 +10054,7 @@
     "notes": "Geometry",
     "supplyID": "Supply-00278",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10090,7 +10090,7 @@
     "notes": "Algebra II",
     "supplyID": "Supply-00279",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10126,7 +10126,7 @@
     "notes": "Foundations of Math",
     "supplyID": "Supply-00280",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10162,7 +10162,7 @@
     "notes": "",
     "supplyID": "Supply-00281",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10198,7 +10198,7 @@
     "notes": "",
     "supplyID": "Supply-00282",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10234,7 +10234,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00283",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10270,7 +10270,7 @@
     "notes": "",
     "supplyID": "Supply-00284",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10306,7 +10306,7 @@
     "notes": "",
     "supplyID": "Supply-00285",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10343,7 +10343,7 @@
     "notes": "",
     "supplyID": "Supply-00286",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10379,7 +10379,7 @@
     "notes": "For Health",
     "supplyID": "Supply-00287",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10415,7 +10415,7 @@
     "notes": "",
     "supplyID": "Supply-00288",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10451,7 +10451,7 @@
     "notes": "7th and 8th Art",
     "supplyID": "Supply-00289",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10487,7 +10487,7 @@
     "notes": "7th and 8th Art",
     "supplyID": "Supply-00290",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10523,7 +10523,7 @@
     "notes": "7th and 8th Art (regular Paper size)",
     "supplyID": "Supply-00291",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10559,7 +10559,7 @@
     "notes": "7th and 8th Art",
     "supplyID": "Supply-00292",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10595,7 +10595,7 @@
     "notes": "Studio Art / Intro to Art / Art III",
     "supplyID": "Supply-00293",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10631,7 +10631,7 @@
     "notes": "Studio Art / Intro to Art / Art III",
     "supplyID": "Supply-00294",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10667,7 +10667,7 @@
     "notes": "Studio Art / Intro to Art / Art III (regular Paper size)",
     "supplyID": "Supply-00295",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10703,7 +10703,7 @@
     "notes": "Studio Art / Intro to Art / Art III",
     "supplyID": "Supply-00296",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10739,7 +10739,7 @@
     "notes": "(Media Art/Yearbook) May reuse Sketchbook from Studio Art",
     "supplyID": "Supply-00297",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10775,7 +10775,7 @@
     "notes": "3-D Art, may reuse Sketchbook from Studio Art",
     "supplyID": "Supply-00298",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10811,7 +10811,7 @@
     "notes": "3-D Art",
     "supplyID": "Supply-00299",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10847,7 +10847,7 @@
     "notes": "Spanish I",
     "supplyID": "Supply-00300",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10883,7 +10883,7 @@
     "notes": "Spanish I",
     "supplyID": "Supply-00301",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10919,7 +10919,7 @@
     "notes": "Spanish I",
     "supplyID": "Supply-00302",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10955,7 +10955,7 @@
     "notes": "Spanish I",
     "supplyID": "Supply-00303",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -10991,7 +10991,7 @@
     "notes": "Spanish I",
     "supplyID": "Supply-00304",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11027,7 +11027,7 @@
     "notes": "English 8 and 9",
     "supplyID": "Supply-00305",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11063,7 +11063,7 @@
     "notes": "English 8 and 9",
     "supplyID": "Supply-00306",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11099,7 +11099,7 @@
     "notes": "English 8 and 9",
     "supplyID": "Supply-00307",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11135,7 +11135,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00308",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11171,7 +11171,7 @@
     "notes": "(English) Or loose leaf Paper in 3-ring Binder",
     "supplyID": "Supply-00309",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11207,7 +11207,7 @@
     "notes": "(English) Or use Binder with loose leaf Paper",
     "supplyID": "Supply-00310",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11243,7 +11243,7 @@
     "notes": "Appreciated",
     "supplyID": "Supply-00311",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11279,7 +11279,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00312",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11315,7 +11315,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00313",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11351,7 +11351,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00314",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11387,7 +11387,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00315",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11423,7 +11423,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00316",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11459,7 +11459,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00317",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11495,7 +11495,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00318",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11531,7 +11531,7 @@
     "notes": "Required for Science",
     "supplyID": "Supply-00319",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11567,7 +11567,7 @@
     "notes": "Required for Math",
     "supplyID": "Supply-00320",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11604,7 +11604,7 @@
     "notes": "Required for Math",
     "supplyID": "Supply-00321",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11640,7 +11640,7 @@
     "notes": "Required for Math",
     "supplyID": "Supply-00322",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11676,7 +11676,7 @@
     "notes": "",
     "supplyID": "Supply-00323",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11712,7 +11712,7 @@
     "notes": "",
     "supplyID": "Supply-00324",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11748,7 +11748,7 @@
     "notes": "",
     "supplyID": "Supply-00325",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11784,7 +11784,7 @@
     "notes": "",
     "supplyID": "Supply-00326",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11821,7 +11821,7 @@
     "notes": "",
     "supplyID": "Supply-00327",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11857,7 +11857,7 @@
     "notes": "Large enough for folders",
     "supplyID": "Supply-00328",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11893,7 +11893,7 @@
     "notes": "",
     "supplyID": "Supply-00329",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11917,7 +11917,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Hole Punch",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -11929,7 +11929,7 @@
     "notes": "",
     "supplyID": "Supply-00330",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -11938,7 +11938,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -11953,7 +11953,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -11965,7 +11965,7 @@
     "notes": "Used for memory book",
     "supplyID": "Supply-00331",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12001,7 +12001,7 @@
     "notes": "Velcro preferred over laced",
     "supplyID": "Supply-00332",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12037,7 +12037,7 @@
     "notes": "Backpack or school bag",
     "supplyID": "Supply-00333",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12073,7 +12073,7 @@
     "notes": "Resting rug or towel",
     "supplyID": "Supply-00334",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12109,7 +12109,7 @@
     "notes": "",
     "supplyID": "Supply-00335",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12118,7 +12118,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -12133,7 +12133,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -12145,7 +12145,7 @@
     "notes": "Used for memory book",
     "supplyID": "Supply-00336",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12181,7 +12181,7 @@
     "notes": "",
     "supplyID": "Supply-00337",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12217,7 +12217,7 @@
     "notes": "",
     "supplyID": "Supply-00338",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12253,7 +12253,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00339",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12262,7 +12262,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -12277,7 +12277,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -12289,7 +12289,7 @@
     "notes": "",
     "supplyID": "Supply-00340",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12325,7 +12325,7 @@
     "notes": "",
     "supplyID": "Supply-00341",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12361,7 +12361,7 @@
     "notes": "",
     "supplyID": "Supply-00342",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12397,7 +12397,7 @@
     "notes": "",
     "supplyID": "Supply-00343",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12433,7 +12433,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00344",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12469,7 +12469,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00345",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12505,7 +12505,7 @@
     "notes": "",
     "supplyID": "Supply-00346",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12541,7 +12541,7 @@
     "notes": "",
     "supplyID": "Supply-00347",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12550,7 +12550,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -12565,7 +12565,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -12577,7 +12577,7 @@
     "notes": "",
     "supplyID": "Supply-00348",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12613,7 +12613,7 @@
     "notes": "",
     "supplyID": "Supply-00349",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12649,7 +12649,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00350",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12685,7 +12685,7 @@
     "notes": "",
     "supplyID": "Supply-00351",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12721,7 +12721,7 @@
     "notes": "",
     "supplyID": "Supply-00352",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12757,7 +12757,7 @@
     "notes": "",
     "supplyID": "Supply-00353",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12793,7 +12793,7 @@
     "notes": "No wheels",
     "supplyID": "Supply-00354",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12829,7 +12829,7 @@
     "notes": "",
     "supplyID": "Supply-00355",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12838,7 +12838,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -12853,7 +12853,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -12865,7 +12865,7 @@
     "notes": "Used for memory book",
     "supplyID": "Supply-00356",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12874,7 +12874,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -12889,7 +12889,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -12901,7 +12901,7 @@
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00357",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12937,7 +12937,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00358",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -12973,7 +12973,7 @@
     "notes": "",
     "supplyID": "Supply-00359",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13009,7 +13009,7 @@
     "notes": "",
     "supplyID": "Supply-00360",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13045,7 +13045,7 @@
     "notes": "",
     "supplyID": "Supply-00361",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13054,7 +13054,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "Elmers",
@@ -13081,7 +13081,7 @@
     "notes": "",
     "supplyID": "Supply-00362",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13117,7 +13117,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00363",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13153,7 +13153,7 @@
     "notes": "",
     "supplyID": "Supply-00364",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13162,7 +13162,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -13177,7 +13177,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13189,7 +13189,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00365",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13198,7 +13198,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -13213,7 +13213,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13225,7 +13225,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00366",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13234,7 +13234,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -13249,7 +13249,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13261,7 +13261,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00367",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13270,7 +13270,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -13285,7 +13285,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13297,7 +13297,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00368",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13333,7 +13333,7 @@
     "notes": "",
     "supplyID": "Supply-00369",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13369,7 +13369,7 @@
     "notes": "",
     "supplyID": "Supply-00370",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13405,7 +13405,7 @@
     "notes": "",
     "supplyID": "Supply-00371",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13441,7 +13441,7 @@
     "notes": "",
     "supplyID": "Supply-00372",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13477,7 +13477,7 @@
     "notes": "",
     "supplyID": "Supply-00373",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13513,7 +13513,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00374",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13549,7 +13549,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00375",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13585,7 +13585,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00376",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13621,7 +13621,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00377",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13659,7 +13659,7 @@
     "notes": "",
     "supplyID": "Supply-00378",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13695,7 +13695,7 @@
     "notes": "",
     "supplyID": "Supply-00379",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13704,7 +13704,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -13719,7 +13719,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13731,7 +13731,7 @@
     "notes": "with clear front",
     "supplyID": "Supply-00380",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13740,7 +13740,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -13755,7 +13755,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -13767,7 +13767,7 @@
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00381",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13803,7 +13803,7 @@
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00382",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13839,7 +13839,7 @@
     "notes": "",
     "supplyID": "Supply-00383",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13875,7 +13875,7 @@
     "notes": "",
     "supplyID": "Supply-00384",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13911,7 +13911,7 @@
     "notes": "",
     "supplyID": "Supply-00385",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13920,7 +13920,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "Elmers",
@@ -13947,7 +13947,7 @@
     "notes": "",
     "supplyID": "Supply-00386",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -13983,7 +13983,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00387",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14019,7 +14019,7 @@
     "notes": "",
     "supplyID": "Supply-00388",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14028,7 +14028,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14043,7 +14043,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14055,7 +14055,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00389",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14064,7 +14064,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14079,7 +14079,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14091,7 +14091,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00390",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14100,7 +14100,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14115,7 +14115,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14127,7 +14127,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00391",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14136,7 +14136,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14151,7 +14151,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14163,7 +14163,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00392",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14199,7 +14199,7 @@
     "notes": "",
     "supplyID": "Supply-00393",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14235,7 +14235,7 @@
     "notes": "",
     "supplyID": "Supply-00394",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14271,7 +14271,7 @@
     "notes": "",
     "supplyID": "Supply-00395",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14307,7 +14307,7 @@
     "notes": "",
     "supplyID": "Supply-00396",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14343,7 +14343,7 @@
     "notes": "Large box",
     "supplyID": "Supply-00397",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14379,7 +14379,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00398",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14415,7 +14415,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00399",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14451,7 +14451,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00400",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14487,7 +14487,7 @@
     "notes": "one of each color",
     "supplyID": "Supply-00401",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14525,7 +14525,7 @@
     "notes": "",
     "supplyID": "Supply-00402",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14561,7 +14561,7 @@
     "notes": "",
     "supplyID": "Supply-00403",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14570,7 +14570,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -14585,7 +14585,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14597,7 +14597,7 @@
     "notes": "with clear front",
     "supplyID": "Supply-00404",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14606,7 +14606,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14621,7 +14621,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14632,8 +14632,8 @@
     "quantity": 2,
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00405",
-    "invIDs": ["ID-0143", "ID-0144", "ID-0151", "ID-0157"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14668,8 +14668,8 @@
     "quantity": 20,
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00406",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14704,8 +14704,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00407",
-    "invIDs": ["ID-0019", "ID-0020", "ID-0023", "ID-0024"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14740,8 +14740,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00408",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14776,8 +14776,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00409",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14786,7 +14786,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "Elmers",
@@ -14812,8 +14812,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00410",
-    "invIDs": ["ID-0103", "ID-0104", "ID-0105"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14849,7 +14849,7 @@
     "notes": "For gym",
     "supplyID": "Supply-00411",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14884,8 +14884,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00412",
-    "invIDs": ["ID-0079", "ID-0080", "ID-0081", "ID-0082"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14894,7 +14894,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14909,7 +14909,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14920,8 +14920,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00413",
-    "invIDs": ["ID-0151", "ID-0152", "ID-0153", "ID-0154", "ID-0155", "ID-0156"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14930,7 +14930,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14945,7 +14945,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14956,8 +14956,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00414",
-    "invIDs": ["ID-0157", "ID-0158", "ID-0159", "ID-0160", "ID-0161", "ID-0162"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -14966,7 +14966,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -14981,7 +14981,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -14992,8 +14992,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00415",
-    "invIDs": ["ID-0163", "ID-0164"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15002,7 +15002,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -15017,7 +15017,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -15028,8 +15028,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00416",
-    "invIDs": ["ID-0165", "ID-0166"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15065,7 +15065,7 @@
     "notes": "",
     "supplyID": "Supply-00417",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15100,8 +15100,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00418",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15136,8 +15136,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00419",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15172,8 +15172,8 @@
     "quantity": 3,
     "notes": "",
     "supplyID": "Supply-00420",
-    "invIDs": ["ID-0114", "ID-0115", "ID-0116"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15208,8 +15208,8 @@
     "quantity": 2,
     "notes": "Large box",
     "supplyID": "Supply-00421",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15244,8 +15244,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00422",
-    "invIDs": ["ID-0083", "ID-0088", "ID-0093", "ID-0098"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15280,8 +15280,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00423",
-    "invIDs": ["ID-0084", "ID-0089", "ID-0094", "ID-0099"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15316,8 +15316,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00424",
-    "invIDs": ["ID-0085", "ID-0090", "ID-0095", "ID-0100"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15352,8 +15352,8 @@
     "quantity": 4,
     "notes": "one of each color",
     "supplyID": "Supply-00425",
-    "invIDs": ["ID-0086", "ID-0091", "ID-0096", "ID-0101"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15390,8 +15390,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00426",
-    "invIDs": ["ID-0232"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15427,7 +15427,7 @@
     "notes": "",
     "supplyID": "Supply-00427",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15436,7 +15436,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -15451,7 +15451,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -15462,8 +15462,8 @@
     "quantity": 1,
     "notes": "with clear front",
     "supplyID": "Supply-00428",
-    "invIDs": ["ID-0003", "ID-0004"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15499,7 +15499,7 @@
     "notes": "One pocket Folder for each class",
     "supplyID": "Supply-00429",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15535,7 +15535,7 @@
     "notes": "One Notebook for each class",
     "supplyID": "Supply-00430",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15571,7 +15571,7 @@
     "notes": "",
     "supplyID": "Supply-00431",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15607,7 +15607,7 @@
     "notes": "",
     "supplyID": "Supply-00432",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15643,7 +15643,7 @@
     "notes": "",
     "supplyID": "Supply-00433",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15679,7 +15679,7 @@
     "notes": "",
     "supplyID": "Supply-00434",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15715,7 +15715,7 @@
     "notes": "",
     "supplyID": "Supply-00435",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15751,7 +15751,7 @@
     "notes": "",
     "supplyID": "Supply-00436",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15787,7 +15787,7 @@
     "notes": "",
     "supplyID": "Supply-00437",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15823,7 +15823,7 @@
     "notes": "",
     "supplyID": "Supply-00438",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15859,7 +15859,7 @@
     "notes": "For grades 7-9 (must do trigonometry functions)",
     "supplyID": "Supply-00439",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15895,7 +15895,7 @@
     "notes": "For grades 10-12 (can check out from school)",
     "supplyID": "Supply-00440",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15931,7 +15931,7 @@
     "notes": "For geometry",
     "supplyID": "Supply-00441",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -15967,7 +15967,7 @@
     "notes": "For geometry",
     "supplyID": "Supply-00442",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16003,7 +16003,7 @@
     "notes": "For geometry",
     "supplyID": "Supply-00443",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16039,7 +16039,7 @@
     "notes": "For gym (grades 7-10)",
     "supplyID": "Supply-00444",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16075,7 +16075,7 @@
     "notes": "Book bag to carry things home",
     "supplyID": "Supply-00445",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16110,8 +16110,8 @@
     "quantity": 1,
     "notes": "Blunt tip scissors for children",
     "supplyID": "Supply-00446",
-    "invIDs": ["ID-0212", "ID-0213", "ID-0214", "ID-0215"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16146,8 +16146,8 @@
     "quantity": 6,
     "notes": "",
     "supplyID": "Supply-00447",
-    "invIDs": ["ID-0106", "ID-0107", "ID-0108", "ID-0109"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16182,8 +16182,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00448",
-    "invIDs": ["ID-0028", "ID-0029", "ID-0030", "ID-0031"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16203,11 +16203,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -16218,8 +16218,8 @@
     "quantity": 2,
     "notes": "70 sheet notebook",
     "supplyID": "Supply-00449",
-    "invIDs": ["ID-0143", "ID-0144", "ID-0151", "ID-0157"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16228,7 +16228,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -16243,7 +16243,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -16254,8 +16254,8 @@
     "quantity": 1,
     "notes": "FOLDER not binder",
     "supplyID": "Supply-00450",
-    "invIDs": ["ID-0083", "ID-0084", "ID-0093", "ID-0094"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16290,8 +16290,8 @@
     "quantity": 12,
     "notes": "",
     "supplyID": "Supply-00451",
-    "invIDs": ["ID-0181", "ID-0182", "ID-0184", "ID-0185"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16326,8 +16326,8 @@
     "quantity": 2,
     "notes": "",
     "supplyID": "Supply-00452",
-    "invIDs": ["ID-0221", "ID-0222", "ID-0223", "ID-0224", "ID-0225", "ID-0226"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16336,7 +16336,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -16351,7 +16351,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -16362,8 +16362,8 @@
     "quantity": 1,
     "notes": "FOLDER not binder",
     "supplyID": "Supply-00453",
-    "invIDs": ["ID-0085", "ID-0090", "ID-0095", "ID-0100"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16399,7 +16399,7 @@
     "notes": "Snacks for 20 students",
     "supplyID": "Supply-00454",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16434,8 +16434,8 @@
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00455",
-    "invIDs": ["ID-0232"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16471,7 +16471,7 @@
     "notes": "",
     "supplyID": "Supply-00456",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16495,7 +16495,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Watercolor",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -16507,7 +16507,7 @@
     "notes": "",
     "supplyID": "Supply-00457",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16542,8 +16542,8 @@
     "quantity": 1,
     "notes": "Small blanket for resting time",
     "supplyID": "Supply-00458",
-    "invIDs": ["ID-0005"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16579,7 +16579,7 @@
     "notes": "1 pair",
     "supplyID": "Supply-00459",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16614,8 +16614,8 @@
     "quantity": 6,
     "notes": "6 black dry erase markers",
     "supplyID": "Supply-00460",
-    "invIDs": ["ID-0069", "ID-0070", "ID-0071", "ID-0072"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16651,7 +16651,7 @@
     "notes": "Not earbuds",
     "supplyID": "Supply-00461",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16686,8 +16686,8 @@
     "quantity": 1,
     "notes": "Classic colors",
     "supplyID": "Supply-00462",
-    "invIDs": ["ID-0119", "ID-0120", "ID-0123", "ID-0124"],
-    "percentageFilled": 0
+    "invIDs": [],
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16723,7 +16723,7 @@
     "notes": "1 box",
     "supplyID": "Supply-00463",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16759,7 +16759,7 @@
     "notes": "1 package of small (7-9 oz) plastic cups",
     "supplyID": "Supply-00464",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16768,7 +16768,7 @@
     "grade": "Kindergarten",
     "teacher": "Mrs. Just",
     "item": [
-      "Plate"
+      "Paper Plate"
     ],
     "brand": {
       "exactly": "",
@@ -16795,7 +16795,7 @@
     "notes": "1 package of large paper plates",
     "supplyID": "Supply-00465",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16831,7 +16831,7 @@
     "notes": "1 package of bowls",
     "supplyID": "Supply-00466",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16867,7 +16867,7 @@
     "notes": "1 package of plastic spoons",
     "supplyID": "Supply-00467",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16903,7 +16903,7 @@
     "notes": "1 box snack size ziploc bags",
     "supplyID": "Supply-00468",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16912,7 +16912,7 @@
     "grade": "Kindergarten",
     "teacher": "Mrs. Pope",
     "item": [
-      "Plate"
+      "Paper Plate"
     ],
     "brand": {
       "exactly": "",
@@ -16939,7 +16939,7 @@
     "notes": "1 package of small paper plates",
     "supplyID": "Supply-00469",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -16975,7 +16975,7 @@
     "notes": "1 box gallon size ziploc bags",
     "supplyID": "Supply-00470",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17011,7 +17011,7 @@
     "notes": "1 package of plastic forks",
     "supplyID": "Supply-00471",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17047,7 +17047,7 @@
     "notes": "",
     "supplyID": "Supply-00472",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17083,7 +17083,7 @@
     "notes": "",
     "supplyID": "Supply-00473",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17092,7 +17092,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -17107,7 +17107,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -17119,7 +17119,7 @@
     "notes": "",
     "supplyID": "Supply-00474",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17155,7 +17155,7 @@
     "notes": "",
     "supplyID": "Supply-00475",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17191,7 +17191,7 @@
     "notes": "Not earbuds",
     "supplyID": "Supply-00476",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17215,7 +17215,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -17227,7 +17227,7 @@
     "notes": "",
     "supplyID": "Supply-00477",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17263,7 +17263,7 @@
     "notes": "Labeled with name",
     "supplyID": "Supply-00478",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17287,7 +17287,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -17299,7 +17299,7 @@
     "notes": "",
     "supplyID": "Supply-00479",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17335,7 +17335,7 @@
     "notes": "",
     "supplyID": "Supply-00480",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17344,7 +17344,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "Elmers",
@@ -17371,7 +17371,7 @@
     "notes": "",
     "supplyID": "Supply-00481",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17407,7 +17407,7 @@
     "notes": "",
     "supplyID": "Supply-00482",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17443,7 +17443,7 @@
     "notes": "",
     "supplyID": "Supply-00483",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17479,7 +17479,7 @@
     "notes": "No wheels",
     "supplyID": "Supply-00484",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17488,7 +17488,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Paint"
+      "Watercolor Paint"
     ],
     "brand": {
       "exactly": "Crayola",
@@ -17503,7 +17503,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Watercolor",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -17515,7 +17515,7 @@
     "notes": "",
     "supplyID": "Supply-00485",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17551,7 +17551,7 @@
     "notes": "",
     "supplyID": "Supply-00486",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17560,7 +17560,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -17571,11 +17571,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -17587,7 +17587,7 @@
     "notes": "",
     "supplyID": "Supply-00487",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17623,7 +17623,7 @@
     "notes": "1 pair for PE",
     "supplyID": "Supply-00488",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17659,7 +17659,7 @@
     "notes": "Classic colors",
     "supplyID": "Supply-00489",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17695,7 +17695,7 @@
     "notes": "1 box quart size ziploc bags (A-M last name only)",
     "supplyID": "Supply-00490",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17731,7 +17731,7 @@
     "notes": "1 box gallon size ziploc bags (N-Z last name only)",
     "supplyID": "Supply-00491",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17740,7 +17740,7 @@
     "grade": "2",
     "teacher": "Mrs. Eckhoff",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "",
@@ -17767,7 +17767,7 @@
     "notes": "",
     "supplyID": "Supply-00492",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17776,7 +17776,7 @@
     "grade": "2",
     "teacher": "Mrs. Erdahl",
     "item": [
-      "Plate"
+      "Paper Plate"
     ],
     "brand": {
       "exactly": "",
@@ -17803,7 +17803,7 @@
     "notes": "",
     "supplyID": "Supply-00493",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17839,7 +17839,7 @@
     "notes": "",
     "supplyID": "Supply-00494",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17875,7 +17875,7 @@
     "notes": "",
     "supplyID": "Supply-00495",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17911,7 +17911,7 @@
     "notes": "",
     "supplyID": "Supply-00496",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17947,7 +17947,7 @@
     "notes": "",
     "supplyID": "Supply-00497",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -17983,7 +17983,7 @@
     "notes": "",
     "supplyID": "Supply-00498",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18019,7 +18019,7 @@
     "notes": "",
     "supplyID": "Supply-00499",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18055,7 +18055,7 @@
     "notes": "",
     "supplyID": "Supply-00500",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18091,7 +18091,7 @@
     "notes": "",
     "supplyID": "Supply-00501",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18127,7 +18127,7 @@
     "notes": "",
     "supplyID": "Supply-00502",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18163,7 +18163,7 @@
     "notes": "Snack box of crackers",
     "supplyID": "Supply-00503",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18199,7 +18199,7 @@
     "notes": "",
     "supplyID": "Supply-00504",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18208,7 +18208,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -18223,7 +18223,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -18235,7 +18235,7 @@
     "notes": "",
     "supplyID": "Supply-00505",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18271,7 +18271,7 @@
     "notes": "",
     "supplyID": "Supply-00506",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18280,7 +18280,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -18291,11 +18291,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -18307,7 +18307,7 @@
     "notes": "",
     "supplyID": "Supply-00507",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18343,7 +18343,7 @@
     "notes": "Not earbuds",
     "supplyID": "Supply-00508",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18352,7 +18352,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Paint"
+      "Watercolor Paint"
     ],
     "brand": {
       "exactly": "Crayola",
@@ -18367,7 +18367,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Watercolor",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -18379,7 +18379,7 @@
     "notes": "",
     "supplyID": "Supply-00509",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18415,7 +18415,7 @@
     "notes": "1 pair for PE",
     "supplyID": "Supply-00510",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18424,7 +18424,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -18439,7 +18439,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -18451,7 +18451,7 @@
     "notes": "",
     "supplyID": "Supply-00511",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18460,7 +18460,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -18475,7 +18475,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -18487,7 +18487,7 @@
     "notes": "",
     "supplyID": "Supply-00512",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18523,7 +18523,7 @@
     "notes": "",
     "supplyID": "Supply-00513",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18559,7 +18559,7 @@
     "notes": "1 package (54 ct) of plastic cups",
     "supplyID": "Supply-00514",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18595,7 +18595,7 @@
     "notes": "1 box quart size ziploc bags",
     "supplyID": "Supply-00515",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18631,7 +18631,7 @@
     "notes": "",
     "supplyID": "Supply-00516",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18667,7 +18667,7 @@
     "notes": "1 package (54 ct) of plastic cups",
     "supplyID": "Supply-00517",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18703,7 +18703,7 @@
     "notes": "",
     "supplyID": "Supply-00518",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18712,7 +18712,7 @@
     "grade": "3",
     "teacher": "Mrs. Helberg",
     "item": [
-      "Plate"
+      "Paper Plate"
     ],
     "brand": {
       "exactly": "",
@@ -18739,7 +18739,7 @@
     "notes": "",
     "supplyID": "Supply-00519",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18748,7 +18748,7 @@
     "grade": "3",
     "teacher": "Mrs. Preimesberger",
     "item": [
-      "Plate"
+      "Paper Plate"
     ],
     "brand": {
       "exactly": "",
@@ -18775,7 +18775,7 @@
     "notes": "1 package (55 ct) of dinner size paper plates",
     "supplyID": "Supply-00520",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18784,7 +18784,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Composition Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -18795,11 +18795,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "Composition",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -18811,7 +18811,7 @@
     "notes": "",
     "supplyID": "Supply-00521",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18820,7 +18820,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -18831,11 +18831,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -18847,7 +18847,7 @@
     "notes": "",
     "supplyID": "Supply-00522",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18883,7 +18883,7 @@
     "notes": "",
     "supplyID": "Supply-00523",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18919,7 +18919,7 @@
     "notes": "",
     "supplyID": "Supply-00524",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18955,7 +18955,7 @@
     "notes": "",
     "supplyID": "Supply-00525",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -18991,7 +18991,7 @@
     "notes": "",
     "supplyID": "Supply-00526",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19027,7 +19027,7 @@
     "notes": "",
     "supplyID": "Supply-00527",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19063,7 +19063,7 @@
     "notes": "",
     "supplyID": "Supply-00528",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19099,7 +19099,7 @@
     "notes": "",
     "supplyID": "Supply-00529",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19135,7 +19135,7 @@
     "notes": "",
     "supplyID": "Supply-00530",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19171,7 +19171,7 @@
     "notes": "Highlighters must be different colors",
     "supplyID": "Supply-00531",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19180,7 +19180,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Paint"
+      "Watercolor Paint"
     ],
     "brand": {
       "exactly": "",
@@ -19195,7 +19195,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Watercolor",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -19207,7 +19207,7 @@
     "notes": "",
     "supplyID": "Supply-00532",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19243,7 +19243,7 @@
     "notes": "",
     "supplyID": "Supply-00533",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19252,7 +19252,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Dry Board Eraser"
+      "Dry Erase Board Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -19279,7 +19279,7 @@
     "notes": "",
     "supplyID": "Supply-00534",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19315,7 +19315,7 @@
     "notes": "",
     "supplyID": "Supply-00535",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19351,7 +19351,7 @@
     "notes": "",
     "supplyID": "Supply-00536",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19387,7 +19387,7 @@
     "notes": "1 pair for PE",
     "supplyID": "Supply-00537",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19411,7 +19411,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19423,7 +19423,7 @@
     "notes": "",
     "supplyID": "Supply-00538",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19459,7 +19459,7 @@
     "notes": "",
     "supplyID": "Supply-00539",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19483,7 +19483,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19495,7 +19495,7 @@
     "notes": "",
     "supplyID": "Supply-00540",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19519,7 +19519,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19531,7 +19531,7 @@
     "notes": "",
     "supplyID": "Supply-00541",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19567,7 +19567,7 @@
     "notes": "",
     "supplyID": "Supply-00542",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19603,7 +19603,7 @@
     "notes": "Snack box of crackers",
     "supplyID": "Supply-00543",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19612,7 +19612,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -19627,7 +19627,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -19639,7 +19639,7 @@
     "notes": "",
     "supplyID": "Supply-00544",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19675,7 +19675,7 @@
     "notes": "Minimum 24 ct, can be larger",
     "supplyID": "Supply-00545",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19711,7 +19711,7 @@
     "notes": "",
     "supplyID": "Supply-00546",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19747,7 +19747,7 @@
     "notes": "",
     "supplyID": "Supply-00547",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19771,7 +19771,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19783,7 +19783,7 @@
     "notes": "",
     "supplyID": "Supply-00548",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19807,7 +19807,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19819,7 +19819,7 @@
     "notes": "",
     "supplyID": "Supply-00549",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19843,7 +19843,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19855,7 +19855,7 @@
     "notes": "",
     "supplyID": "Supply-00550",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19879,7 +19879,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19891,7 +19891,7 @@
     "notes": "",
     "supplyID": "Supply-00551",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19915,7 +19915,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Pocket",
+      "exactly": "2-Pocket",
       "anyOf": []
     },
     "material": {
@@ -19927,7 +19927,7 @@
     "notes": "",
     "supplyID": "Supply-00552",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19963,7 +19963,7 @@
     "notes": "",
     "supplyID": "Supply-00553",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -19999,7 +19999,7 @@
     "notes": "",
     "supplyID": "Supply-00554",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20035,7 +20035,7 @@
     "notes": "",
     "supplyID": "Supply-00555",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20071,7 +20071,7 @@
     "notes": "",
     "supplyID": "Supply-00556",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20107,7 +20107,7 @@
     "notes": "",
     "supplyID": "Supply-00557",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20143,7 +20143,7 @@
     "notes": "",
     "supplyID": "Supply-00558",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20179,7 +20179,7 @@
     "notes": "",
     "supplyID": "Supply-00559",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20215,7 +20215,7 @@
     "notes": "",
     "supplyID": "Supply-00560",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20251,7 +20251,7 @@
     "notes": "Wireless is optional",
     "supplyID": "Supply-00561",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20287,7 +20287,7 @@
     "notes": "Snack box of crackers",
     "supplyID": "Supply-00562",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20296,7 +20296,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -20307,11 +20307,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "Wide Rule",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "Wide Ruled",
       "anyOf": []
     },
     "material": {
@@ -20323,7 +20323,7 @@
     "notes": "",
     "supplyID": "Supply-00563",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20359,7 +20359,7 @@
     "notes": "Highlighters must be different colors",
     "supplyID": "Supply-00564",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20395,7 +20395,7 @@
     "notes": "",
     "supplyID": "Supply-00565",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20431,7 +20431,7 @@
     "notes": "",
     "supplyID": "Supply-00566",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20467,7 +20467,7 @@
     "notes": "No earbuds or Bluetooth",
     "supplyID": "Supply-00567",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20503,7 +20503,7 @@
     "notes": "",
     "supplyID": "Supply-00568",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20539,7 +20539,7 @@
     "notes": "",
     "supplyID": "Supply-00569",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20575,7 +20575,7 @@
     "notes": "",
     "supplyID": "Supply-00570",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20611,7 +20611,7 @@
     "notes": "Snack box of crackers",
     "supplyID": "Supply-00571",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20620,7 +20620,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -20635,7 +20635,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -20647,7 +20647,7 @@
     "notes": "",
     "supplyID": "Supply-00572",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20656,7 +20656,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Kleenex"
+      "Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -20683,7 +20683,7 @@
     "notes": "",
     "supplyID": "Supply-00573",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20719,7 +20719,7 @@
     "notes": "",
     "supplyID": "Supply-00574",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20755,7 +20755,7 @@
     "notes": "",
     "supplyID": "Supply-00575",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20791,7 +20791,7 @@
     "notes": "",
     "supplyID": "Supply-00576",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20827,7 +20827,7 @@
     "notes": "",
     "supplyID": "Supply-00577",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20863,7 +20863,7 @@
     "notes": "1 pair for PE",
     "supplyID": "Supply-00578",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20899,7 +20899,7 @@
     "notes": "",
     "supplyID": "Supply-00579",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20935,7 +20935,7 @@
     "notes": "",
     "supplyID": "Supply-00580",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -20971,7 +20971,7 @@
     "notes": "",
     "supplyID": "Supply-00581",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21007,7 +21007,7 @@
     "notes": "Optional",
     "supplyID": "Supply-00582",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21016,7 +21016,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -21031,7 +21031,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21043,7 +21043,7 @@
     "notes": "",
     "supplyID": "Supply-00583",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21052,7 +21052,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -21067,7 +21067,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21079,7 +21079,7 @@
     "notes": "",
     "supplyID": "Supply-00584",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21088,7 +21088,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -21103,7 +21103,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21115,7 +21115,7 @@
     "notes": "",
     "supplyID": "Supply-00585",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21124,7 +21124,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -21139,7 +21139,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21151,7 +21151,7 @@
     "notes": "",
     "supplyID": "Supply-00586",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21160,7 +21160,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Folder"
+      "3-Prong Folder"
     ],
     "brand": {
       "exactly": "",
@@ -21175,7 +21175,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Prong",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21187,7 +21187,7 @@
     "notes": "",
     "supplyID": "Supply-00587",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21196,7 +21196,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -21211,7 +21211,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21223,7 +21223,7 @@
     "notes": "One subject notebook preferred",
     "supplyID": "Supply-00588",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21259,7 +21259,7 @@
     "notes": "",
     "supplyID": "Supply-00589",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21268,7 +21268,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Glue Bottle"
+      "Liquid Glue"
     ],
     "brand": {
       "exactly": "Elmers",
@@ -21295,7 +21295,7 @@
     "notes": "",
     "supplyID": "Supply-00590",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21331,7 +21331,7 @@
     "notes": "1 package of markers",
     "supplyID": "Supply-00591",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21367,7 +21367,7 @@
     "notes": "",
     "supplyID": "Supply-00592",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21403,7 +21403,7 @@
     "notes": "",
     "supplyID": "Supply-00593",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21439,7 +21439,7 @@
     "notes": "Snack box of crackers",
     "supplyID": "Supply-00594",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21475,7 +21475,7 @@
     "notes": "",
     "supplyID": "Supply-00595",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21511,7 +21511,7 @@
     "notes": "Blue and/or black",
     "supplyID": "Supply-00596",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21520,7 +21520,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Binder"
+      "3-Ring Binder"
     ],
     "brand": {
       "exactly": "",
@@ -21535,7 +21535,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "3 Ring",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -21547,7 +21547,7 @@
     "notes": "Must have front cover pocket",
     "supplyID": "Supply-00597",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21583,7 +21583,7 @@
     "notes": "",
     "supplyID": "Supply-00598",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21619,7 +21619,7 @@
     "notes": "",
     "supplyID": "Supply-00599",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21655,7 +21655,7 @@
     "notes": "",
     "supplyID": "Supply-00600",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21691,7 +21691,7 @@
     "notes": "",
     "supplyID": "Supply-00601",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21727,7 +21727,7 @@
     "notes": "",
     "supplyID": "Supply-00602",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21763,7 +21763,7 @@
     "notes": "Any color",
     "supplyID": "Supply-00603",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21799,7 +21799,7 @@
     "notes": "1 pair for PE",
     "supplyID": "Supply-00604",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21835,7 +21835,7 @@
     "notes": "",
     "supplyID": "Supply-00605",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21871,7 +21871,7 @@
     "notes": "",
     "supplyID": "Supply-00606",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21907,7 +21907,7 @@
     "notes": "",
     "supplyID": "Supply-00607",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21943,7 +21943,7 @@
     "notes": "Optional, but recommended",
     "supplyID": "Supply-00608",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -21979,7 +21979,7 @@
     "notes": "",
     "supplyID": "Supply-00609",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22015,7 +22015,7 @@
     "notes": "",
     "supplyID": "Supply-00610",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22051,7 +22051,7 @@
     "notes": "",
     "supplyID": "Supply-00611",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22087,7 +22087,7 @@
     "notes": "",
     "supplyID": "Supply-00612",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22123,7 +22123,7 @@
     "notes": "",
     "supplyID": "Supply-00613",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22132,7 +22132,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22147,7 +22147,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22159,7 +22159,7 @@
     "notes": "",
     "supplyID": "Supply-00614",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22168,7 +22168,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22183,7 +22183,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22195,7 +22195,7 @@
     "notes": "",
     "supplyID": "Supply-00615",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22204,7 +22204,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22219,7 +22219,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22231,7 +22231,7 @@
     "notes": "",
     "supplyID": "Supply-00616",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22240,7 +22240,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22255,7 +22255,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22267,7 +22267,7 @@
     "notes": "",
     "supplyID": "Supply-00617",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22276,7 +22276,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22291,7 +22291,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22303,7 +22303,7 @@
     "notes": "",
     "supplyID": "Supply-00618",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22339,7 +22339,7 @@
     "notes": "",
     "supplyID": "Supply-00619",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22375,7 +22375,7 @@
     "notes": "",
     "supplyID": "Supply-00620",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22411,7 +22411,7 @@
     "notes": "",
     "supplyID": "Supply-00621",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22447,7 +22447,7 @@
     "notes": "",
     "supplyID": "Supply-00622",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22483,7 +22483,7 @@
     "notes": "",
     "supplyID": "Supply-00623",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22519,7 +22519,7 @@
     "notes": "",
     "supplyID": "Supply-00624",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22555,7 +22555,7 @@
     "notes": "",
     "supplyID": "Supply-00625",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22591,7 +22591,7 @@
     "notes": "",
     "supplyID": "Supply-00626",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22627,7 +22627,7 @@
     "notes": "",
     "supplyID": "Supply-00627",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22636,7 +22636,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Spiral Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -22651,7 +22651,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Spiral",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -22663,7 +22663,7 @@
     "notes": "",
     "supplyID": "Supply-00628",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22699,7 +22699,7 @@
     "notes": "",
     "supplyID": "Supply-00629",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22735,7 +22735,7 @@
     "notes": "",
     "supplyID": "Supply-00630",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22755,11 +22755,11 @@
       "anyOf": []
     },
     "size": {
-      "exactly": "College Ruled",
+      "exactly": "",
       "anyOf": []
     },
     "type": {
-      "exactly": "",
+      "exactly": "College Ruled",
       "anyOf": []
     },
     "material": {
@@ -22771,7 +22771,7 @@
     "notes": "",
     "supplyID": "Supply-00631",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22807,7 +22807,7 @@
     "notes": "",
     "supplyID": "Supply-00632",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22843,7 +22843,7 @@
     "notes": "",
     "supplyID": "Supply-00633",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22879,7 +22879,7 @@
     "notes": "Blue and/or black",
     "supplyID": "Supply-00634",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22915,7 +22915,7 @@
     "notes": "",
     "supplyID": "Supply-00635",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22951,7 +22951,7 @@
     "notes": "",
     "supplyID": "Supply-00636",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22987,7 +22987,7 @@
     "notes": "",
     "supplyID": "Supply-00637",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -22996,7 +22996,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Notebook"
+      "Composition Notebook"
     ],
     "brand": {
       "exactly": "",
@@ -23011,7 +23011,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Composition",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -23023,7 +23023,7 @@
     "notes": "",
     "supplyID": "Supply-00638",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23059,7 +23059,7 @@
     "notes": "",
     "supplyID": "Supply-00639",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23095,7 +23095,7 @@
     "notes": "",
     "supplyID": "Supply-00640",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23131,7 +23131,7 @@
     "notes": "",
     "supplyID": "Supply-00641",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23167,7 +23167,7 @@
     "notes": "",
     "supplyID": "Supply-00642",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23203,7 +23203,7 @@
     "notes": "",
     "supplyID": "Supply-00643",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   },
   {
     "academicYear": "2025-2026",
@@ -23239,6 +23239,6 @@
     "notes": "Grocery or brown paper",
     "supplyID": "Supply-00644",
     "invIDs": [],
-    "percentageFilled": 0
+    "percentageFilled": -1
   }
 ]
