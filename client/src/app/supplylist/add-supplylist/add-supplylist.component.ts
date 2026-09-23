@@ -17,7 +17,7 @@ import { SupplyListService } from '../supplylist.service';
 import { TermsService } from '../../terms/terms.service';
 import { Terms } from '../../terms/terms';
 import { DescriptionParserService } from '../../terms/description-parser.service';
-import { GRADES } from '../supplylist';
+import { AttributeOptions, GRADES, SupplyList } from '../supplylist';
 import { SettingsService } from '../../settings/settings.service';
 import {
   SupplyListInventoryLinkDialogComponent,
@@ -45,14 +45,31 @@ import {
   ]
 })
 export class AddSupplyListComponent implements OnInit {
-  private supplyListService = inject(SupplyListService);
-  private termsService = inject(TermsService);
-  private descriptionParser = inject(DescriptionParserService);
-  private settingsService = inject(SettingsService);
-  private dialog = inject(MatDialog);
-  private snackBar = inject(MatSnackBar);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  private supplyListService = inject(SupplyListService); // Service for interacting with the supply list API
+  private termsService = inject(TermsService); // Service for interacting with the terms API
+  private descriptionParser = inject(DescriptionParserService); // Service for parsing item descriptions
+
+  private settingsService = inject(SettingsService); // Service for accessing application settings
+
+  private dialog = inject(MatDialog); // Service for opening Material dialogs
+
+  private snackBar = inject(MatSnackBar); // Service for showing snack bar notifications
+  private router = inject(Router); // Service for navigating between routes
+  private route = inject(ActivatedRoute); // Service for accessing information about the current route
+
+  // Workspace context extracted from the route query parameters
+  private readonly workspaceSchool = this.route.snapshot.queryParamMap.get('school')?.trim() || ''; // School context for the workspace
+  private readonly workspaceGrade = this.route.snapshot.queryParamMap.get('grade')?.trim() || ''; // Grade context for the workspace
+  private readonly workspaceScope = this.route.snapshot.queryParamMap.get('workspaceScope') === 'school'
+    ? 'school'
+    : 'grade'; // Scope of the workspace, either 'school' or 'grade'
+
+  // Return navigation context
+  private readonly returnMode = this.normalizeMode(this.route.snapshot.queryParamMap.get('mode')); // Mode to return to after adding a supply list
+  private readonly returnToWorkspace = this.route.snapshot.queryParamMap.get('returnTo') === 'workspace'; // Whether to return to the workspace after adding a supply list
+  readonly returnPath = this.returnToWorkspace
+    ? '/supplylist/workspace'
+    : '/supplylist'; // Path to return to after adding a supply list
 
   // Schools loaded from settings for the dropdown
   availableSchools$ = this.settingsService.getSettings().pipe(
@@ -156,10 +173,8 @@ export class AddSupplyListComponent implements OnInit {
 
   ngOnInit() {
     // Pre-populate school and grade from query params (when navigating from the supply list view)
-    const school = this.route.snapshot.queryParamMap.get('school');
-    const grade = this.route.snapshot.queryParamMap.get('grade');
-    if (school) this.addSupplyListForm.patchValue({ school });
-    if (grade) this.addSupplyListForm.patchValue({ grade });
+    if (this.workspaceSchool) this.addSupplyListForm.patchValue({ school: this.workspaceSchool });
+    if (this.workspaceGrade) this.addSupplyListForm.patchValue({ grade: this.workspaceGrade });
 
     // Load terms from the server and wire up filtered observables
     this.termsService.getTerms().subscribe({
@@ -217,7 +232,7 @@ export class AddSupplyListComponent implements OnInit {
 
   /**
    * Parses a natural language description (e.g. "1 box of 24 count Crayola crayons") and
-   * pre-fills any form fields it can confidently identify. Unrecognised fields are left
+   * pre-fills any form fields it can confidently identify. Unrecognized fields are left
    * as-is so the user can fill them manually. After parsing the preview card appears.
    */
   parseDescription(input: string): void {
@@ -235,6 +250,70 @@ export class AddSupplyListComponent implements OnInit {
   /** Returns the parsed form values in a shape ready for display in the preview. */
   get previewValues() {
     return this.addSupplyListForm.value;
+  }
+
+  /** The preview is available for both parsed descriptions and manually entered forms. */
+  get previewVisible(): boolean {
+    return this.showPreview || !!this.addSupplyListForm.controls.item.value?.trim();
+  }
+
+  /** Human-readable result produced from the same structured fields that will be saved.
+   * @returns A string representing the human-readable description of the supply list item.
+  */
+  get generatedDescription(): string {
+    const raw = this.addSupplyListForm.value;
+    const quantity = Number(raw.quantity) || 1;
+    const packageSize = Number(raw.packageSize) || 1;
+    const item = this.firstFilterToken(raw.item) ?? '';
+    const parts: string[] = []; // Array to accumulate parts of the generated description
+
+    if (quantity > 0) parts.push(`${quantity}x`);
+    if (packageSize > 1) parts.push(`${packageSize}ct.`);
+
+    const size = this.displayAttribute(raw.size);
+    if (size) parts.push(size);
+    if (item) parts.push(quantity > 1 ? this.pluralizeItem(item) : item);
+
+    for (const value of [raw.brand, raw.color, raw.type, raw.material]) {
+      const display = this.displayAttribute(value);
+      if (display && !parts.some(part => part.toLowerCase().includes(display.toLowerCase()))) {
+        parts.push(display);
+      }
+    }
+
+    if (raw.notes?.trim()) parts.push(`(${raw.notes.trim()})`);
+    return parts.join(' ') || 'Complete the item fields to see its generated description.';
+  }
+
+  /** Query parameters to return to after adding a supply list item.
+   * @returns An object representing the query parameters to be used when navigating back.
+   */
+  get returnQueryParams(): Record<string, string> {
+    const filterKeys = ['item', 'brand', 'color', 'size', 'type', 'material', 'quantity'];
+    const preservedFilters = Object.fromEntries(
+      filterKeys
+        .map(key => [key, this.route.snapshot.queryParamMap.get(key)?.trim()] as const)
+        .filter((entry): entry is readonly [string, string] => !!entry[1])
+    );
+    return {
+      ...(this.returnToWorkspace && this.workspaceSchool
+        ? { school: this.workspaceSchool }
+        : {}),
+      ...(this.returnToWorkspace && this.workspaceGrade && this.workspaceScope === 'grade'
+        ? { grade: this.workspaceGrade }
+        : {}),
+      ...(!this.returnToWorkspace && this.route.snapshot.queryParamMap.get('returnSchool')?.trim()
+        ? { school: this.route.snapshot.queryParamMap.get('returnSchool')!.trim() }
+        : {}),
+      ...(!this.returnToWorkspace && this.route.snapshot.queryParamMap.get('returnGrade')?.trim()
+        ? { grade: this.route.snapshot.queryParamMap.get('returnGrade')!.trim() }
+        : {}),
+      ...preservedFilters,
+      ...(this.route.snapshot.queryParamMap.get('returnUrl')?.trim()
+        ? { returnUrl: this.route.snapshot.queryParamMap.get('returnUrl')!.trim() }
+        : {}),
+      mode: this.returnMode
+    };
   }
 
   linkedInventoryIds(): string[] {
@@ -272,7 +351,11 @@ export class AddSupplyListComponent implements OnInit {
 
   clearForm(): void {
     this.addSupplyListForm.reset();
-    this.addSupplyListForm.patchValue({ invIDs: [] });
+    this.addSupplyListForm.patchValue({
+      ...(this.workspaceSchool ? { school: this.workspaceSchool } : {}),
+      ...(this.workspaceGrade ? { grade: this.workspaceGrade } : {}),
+      invIDs: []
+    });
     this.descriptionInput = '';
     this.showPreview = false;
   }
@@ -280,7 +363,7 @@ export class AddSupplyListComponent implements OnInit {
   submitForm() {
     const raw = this.addSupplyListForm.value;
     // For AttributeOptions fields, '|' means anyOf; otherwise value is stored in exactly.
-    const toAttr = (val: string | null | undefined): import('../supplylist').AttributeOptions => {
+    const toAttr = (val: string | null | undefined): AttributeOptions => {
       if (!val || !val.trim()) {
         return { exactly: '', anyOf: [] };
       }
@@ -291,7 +374,7 @@ export class AddSupplyListComponent implements OnInit {
     };
 
     // Color keeps exactly/anyOf as string arrays.
-    const toColorAttr = (val: string | null | undefined): import('../supplylist').AttributeOptions => {
+    const toColorAttr = (val: string | null | undefined): AttributeOptions => {
       if (!val || !val.trim()) {
         return { exactly: "", anyOf: [] };
       }
@@ -301,7 +384,7 @@ export class AddSupplyListComponent implements OnInit {
       return { exactly: val.split(',').map(s => s.trim()).filter(Boolean)[0] ?? '', anyOf: [] };
     };
 
-    const formData: Partial<import('../supplylist').SupplyList> = {
+    const formData: Partial<SupplyList> = {
       school: raw.school ?? undefined,
       grade: raw.grade ?? undefined,
       item: raw.item ? raw.item.split(',').map(s => s.trim()).filter(Boolean) : undefined,
@@ -317,9 +400,20 @@ export class AddSupplyListComponent implements OnInit {
     };
 
     this.supplyListService.addSupplyList(formData).subscribe({
-      next: () => {
+      next: (created) => {
         this.snackBar.open('Added supply list item', undefined, { duration: 2000 });
-        this.router.navigate(['/supplylist']);
+        // Navigate back to the appropriate workspace or supply list view after adding the item.
+        const returnScope = this.returnToWorkspace
+          ? { school: this.workspaceSchool, ...(this.workspaceScope === 'grade' ? { grade: this.workspaceGrade } : {}) }
+          : {};
+        // Perform the navigation after constructing the return scope.
+        this.router.navigate([this.returnPath], {
+          queryParams: {
+            ...this.returnQueryParams,
+            ...returnScope,
+            highlight: created?._id || undefined
+          }
+        });
       },
       error: (err) => {
         this.snackBar.open(
@@ -365,6 +459,36 @@ export class AddSupplyListComponent implements OnInit {
       .map(v => v.trim())
       .find(v => v && v !== 'N/A');
     return token || undefined;
+  }
+
+  /** Display a human-readable version of an attribute value, handling multiple terms and ignoring 'N/A'.
+   * @param value The raw attribute value to be displayed.
+   * @returns A human-readable string representation of the attribute value.
+   */
+  private displayAttribute(value: string | null | undefined): string {
+    const terms = (value ?? '').split('|').map(term => term.trim())
+      .filter(term => !!term && term.toLowerCase() !== 'n/a');
+    if (terms.length > 1) return `(${terms.join(' or ')})`;
+    return terms[0] ?? '';
+  }
+
+  /** Pluralize an item name based on common English rules.
+   * @param item The singular form of the item name.
+   * @returns The pluralized form of the item name.
+   */
+  private pluralizeItem(item: string): string {
+    if (/\b(?:paper|scissors|headphones)$/i.test(item) || /s$/i.test(item)) return item;
+    if (/[^aeiou]y$/i.test(item)) return `${item.slice(0, -1)}ies`;
+    if (/(?:ch|sh|x|z)$/i.test(item)) return `${item}es`;
+    return `${item}s`;
+  }
+
+  /** Normalize the mode string to one of the accepted values: 'view', 'edit', or 'link'.
+   * @param mode The raw mode string.
+   * @returns The normalized mode string.
+   */
+  private normalizeMode(mode: string | null): 'view' | 'edit' | 'link' {
+    return mode === 'view' || mode === 'link' ? mode : 'edit';
   }
 
   private normalizeInventoryIds(ids: string[] | null | undefined): string[] {

@@ -40,6 +40,20 @@
 .preview-card {
   width: 100%;
 
+  .generated-description {
+    padding: var(--app-space-md);
+    border: 1px solid var(--app-border);
+    border-radius: var(--app-radius-sm);
+    background: var(--app-surface-muted);
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+
+  .attribute-help {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
   .preview-table {
     width: 100%;
     border-collapse: collapse;

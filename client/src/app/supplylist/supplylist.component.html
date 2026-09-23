@@ -1,9 +1,15 @@
 <div class="flex-row app-page-shell">
   <div class="flex-1">
-    <!-- Common filters stay visible; less-used item filters are progressively disclosed. -->
     <mat-card class="search-grid app-page-stack app-corner-anchor">
       <mat-card-header class="page-card-header app-page-header app-page-header-with-corner">
-        <mat-card-title class="supplylist-title app-page-title">Supply List</mat-card-title>
+        <mat-card-title class="supplylist-title app-page-title">
+          {{ isWorkspacePage ? workspaceTitle() : 'Supply List' }}
+        </mat-card-title>
+        @if (isWorkspacePage) {
+        <button type="button" mat-stroked-button (click)="leaveWorkspace()" data-cy="leave-workspace">
+          <mat-icon>arrow_back</mat-icon> Leave Workspace
+        </button>
+        } @else {
         <button type="button"
           class="app-corner-icon-button"
           mat-icon-button
@@ -14,16 +20,39 @@
           data-cy="supplylist-settings-button">
           <mat-icon>settings</mat-icon>
         </button>
+        }
       </mat-card-header>
 
       <mat-card-content>
         <p class="page-description app-page-subtitle">
-          Welcome to the Supply List page! Here, you can view the items a student in each grade at each school needs, as
-          well as filter them by various attributes. In the future, functionality for generating supply sheets and other
-          similar features may be added!
+          @if (isWorkspacePage) {
+            {{ grade() ? 'Grade workspace' : 'School workspace' }} · Focused on the lists in this workspace.
+          } @else {
+            Browse the full supply list, or open a school or grade workspace from the lists below.
+          }
         </p>
+        <div class="mode-toolbar" role="group" aria-label="Supply list mode" data-cy="supplylist-mode-toolbar">
+          <button type="button" mat-stroked-button [class.active-mode]="mode() === 'view'"
+            (click)="setMode('view')" data-cy="mode-view">
+            <mat-icon>visibility</mat-icon> View
+          </button>
+          @if (canUseEditMode) {
+          <button type="button" mat-stroked-button [class.active-mode]="mode() === 'edit'"
+            (click)="setMode('edit')" data-cy="mode-edit">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+          }
+          @if (canEditSupplyList) {
+          <button type="button" mat-stroked-button [class.active-mode]="mode() === 'link'"
+            (click)="setMode('link')" data-cy="mode-link">
+            <mat-icon>link</mat-icon> Link
+          </button>
+          }
+          <span class="mode-description">{{ modeDescription() }}</span>
+        </div>
         <hr class="section-divider" />
 
+        @if (!isWorkspacePage) {
         <p class="filters-description app-text-muted">
           Filter by school and grade first. Open advanced filters when you need to narrow the list by item details.
         </p>
@@ -31,16 +60,17 @@
         <div class="filter-container primary-filters app-grid-auto">
           <mat-form-field appearance="outline">
             <mat-label>School</mat-label>
-            <input matInput [ngModel]="school() ?? ''" (ngModelChange)="school.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="school() ?? ''" (ngModelChange)="setSchoolFilter($event)"
               placeholder="contains..." data-cy="filter-school" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Grade</mat-label>
-            <input matInput [ngModel]="grade() ?? ''" (ngModelChange)="grade.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="grade() ?? ''" (ngModelChange)="setGradeFilter($event)"
               placeholder="contains..." data-cy="filter-grade" />
           </mat-form-field>
         </div>
+        }
 
         <button
           type="button"
@@ -49,7 +79,11 @@
           (click)="toggleAdvancedFilters()"
           [attr.aria-expanded]="advancedFiltersExpanded()">
           <mat-icon>{{ advancedFiltersExpanded() ? 'expand_less' : 'tune' }}</mat-icon>
-          {{ advancedFiltersExpanded() ? 'Hide Advanced Filters' : 'Advanced Filters' }}
+          @if (isWorkspacePage) {
+            {{ advancedFiltersExpanded() ? 'Hide Item Filters' : 'Filter Items' }}
+          } @else {
+            {{ advancedFiltersExpanded() ? 'Hide Advanced Filters' : 'Advanced Filters' }}
+          }
         </button>
 
         <!-- Advanced controls use the same tokens without overwhelming the default view. -->
@@ -57,56 +91,53 @@
         <div class="filter-container advanced-filters app-grid-auto">
           <mat-form-field appearance="outline">
             <mat-label class="filter">Item</mat-label>
-            <input matInput [ngModel]="item() ?? ''" (ngModelChange)="item.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="item() ?? ''" (ngModelChange)="setAdvancedFilter('item', $event)"
               placeholder="contains..." data-cy="filter-item" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Brand</mat-label>
-            <input matInput [ngModel]="brand() ?? ''" (ngModelChange)="brand.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="brand() ?? ''" (ngModelChange)="setAdvancedFilter('brand', $event)"
               placeholder="contains..." data-cy="filter-brand" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Color</mat-label>
-            <input matInput [ngModel]="color() ?? ''" (ngModelChange)="color.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="color() ?? ''" (ngModelChange)="setAdvancedFilter('color', $event)"
               placeholder="contains..." data-cy="filter-color" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Size</mat-label>
-            <input matInput [ngModel]="size() ?? ''" (ngModelChange)="size.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="size() ?? ''" (ngModelChange)="setAdvancedFilter('size', $event)"
               placeholder="contains..." data-cy="filter-size" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Type</mat-label>
-            <input matInput [ngModel]="type() ?? ''" (ngModelChange)="type.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="type() ?? ''" (ngModelChange)="setAdvancedFilter('type', $event)"
               placeholder="contains..." data-cy="filter-type" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label class="filter">Material</mat-label>
-            <input matInput [ngModel]="material() ?? ''" (ngModelChange)="material.set($event?.trim() || undefined)"
+            <input matInput [ngModel]="material() ?? ''" (ngModelChange)="setAdvancedFilter('material', $event)"
               placeholder="contains..." data-cy="filter-material" />
           </mat-form-field>
         </div>
         }
 
         <div class="filter-extra app-cluster">
-          <!-- Clear Filters Button -->
           <button mat-stroked-button type="button" (click)="resetFilters()" data-cy="filter-clear" class="clear-button">
-            Clear
+            {{ isWorkspacePage ? 'Clear Item Filters' : 'Clear' }}
           </button>
-          <!-- Expand / Collapse All -->
           <button type="button" mat-stroked-button (click)="toggleAll()" data-cy="expand-collapse-all">
             <mat-icon>{{ allExpanded() ? 'unfold_less' : 'unfold_more' }}</mat-icon>
             {{ allExpanded() ? 'Collapse All' : 'Expand All' }}
           </button>
 
-          <!--# of Current Entries Displayed-->
           <button type="button" mat-stroked-button class="count-display">
-            Count: {{ serverFilteredSupplyList().length }}
+            Count: {{ visibleSupplyList().length }}
           </button>
         </div>
       </mat-card-content>
@@ -114,27 +145,45 @@
   </div>
 </div>
 
-<br>
-
 <!--Supply List Display-->
 <div class="app-page-shell">
   <mat-card class="search-grid app-page-stack" data-cy="supplylist-card">
     <div class="tree-container" role="Display Items">
       @for (schoolGroup of groupedSupplyList(); track schoolGroup.school) {
       <section class="school-group">
-        <h2 class="school-heading" data-cy="supplylist-school">{{ schoolGroup.school }}</h2>
+        <div class="school-heading-row">
+          <h2 class="school-heading" data-cy="supplylist-school">{{ schoolGroup.school }}</h2>
+          @if (!isWorkspacePage) {
+          <button type="button" mat-stroked-button [routerLink]="['/supplylist/workspace']"
+            [queryParams]="workspaceQueryParams(schoolGroup.school)" data-cy="open-school-workspace">
+            <mat-icon>workspaces</mat-icon> Open School Workspace
+          </button>
+          }
+        </div>
 
         @for (gradeGroup of schoolGroup.grades; track gradeGroup.grade) {
-        <mat-expansion-panel class="grade-panel" [expanded]="allExpanded()">
+        <mat-expansion-panel class="grade-panel"
+          (afterExpand)="onGradeExpanded(gradeGroup.teachers)"
+          [expanded]="allExpanded() || isWorkspaceGrade(schoolGroup.school, gradeGroup.grade) || containsHighlightedItem(gradeGroup.teachers)">
           <mat-expansion-panel-header>
             <mat-panel-title data-cy="supplylist-grade">{{ gradeGroup.grade }}</mat-panel-title>
-            <mat-panel-description>{{ gradeGroup.teachers[0]?.items?.length ?? 0 }} item(s)</mat-panel-description>
+            <mat-panel-description>{{ gradeItemCount(gradeGroup.teachers) }} item(s)</mat-panel-description>
           </mat-expansion-panel-header>
 
-          @if (canAddSupplyList) {
+          @if (!isWorkspacePage) {
+          <div class="grade-workspace-row">
+            <button type="button" mat-stroked-button [routerLink]="['/supplylist/workspace']"
+              [queryParams]="workspaceQueryParams(schoolGroup.school, gradeGroup.grade)"
+              data-cy="open-grade-workspace">
+              <mat-icon>open_in_new</mat-icon> Open Grade Workspace
+            </button>
+          </div>
+          }
+
+          @if (canAddSupplyList && mode() === 'edit') {
           <div class="grade-add-row">
             <button type="button" mat-stroked-button color="primary" [routerLink]="['/supplylist/new']"
-              [queryParams]="{ school: schoolGroup.school, grade: gradeGroup.grade }" data-cy="add-item-button">
+              [queryParams]="addItemQueryParams(schoolGroup.school, gradeGroup.grade)" data-cy="add-item-button">
               <mat-icon>add</mat-icon> Add Item
             </button>
           </div>
@@ -146,7 +195,8 @@
 
             <ul class="item-list">
               @for (element of teacherGroup.items; track element._id) {
-              <li class="item-row">
+              <li class="item-row" [attr.id]="'supply-item-' + element._id"
+                [class.newly-added]="highlightedItemId() === element._id">
 
                 @if (editingItemId === element._id) {
                 <!-- Inline edit mode -->
@@ -214,18 +264,23 @@
                 } @else {
                 <!-- Display mode -->
                 <span class="item-label" data-cy="supplylist-item-label">{{ toLabel(element) }}</span>
-                @if (canEditSupplyList || canDeleteSupplyList) {
+                @if (isOutsideActiveFilters(element._id)) {
+                <span class="highlight-filter-note" data-cy="highlight-filter-note">New item shown outside active filters</span>
+                }
+                @if (mode() !== 'view' && (canEditSupplyList || canDeleteSupplyList)) {
                 <div class="item-actions">
-                  @if (canEditSupplyList) {
+                  @if (canEditSupplyList && mode() === 'link') {
                   <button type="button" mat-icon-button matTooltip="Link inventory"
                     (click)="openInventoryLinkDialogForSupply(element, true)" data-cy="link-inventory-item">
                     <mat-icon>link</mat-icon>
                   </button>
+                  }
+                  @if (canEditSupplyList && mode() === 'edit') {
                   <button type="button" mat-icon-button matTooltip="Edit" (click)="startEdit(element)" data-cy="edit-item">
                     <mat-icon>edit</mat-icon>
                   </button>
                   }
-                  @if (canDeleteSupplyList) {
+                  @if (canDeleteSupplyList && mode() === 'edit') {
                   <button type="button" mat-icon-button color="warn" matTooltip="Delete" (click)="confirmDelete(element._id)"
                     data-cy="delete-item">
                     <mat-icon>delete</mat-icon>
@@ -251,3 +306,11 @@
     </div>
   </mat-card>
 </div>
+
+@if (canAddSupplyList && mode() === 'edit') {
+<button type="button" mat-fab color="primary" class="add-supplylist-fab" [routerLink]="['/supplylist/new']"
+  [queryParams]="addItemQueryParams()" matTooltip="Add supply list item" aria-label="Add supply list item"
+  data-cy="add-supplylist-fab">
+  <mat-icon>add</mat-icon>
+</button>
+}

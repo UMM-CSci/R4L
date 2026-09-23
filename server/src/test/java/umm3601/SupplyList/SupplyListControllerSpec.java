@@ -559,6 +559,8 @@ public class SupplyListControllerSpec {
 
     supplylistController.addSupplyList(ctx);
 
+    verify(ctx).json(supplylistCaptor.capture());
+    assertTrue(supplylistCaptor.getValue()._id != null && !supplylistCaptor.getValue()._id.isBlank());
     verify(ctx).status(HttpStatus.CREATED);
   }
 

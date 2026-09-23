@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MockSupplyListService } from 'src/testing/supplylist.service.mock';
 import { AddSupplyListComponent } from './add-supplylist.component';
 import { SupplyListService } from '../supplylist.service';
-import { GRADES } from '../supplylist';
+import { GRADES, SupplyList } from '../supplylist';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -393,12 +393,29 @@ describe('AddSupplyListComponent#submitForm()', () => {
     component.addSupplyListForm.setValue(validFormValues);
   });
 
-  it('should call addSupplyList() and navigate to /supplylist on success', () => {
-    const addSupplyListSpy = spyOn(supplyListService, 'addSupplyList').and.returnValue(of(undefined));
+  it('returns to the unfiltered main page after adding an item', () => {
+    const created = {
+      _id: 'created-item-id',
+      ...validFormValues,
+      item: ['Markers'],
+      packageSize: 8,
+      quantity: 3
+    } as unknown as import('../supplylist').SupplyList;
+    const addSupplyListSpy = spyOn(supplyListService, 'addSupplyList').and.returnValue(of(created));
     const navigateSpy = spyOn(router, 'navigate');
     component.submitForm();
     expect(addSupplyListSpy).toHaveBeenCalled();
-    expect(navigateSpy).toHaveBeenCalledWith(['/supplylist']);
+    expect(navigateSpy).toHaveBeenCalledWith(['/supplylist'], {
+      queryParams: {
+        mode: 'edit',
+        highlight: 'created-item-id'
+      }
+    });
+  });
+
+  it('builds a readable generated description from manually entered fields', () => {
+    expect(component.generatedDescription).toBe('3x 8ct. Wide Markers Crayola Washable');
+    expect(component.previewVisible).toBeTrue();
   });
 
   it('should call addSupplyList() and handle 500 error response', () => {
@@ -758,6 +775,12 @@ describe('AddSupplyListComponent#ngOnInit() with route query params', () => {
                 get: (key: string) => {
                   if (key === 'school') return 'South High';
                   if (key === 'grade') return '3rd Grade';
+                  if (key === 'item') return 'Folder';
+                  if (key === 'color') return 'Red';
+                  if (key === 'mode') return 'edit';
+                  if (key === 'returnTo') return 'workspace';
+                  if (key === 'workspaceScope') return 'school';
+                  if (key === 'returnUrl') return '/supplylist?school=South%20High';
                   return null;
                 }
               }
@@ -778,6 +801,100 @@ describe('AddSupplyListComponent#ngOnInit() with route query params', () => {
 
   it('should pre-populate grade from route query param', () => {
     expect(component.addSupplyListForm.get('grade')?.value).toBe('3rd Grade');
+  });
+
+  it('keeps a school workspace broad while using a grade to prefill the new item', () => {
+    expect(component.returnQueryParams).toEqual({
+      school: 'South High',
+      item: 'Folder',
+      color: 'Red',
+      returnUrl: '/supplylist?school=South%20High',
+      mode: 'edit'
+    });
+    expect(component.returnPath).toBe('/supplylist/workspace');
+  });
+
+  it('returns to the school workspace without adding the new item grade as a filter', () => {
+    component.addSupplyListForm.setValue({
+      school: 'South High',
+      grade: '3rd Grade',
+      item: 'Folder',
+      brand: '',
+      color: 'Red',
+      packageSize: '1',
+      size: '',
+      type: '',
+      material: '',
+      quantity: '1',
+      notes: '',
+      invIDs: []
+    });
+    const created = { _id: 'new-folder', school: 'South High', grade: '3rd Grade' } as SupplyList;
+    spyOn(TestBed.inject(SupplyListService), 'addSupplyList').and.returnValue(of(created));
+    const navigateSpy = spyOn(TestBed.inject(Router), 'navigate');
+
+    component.submitForm();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['/supplylist/workspace'], {
+      queryParams: {
+        school: 'South High',
+        item: 'Folder',
+        color: 'Red',
+        returnUrl: '/supplylist?school=South%20High',
+        mode: 'edit',
+        highlight: 'new-folder'
+      }
+    });
+  });
+});
+
+describe('AddSupplyListComponent returning to the main supply list', () => {
+  let component: AddSupplyListComponent;
+
+  beforeEach(waitForAsync(() => {
+    const routeParams: Record<string, string> = {
+      school: 'South High',
+      grade: '3rd Grade',
+      returnSchool: 'South',
+      item: 'Folder',
+      mode: 'edit'
+    };
+    TestBed.configureTestingModule({
+      imports: [AddSupplyListComponent, MatSnackBarModule],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        provideRouter([]),
+        { provide: SupplyListService, useClass: MockSupplyListService },
+        {
+          provide: ActivatedRoute,
+          useValue: { snapshot: { queryParamMap: { get: (key: string) => routeParams[key] ?? null } } }
+        }
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    ({ component } = createComponentWithTerms());
+  });
+
+  it('uses row school and grade as defaults without turning them into return filters', () => {
+    expect(component.addSupplyListForm.controls.school.value).toBe('South High');
+    expect(component.addSupplyListForm.controls.grade.value).toBe('3rd Grade');
+    expect(component.returnQueryParams).toEqual({ school: 'South', item: 'Folder', mode: 'edit' });
+  });
+
+  it('preserves only original main-page filters after saving', () => {
+    component.addSupplyListForm.patchValue({ item: 'Folder', quantity: '1' });
+    const created = { _id: 'new-folder', school: 'South High', grade: '3rd Grade' } as SupplyList;
+    spyOn(TestBed.inject(SupplyListService), 'addSupplyList').and.returnValue(of(created));
+    const navigateSpy = spyOn(TestBed.inject(Router), 'navigate');
+
+    component.submitForm();
+
+    expect(navigateSpy).toHaveBeenCalledWith(['/supplylist'], {
+      queryParams: { school: 'South', item: 'Folder', mode: 'edit', highlight: 'new-folder' }
+    });
   });
 });
 

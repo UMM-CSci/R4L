@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync, tick, fakeAsync, flushMicrotasks } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { MockSupplyListService } from 'src/testing/supplylist.service.mock'
 import { SupplyList } from './supplylist';
 import { SupplyListComponent } from './supplylist.component';
@@ -76,6 +76,121 @@ describe('SupplyList Table', () => {
   it('should create the component', () => {
     expect(supplylistTable).toBeTruthy();
   });
+
+  it('builds links for school and grade workspaces', () => {
+    expect(supplylistTable.workspaceQueryParams('MHS')).toEqual({
+      school: 'MHS',
+      mode: 'view',
+      returnUrl: '/'
+    });
+    expect(supplylistTable.workspaceQueryParams('MHS', 'PreK')).toEqual({
+      school: 'MHS',
+      grade: 'PreK',
+      mode: 'view',
+      returnUrl: '/'
+    });
+  });
+
+  it('preserves active detail filters in add-item navigation', () => {
+    supplylistTable.school.set('MHS');
+    supplylistTable.grade.set('PreK');
+    supplylistTable.item.set('Folder');
+    supplylistTable.color.set('Red');
+
+    expect(supplylistTable.addItemQueryParams()).toEqual({
+      school: 'MHS',
+      grade: 'PreK',
+      item: 'Folder',
+      color: 'Red',
+      returnSchool: 'MHS',
+      returnGrade: 'PreK',
+      mode: 'edit'
+    });
+  });
+
+  it('does not turn a grade-row add default into a browse-page grade filter', () => {
+    expect(supplylistTable.addItemQueryParams('MHS', 'PreK')).toEqual({
+      school: 'MHS',
+      grade: 'PreK',
+      mode: 'edit'
+    });
+  });
+
+  it('temporarily includes a highlighted item outside the active filters', () => {
+    const highlighted = supplyListItem({ _id: 'new-item', item: ['Glue Stick'] });
+    supplylistTable.highlightedItemId.set('new-item');
+    supplylistTable.highlightedSupplyItem.set(highlighted);
+
+    expect(supplylistTable.visibleSupplyList()).toContain(highlighted);
+    expect(supplylistTable.isOutsideActiveFilters('new-item')).toBeTrue();
+  });
+
+  it('scrolls to the highlighted row after its grade panel expands', () => {
+    const highlighted = supplyListItem({ _id: 'new-item' });
+    const scrollIntoView = jasmine.createSpy('scrollIntoView');
+    spyOn(document, 'getElementById').and.returnValue({ scrollIntoView } as unknown as HTMLElement);
+    supplylistTable.highlightedItemId.set('new-item');
+
+    supplylistTable.scrollToHighlightedItem([{ items: [highlighted] }]);
+    supplylistTable.scrollToHighlightedItem([{ items: [highlighted] }]);
+
+    expect(document.getElementById).toHaveBeenCalledWith('supply-item-new-item');
+    expect(scrollIntoView).toHaveBeenCalledOnceWith({ behavior: 'smooth', block: 'center' });
+  });
+
+  it('scrolls when the highlighted item arrives after its grade is already open', fakeAsync(() => {
+    const highlighted = supplyListItem({ _id: 'late-item' });
+    supplylistTable.highlightedItemId.set('late-item');
+    supplylistTable.highlightedSupplyItem.set(highlighted);
+    fixture.detectChanges();
+    const row = fixture.nativeElement.querySelector('#supply-item-late-item') as HTMLElement;
+    expect(row).toBeTruthy();
+    const scrollIntoView = jasmine.createSpy('scrollIntoView');
+    row.scrollIntoView = scrollIntoView;
+
+    tick(350);
+    fixture.detectChanges();
+
+    expect(scrollIntoView).toHaveBeenCalledOnceWith({ behavior: 'smooth', block: 'center' });
+  }));
+
+  it('replaces a pending highlight scroll when a newer item is highlighted', fakeAsync(() => {
+    supplylistTable.highlightedItemId.set('first-item');
+    supplylistTable.highlightedSupplyItem.set(supplyListItem({ _id: 'first-item' }));
+    fixture.detectChanges();
+
+    tick(100);
+    supplylistTable.highlightedItemId.set('second-item');
+    supplylistTable.highlightedSupplyItem.set(supplyListItem({ _id: 'second-item' }));
+    fixture.detectChanges();
+
+    const row = fixture.nativeElement.querySelector('#supply-item-second-item') as HTMLElement;
+    const scrollIntoView = jasmine.createSpy('scrollIntoView');
+    row.scrollIntoView = scrollIntoView;
+    tick(350);
+
+    expect(scrollIntoView).toHaveBeenCalledOnceWith({ behavior: 'smooth', block: 'center' });
+  }));
+
+  it('continues filtering after a supply-list request fails', fakeAsync(() => {
+    const recovered = supplyListItem({ _id: 'recovered-item', school: 'Recovered School' });
+    spyOn(supplylistService, 'getSupplyList').and.callFake(filters =>
+      filters?.school === 'Unavailable School'
+        ? throwError(() => ({ status: 500, message: 'Server error' }))
+        : of([recovered]));
+
+    supplylistTable.school.set('Unavailable School');
+    fixture.detectChanges();
+    tick(300);
+    expect(supplylistTable.serverFilteredSupplyList()).toEqual([]);
+    expect(supplylistTable.errMsg()).toContain('Problem contacting the server');
+
+    supplylistTable.school.set('Recovered School');
+    fixture.detectChanges();
+    tick(300);
+    expect(supplylistTable.serverFilteredSupplyList()).toEqual([recovered]);
+    expect(supplylistTable.errMsg()).toBeUndefined();
+  }));
 
   it('should initialize with serverFilteredTable available', () => {
     const SupplyList = supplylistTable.serverFilteredSupplyList();
@@ -440,6 +555,35 @@ describe('SupplyList Table', () => {
   // ── confirmDelete() tests ──────────────────────────────────────────────────
 
   describe('confirmDelete()', () => {
+    it('removes a highlighted item after a successful delete', fakeAsync(() => {
+      const highlighted = supplyListItem({ _id: 'new-item' });
+      supplylistTable.highlightedItemId.set('new-item');
+      supplylistTable.highlightedSupplyItem.set(highlighted);
+      spyOn(supplylistService, 'deleteSupplyList').and.returnValue(of(undefined));
+
+      supplylistTable.confirmDelete('new-item');
+      tick(300);
+
+      expect(supplylistTable.highlightedItemId()).toBeUndefined();
+      expect(supplylistTable.visibleSupplyList()).not.toContain(highlighted);
+    }));
+
+    it('removes a stale highlighted item when the server says it is already gone', fakeAsync(() => {
+      const highlighted = supplyListItem({ _id: 'already-gone' });
+      supplylistTable.highlightedItemId.set('already-gone');
+      supplylistTable.highlightedSupplyItem.set(highlighted);
+      spyOn(supplylistService, 'deleteSupplyList').and.returnValue(
+        new Observable(o => o.error({ status: 404, message: 'Not Found' }))
+      );
+
+      supplylistTable.confirmDelete('already-gone');
+      tick(300);
+
+      expect(supplylistTable.highlightedItemId()).toBeUndefined();
+      expect(supplylistTable.visibleSupplyList()).not.toContain(highlighted);
+      expect(supplylistTable.errMsg()).toBeUndefined();
+    }));
+
     it('calls deleteSupplyList() and removes the item from dataSource on success', fakeAsync(() => {
       const itemWithId: SupplyList = {
         _id: 'delete-me',
@@ -727,6 +871,41 @@ describe('SupplyList Table', () => {
       expect(supplylistTable.errMsg()).toContain('Problem saving item – Error Code: 422');
     }));
   });
+});
+
+describe('SupplyList initial highlight rendering', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [SupplyListComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: SupplyListService, useClass: MockSupplyListService },
+        { provide: AuthService, useValue: { hasPermission: () => true } },
+        { provide: DialogService, useValue: jasmine.createSpyObj('DialogService', ['openDialog']) },
+        provideRouter([])
+      ]
+    });
+  });
+
+  it('waits for the full list before displaying a highlighted item', fakeAsync(() => {
+    let fixture: ComponentFixture<SupplyListComponent>;
+    TestBed.compileComponents().then(() => {
+      fixture = TestBed.createComponent(SupplyListComponent);
+      fixture.detectChanges();
+    });
+    flushMicrotasks();
+    const component = fixture!.componentInstance;
+    const highlighted = supplyListItem({ _id: 'new-item' });
+    component.highlightedItemId.set('new-item');
+    component.highlightedSupplyItem.set(highlighted);
+
+    expect(component.visibleSupplyList()).toEqual([]);
+
+    tick(300);
+    fixture!.detectChanges();
+    expect(component.visibleSupplyList()).toContain(highlighted);
+  }));
 });
 
 describe('Misbehaving SupplyList Table', () => {

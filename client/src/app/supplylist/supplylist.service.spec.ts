@@ -317,6 +317,19 @@ describe('SupplyListService', () => {
     });
   });
 
+  describe('When getSupplyListById() is called', () => {
+    it('gets the highlighted supply item from its id route', () => {
+      let returned: SupplyList | undefined;
+      supplylistService.getSupplyListById('highlighted-id').subscribe(item => returned = item);
+
+      const req = httpTestingController.expectOne(`${supplylistService.supplylistUrl}/highlighted-id`);
+      expect(req.request.method).toEqual('GET');
+      req.flush({ ...testSupplyList[0], _id: 'highlighted-id' });
+
+      expect(returned?._id).toBe('highlighted-id');
+    });
+  });
+
   describe('When addSupplyList() is called', () => {
 
     it('calls POST on the correct URL with the new item body', () => {
@@ -349,11 +362,14 @@ describe('SupplyListService', () => {
         size: { exactly: 'Regular', anyOf: [] }, type: { exactly: 'Stick', anyOf: [] },
         material: { exactly: '', anyOf: ['N/A'] }, packageSize: 1, quantity: 3, notes: '' };
 
-      supplylistService.addSupplyList(newItem).subscribe();
+      let returned: SupplyList | undefined;
+      supplylistService.addSupplyList(newItem).subscribe(item => returned = item);
 
       const req = httpTestingController.expectOne(supplylistService.supplylistUrl);
-      req.flush({ id: 'returned-id' });
+      const created = { ...testSupplyList[0], ...newItem, _id: 'returned-id' } as SupplyList;
+      req.flush(created);
       expect(req.request.method).toEqual('POST');
+      expect(returned?._id).toBe('returned-id');
     });
   });
 

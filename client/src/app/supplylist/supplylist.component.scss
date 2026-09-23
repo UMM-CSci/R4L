@@ -31,6 +31,21 @@ th.mat-sort-header-sorted {
   margin-bottom: var(--app-space-sm);
 }
 
+.school-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--app-space-md);
+  flex-wrap: wrap;
+}
+
+.grade-workspace-row,
+.grade-add-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.75rem;
+}
+
 .filter {
   display: flex;
   flex-direction: column;
@@ -72,6 +87,25 @@ th.mat-sort-header-sorted {
   margin-bottom: 1rem;
 }
 
+.mode-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--app-space-sm);
+  margin-bottom: var(--app-space-md);
+
+  .active-mode {
+    border-color: var(--app-primary-color);
+    background: var(--app-surface-muted);
+    color: var(--app-primary-color);
+  }
+
+  .mode-description {
+    color: var(--app-text-muted);
+    font-size: 0.9rem;
+  }
+}
+
 .filters-description {
   font-size: 0.9rem;
 }
@@ -94,10 +128,6 @@ th.mat-sort-header-sorted {
 
 .grade-panel {
   margin: 0.25rem 0 0.25rem 1rem;
-}
-
-.grade-add-row {
-  margin-bottom: 0.75rem;
 }
 
 .teacher-group {
@@ -148,9 +178,40 @@ th.mat-sort-header-sorted {
   }
 }
 
+.item-row.newly-added {
+  border-color: var(--app-primary-color);
+  background: var(--app-surface-muted);
+  animation: newly-added-pulse 1.4s ease-in-out 2;
+}
+
+@keyframes newly-added-pulse {
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--app-primary-color) 20%, transparent);
+  }
+}
+
+.add-supplylist-fab {
+  position: fixed;
+  right: max(1.5rem, env(safe-area-inset-right));
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  z-index: 20;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item-row.newly-added {
+    animation: none;
+  }
+}
+
 .item-label {
   flex: 1;
   font-size: 0.95rem;
+}
+
+.highlight-filter-note {
+  color: var(--app-primary-color);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
 .item-actions {
@@ -201,6 +262,15 @@ th.mat-sort-header-sorted {
 
   .filter-extra button,
   .advanced-filter-toggle {
+    width: 100%;
+  }
+
+  .mode-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mode-toolbar button {
     width: 100%;
   }
 

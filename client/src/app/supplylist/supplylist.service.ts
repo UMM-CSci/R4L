@@ -86,12 +86,16 @@ export class SupplyListService {
     return this.httpClient.get<SupplyList[]>(this.supplylistUrl, { params: httpParams });
   }
 
+  getSupplyListById(id: string): Observable<SupplyList> {
+    return this.httpClient.get<SupplyList>(`${this.supplylistUrl}/${id}`);
+  }
+
   deleteSupplyList(id: string): Observable<unknown> {
     return this.httpClient.delete<void>(`${this.supplylistUrl}/${id}`);
   }
 
-  addSupplyList(newItem: Partial<SupplyList>): Observable<void> {
-    return this.httpClient.post<void>(this.supplylistUrl, newItem);
+  addSupplyList(newItem: Partial<SupplyList>): Observable<SupplyList> {
+    return this.httpClient.post<SupplyList>(this.supplylistUrl, newItem);
   }
 
   editSupplyList(id: string, updatedItem: Partial<SupplyList>): Observable<void> {

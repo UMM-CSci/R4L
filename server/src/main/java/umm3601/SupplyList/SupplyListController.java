@@ -347,6 +347,7 @@ public class SupplyListController {
       newSupplyList.preferredInventoryIds,
       newSupplyList.invIDs);
     supplyListCollection.insertOne(newSupplyList);
+    ctx.json(newSupplyList);
     ctx.status(HttpStatus.CREATED);
   }
 

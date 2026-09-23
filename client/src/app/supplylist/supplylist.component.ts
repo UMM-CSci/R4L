@@ -1,5 +1,6 @@
 // Angular Imports
-import { Component, computed, effect, inject, signal, viewChild, ChangeDetectionStrategy } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, computed, DestroyRef, effect, inject, signal, viewChild, ChangeDetectionStrategy, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -19,11 +20,11 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DialogService } from '../shared/dialog/dialog.service';
 
 // RxJS Imports
-import { catchError, combineLatest, debounceTime, of, switchMap } from 'rxjs';
+import { catchError, combineLatest, debounceTime, map, of, switchMap } from 'rxjs';
 
 // Supply List Imports
 import { SupplyList, AttributeOptions } from './supplylist';
@@ -35,6 +36,9 @@ import {
 
 // Auth
 import { AuthService } from '../auth/auth-service';
+
+// Component for managing the supply list modes, such as viewing, editing, and linking inventory items.
+type SupplyListMode = 'view' | 'edit' | 'link';
 
 @Component({
   selector: 'app-supplylist-component',
@@ -88,6 +92,14 @@ export class SupplyListComponent {
   private dialogService = inject(DialogService);
   private supplylistService = inject(SupplyListService);
   private authService = inject(AuthService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private document = inject(DOCUMENT);
+  private destroyRef = inject(DestroyRef);
+  private hasScrolledToHighlight = false;
+  private highlightScrollTimer: ReturnType<typeof setTimeout> | undefined;
+  private scheduledHighlightId: string | undefined;
+  readonly isWorkspacePage = this.route.snapshot.data['workspace'] === true;
 
   get canAddSupplyList(): boolean {
     return this.authService.hasPermission('add_supply_list');
@@ -101,6 +113,10 @@ export class SupplyListComponent {
     return this.authService.hasPermission('delete_supply_list');
   }
 
+  get canUseEditMode(): boolean {
+    return this.canAddSupplyList || this.canEditSupplyList || this.canDeleteSupplyList;
+  }
+
   get noLinkedInventoryItems() {
     return (supply: SupplyList) => {
       return !supply.invIDs || supply.invIDs.length === 0;
@@ -108,37 +124,78 @@ export class SupplyListComponent {
   }
 
   constructor() {
+    this.destroyRef.onDestroy(() => this.cancelHighlightScroll());
     // Keep the Material data source in sync with the signal-backed server data.
     effect(() => {
-      this.dataSource.data = this.serverFilteredSupplyList();
+      this.dataSource.data = this.visibleSupplyList();
     });
-    // Reset grade when school changes so the grade dropdown stays valid.
     effect(() => {
-      this.school();
-      this.grade.set(undefined);
+      const highlightedId = this.highlightedItemId();
+      const itemExists = this.visibleSupplyList().some(item => item._id === highlightedId);
+      if (!highlightedId || !itemExists || this.hasScrolledToHighlight) return;
+
+      // Initial expansion events are not reliable during route navigation. Wait for the
+      // list, panel animation, and router scroll position to settle, then find the row.
+      this.scheduleHighlightScroll(highlightedId);
+    });
+
+    this.route.queryParamMap.subscribe(params => {
+      const routeSchool = params.get('school')?.trim() || undefined;
+      const routeGrade = params.get('grade')?.trim() || undefined;
+      const routeHighlight = params.get('highlight')?.trim() || undefined;
+      const routeMode = this.allowedMode(params.get('mode'));
+
+      if (this.school() !== routeSchool) this.school.set(routeSchool);
+      if (this.grade() !== routeGrade) this.grade.set(routeGrade);
+      this.syncTextFilter(this.item, params.get('item'));
+      this.syncTextFilter(this.brand, params.get('brand'));
+      this.syncTextFilter(this.color, params.get('color'));
+      this.syncTextFilter(this.size, params.get('size'));
+      this.syncTextFilter(this.type, params.get('type'));
+      this.syncTextFilter(this.material, params.get('material'));
+      const routeQuantity = Number(params.get('quantity')) || undefined;
+      if (this.quantity() !== routeQuantity) this.quantity.set(routeQuantity);
+      if (this.mode() !== routeMode) this.mode.set(routeMode);
+      if (this.highlightedItemId() !== routeHighlight) {
+        this.highlightedItemId.set(routeHighlight);
+        this.hasScrolledToHighlight = false;
+      }
+
+      if (routeHighlight) {
+        this.supplylistService.getSupplyListById(routeHighlight).pipe(
+          catchError(() => of(undefined))
+        ).subscribe(item => this.highlightedSupplyItem.set(item));
+      } else {
+        this.highlightedSupplyItem.set(undefined);
+      }
     });
   }
 
   // Signals hold the current filter state; toObservable bridges them into the
   // debounced server request below.
-  school = signal<string | undefined>(undefined);
-  grade = signal<string | undefined>(undefined);
-  item = signal<string | undefined>(undefined);
-  brand = signal<string | undefined>(undefined);
-  color = signal<string | undefined>(undefined);
-  size = signal<string | undefined>(undefined);
-  type = signal<string | undefined>(undefined);
-  material = signal<string | undefined>(undefined);
-  quantity = signal<number | undefined>(undefined);
+  school = signal<string | undefined>(this.route.snapshot.queryParamMap.get('school')?.trim() || undefined);
+  grade = signal<string | undefined>(this.route.snapshot.queryParamMap.get('grade')?.trim() || undefined);
+  mode = signal<SupplyListMode>(this.allowedMode(this.route.snapshot.queryParamMap.get('mode')));
+  highlightedItemId = signal<string | undefined>(
+    this.route.snapshot.queryParamMap.get('highlight')?.trim() || undefined
+  );
+  highlightedSupplyItem = signal<SupplyList | undefined>(undefined);
+  private removedItemIds = signal<ReadonlySet<string>>(new Set());
+  item = signal<string | undefined>(this.route.snapshot.queryParamMap.get('item')?.trim() || undefined);
+  brand = signal<string | undefined>(this.route.snapshot.queryParamMap.get('brand')?.trim() || undefined);
+  color = signal<string | undefined>(this.route.snapshot.queryParamMap.get('color')?.trim() || undefined);
+  size = signal<string | undefined>(this.route.snapshot.queryParamMap.get('size')?.trim() || undefined);
+  type = signal<string | undefined>(this.route.snapshot.queryParamMap.get('type')?.trim() || undefined);
+  material = signal<string | undefined>(this.route.snapshot.queryParamMap.get('material')?.trim() || undefined);
+  quantity = signal<number | undefined>(Number(this.route.snapshot.queryParamMap.get('quantity')) || undefined);
 
   errMsg = signal<string | undefined>(undefined);
 
-  // Unique sorted grades derived from the currently visible grouped list
-  availableGrades = computed(() =>
-    [...new Set(
-      this.groupedSupplyList().flatMap(sg => sg.grades.map(g => g.grade))
-    )].sort((a, b) => a.localeCompare(b))
-  );
+  modeDescription = computed(() => {
+    if (this.mode() === 'edit') return 'Add, update, or remove supply requests.';
+    if (this.mode() === 'link') return 'Review and change inventory links without opening edit fields.';
+    return 'Read the supply list without editing controls.';
+  });
 
   // Incrementing this signal forces a re-fetch from the server (e.g. after a delete).
   private refreshTrigger = signal(0);
@@ -159,7 +216,7 @@ export class SupplyListComponent {
    * Combines filter signals into one debounced request stream. Filtering on the
    * server keeps the grouped view responsive even as the supply list grows.
    */
-  serverFilteredSupplyList = toSignal(
+  private serverFilteredSupplyListState = toSignal(
     combineLatest([
       this.school$,
       this.grade$,
@@ -175,23 +232,34 @@ export class SupplyListComponent {
       debounceTime(300),
       switchMap(([ school, grade, item, brand, color, size, type, material, quantity]) => {
         const filters = { school, grade, item, brand, color, size, type, material, ...(quantity === undefined ? {} : { quantity }) };
-        return this.supplylistService.getSupplyList(filters);
-      }),
-      catchError((err) => {
-        const msg = `Problem contacting the server - Error Code: ${err.status}\nMessage: ${err.message}`;
-        this.errMsg.set(msg);
-        this.snackBar.open(msg, 'OK', { duration: 6000 });
-        return of<SupplyList[]>([]);
+        return this.supplylistService.getSupplyList(filters).pipe(
+          map(items => {
+            this.errMsg.set(undefined);
+            return { loaded: true, items };
+          }),
+          catchError((err) => {
+            const msg = `Problem contacting the server - Error Code: ${err.status}\nMessage: ${err.message}`;
+            this.errMsg.set(msg);
+            this.snackBar.open(msg, 'OK', { duration: 6000 });
+            return of({ loaded: true, items: [] as SupplyList[] });
+          })
+        );
       })
     ),
-    { initialValue: [] }
+    { initialValue: { loaded: false, items: [] as SupplyList[] } }
   );
 
-  supplyList = toSignal <SupplyList[]>(
-    this.supplylistService.getSupplyList().pipe(
-      catchError(() => of([]))
-    )
-  );
+  serverFilteredSupplyList = computed(() => this.serverFilteredSupplyListState().items);
+
+  visibleSupplyList = computed(() => {
+    if (!this.serverFilteredSupplyListState().loaded) return [];
+    const filtered = this.serverFilteredSupplyList().filter(item => !item._id || !this.removedItemIds().has(item._id));
+    const highlighted = this.highlightedSupplyItem();
+    if (!highlighted || highlighted._id !== this.highlightedItemId()
+      || this.removedItemIds().has(highlighted._id)
+      || filtered.some(item => item._id === highlighted._id)) return filtered;
+    return [...filtered, highlighted];
+  });
 
   groupedSupplyList = computed(() => {
     // Group by school -> grade -> teacher to match how staff distribute supply lists.
@@ -206,7 +274,7 @@ export class SupplyListComponent {
       return map.get(key)!;
     };
 
-    for (const supply of this.serverFilteredSupplyList()) {
+    for (const supply of this.visibleSupplyList()) {
       const school = supply.school || 'Unknown School';
       const grade = supply.grade || 'Unknown Grade';
       const teacher = supply.teacher || 'N/A';
@@ -244,6 +312,139 @@ export class SupplyListComponent {
 
   parseStringArray(value: string): string[] {
     return value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+  }
+
+  setMode(mode: SupplyListMode): void {
+    const allowed = this.allowedMode(mode);
+    this.mode.set(allowed);
+    if (allowed !== 'edit') this.cancelEdit();
+    this.updateWorkspaceQuery({ mode: allowed, highlight: null });
+  }
+
+  setSchoolFilter(value: string | null | undefined): void {
+    const school = value?.trim() || undefined;
+    this.school.set(school);
+    this.grade.set(undefined);
+    this.updateWorkspaceQuery({ school: school ?? null, grade: null, highlight: null });
+  }
+
+  setGradeFilter(value: string | null | undefined): void {
+    const grade = value?.trim() || undefined;
+    this.grade.set(grade);
+    this.updateWorkspaceQuery({ grade: grade ?? null, highlight: null });
+  }
+
+  workspaceQueryParams(school: string, grade?: string): Record<string, string> {
+    return {
+      school,
+      ...(grade ? { grade } : {}),
+      mode: this.mode(),
+      returnUrl: this.router.url
+    };
+  }
+
+  leaveWorkspace(): void {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    const isSafeSupplyListUrl = returnUrl === '/supplylist' || returnUrl?.startsWith('/supplylist?');
+    void (isSafeSupplyListUrl
+      ? this.router.navigateByUrl(returnUrl)
+      : this.router.navigate(['/supplylist']));
+  }
+
+  workspaceTitle(): string {
+    const school = this.school() || 'Supply List';
+    return this.grade() ? `${school} · ${this.grade()}` : school;
+  }
+
+  setAdvancedFilter(
+    field: 'item' | 'brand' | 'color' | 'size' | 'type' | 'material',
+    value: string | null | undefined
+  ): void {
+    const normalized = value?.trim() || undefined;
+    this[field].set(normalized);
+    this.updateWorkspaceQuery({ [field]: normalized ?? null, highlight: null });
+  }
+
+  isWorkspaceGrade(school: string, grade: string): boolean {
+    return this.school()?.toLowerCase() === school.toLowerCase()
+      && this.grade()?.toLowerCase() === grade.toLowerCase();
+  }
+
+  gradeItemCount(teachers: { items: SupplyList[] }[]): number {
+    return teachers.reduce((count, teacher) => count + teacher.items.length, 0);
+  }
+
+  containsHighlightedItem(teachers: { items: SupplyList[] }[]): boolean {
+    const highlightedId = this.highlightedItemId();
+    return !!highlightedId && teachers.some(teacher => teacher.items.some(item => item._id === highlightedId));
+  }
+
+  onGradeExpanded(teachers: { items: SupplyList[] }[]): void {
+    this.scrollToHighlightedItem(teachers);
+  }
+
+  scrollToHighlightedItem(teachers: { items: SupplyList[] }[]): void {
+    const highlightedId = this.highlightedItemId();
+    if (!highlightedId || this.hasScrolledToHighlight || !this.containsHighlightedItem(teachers)) return;
+
+    this.performHighlightScroll(highlightedId);
+  }
+
+  private scheduleHighlightScroll(highlightedId: string, attemptsRemaining = 5): void {
+    if (this.hasScrolledToHighlight) return;
+    if (this.highlightScrollTimer) {
+      if (this.scheduledHighlightId === highlightedId) return;
+      clearTimeout(this.highlightScrollTimer);
+    }
+    this.scheduledHighlightId = highlightedId;
+    this.highlightScrollTimer = setTimeout(() => {
+      this.highlightScrollTimer = undefined;
+      this.scheduledHighlightId = undefined;
+      if (this.highlightedItemId() !== highlightedId || this.hasScrolledToHighlight) return;
+      if (!this.performHighlightScroll(highlightedId) && attemptsRemaining > 1) {
+        this.scheduleHighlightScroll(highlightedId, attemptsRemaining - 1);
+      }
+    }, 350);
+  }
+
+  private cancelHighlightScroll(): void {
+    if (this.highlightScrollTimer) clearTimeout(this.highlightScrollTimer);
+    this.highlightScrollTimer = undefined;
+    this.scheduledHighlightId = undefined;
+  }
+
+  private performHighlightScroll(highlightedId: string): boolean {
+    const row = this.document.getElementById(`supply-item-${highlightedId}`);
+    if (!row) return false;
+    row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.hasScrolledToHighlight = true;
+    return true;
+  }
+
+  isOutsideActiveFilters(id: string | undefined): boolean {
+    return !!id && this.highlightedItemId() === id
+      && !this.serverFilteredSupplyList().some(item => item._id === id);
+  }
+
+  addItemQueryParams(school = this.school(), grade = this.grade()): Record<string, string> {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')?.trim();
+    return {
+      ...(school ? { school } : {}),
+      ...(grade ? { grade } : {}),
+      ...(this.item() ? { item: this.item()! } : {}),
+      ...(this.brand() ? { brand: this.brand()! } : {}),
+      ...(this.color() ? { color: this.color()! } : {}),
+      ...(this.size() ? { size: this.size()! } : {}),
+      ...(this.type() ? { type: this.type()! } : {}),
+      ...(this.material() ? { material: this.material()! } : {}),
+      ...(this.quantity() !== undefined ? { quantity: String(this.quantity()) } : {}),
+      ...(!this.isWorkspacePage && this.school() ? { returnSchool: this.school()! } : {}),
+      ...(!this.isWorkspacePage && this.grade() ? { returnGrade: this.grade()! } : {}),
+      ...(this.isWorkspacePage ? { returnTo: 'workspace' } : {}),
+      ...(this.isWorkspacePage ? { workspaceScope: this.grade() ? 'grade' : 'school' } : {}),
+      ...(this.isWorkspacePage && returnUrl ? { returnUrl } : {}),
+      mode: 'edit'
+    };
   }
 
   linkedInventorySummary(invIDs?: string[]): string {
@@ -314,10 +515,15 @@ export class SupplyListComponent {
       if (!confirmed) return;
       this.supplylistService.deleteSupplyList(id).subscribe({
         next: () => {
-          // Trigger a re-fetch so groupedSupplyList (which reads serverFilteredSupplyList) updates.
-          this.refreshTrigger.update(n => n + 1);
+          this.removeDeletedItemFromView(id);
         },
         error: (err) => {
+          if (err.status === 404) {
+            // The row was already removed elsewhere, but may still be visible in this page's cached results.
+            this.removeDeletedItemFromView(id);
+            this.snackBar.open('Item was already removed', undefined, { duration: 3000 });
+            return;
+          }
           this.errMsg.set(`Problem deleting item – Error Code: ${err.status}\nMessage: ${err.message}`);
           this.snackBar.open(this.errMsg() ?? '', 'OK', { duration: 6000 });
         }
@@ -378,10 +584,53 @@ export class SupplyListComponent {
     this.size.set(undefined);
     this.type.set(undefined);
     this.material.set(undefined);
-    this.school.set(undefined);
-    this.grade.set(undefined);
+    if (!this.isWorkspacePage) {
+      this.school.set(undefined);
+      this.grade.set(undefined);
+    }
     this.quantity.set(undefined);
     this.advancedFiltersExpanded.set(false);
+    this.updateWorkspaceQuery({
+      ...(!this.isWorkspacePage ? { school: null, grade: null } : {}),
+      item: null,
+      brand: null,
+      color: null,
+      size: null,
+      type: null,
+      material: null,
+      quantity: null,
+      highlight: null
+    });
+  }
+
+  private removeDeletedItemFromView(id: string): void {
+    this.removedItemIds.update(ids => new Set([...ids, id]));
+    if (this.highlightedItemId() === id) {
+      this.highlightedItemId.set(undefined);
+      this.highlightedSupplyItem.set(undefined);
+      this.updateWorkspaceQuery({ highlight: null });
+    }
+    this.refreshTrigger.update(n => n + 1);
+  }
+
+  private allowedMode(mode: string | null): SupplyListMode {
+    if (mode === 'edit' && this.canUseEditMode) return 'edit';
+    if (mode === 'link' && this.canEditSupplyList) return 'link';
+    return 'view';
+  }
+
+  private updateWorkspaceQuery(queryParams: Record<string, string | null>): void {
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
+  }
+
+  private syncTextFilter(target: WritableSignal<string | undefined>, value: string | null): void {
+    const normalized = value?.trim() || undefined;
+    if (target() !== normalized) target.set(normalized);
   }
 
   private inventoryFiltersFromSupply(supply: SupplyList): SupplyListInventoryLinkFilters {

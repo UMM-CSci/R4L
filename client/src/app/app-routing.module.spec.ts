@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, supplyListWorkspaceScopeGuard } from './app-routing.module';
 import { AuthGuard } from './auth/auth.guard';
 import { RoleGuard } from './auth/role.guard';
 
@@ -31,6 +31,7 @@ describe('AppRoutingModule', () => {
     expect(routeSummary).toContain({ path: 'pdf-generator', title: 'PDF Generator' });
     expect(routeSummary).toContain({ path: 'settings', title: 'Settings' });
     expect(routeSummary).toContain({ path: 'supplylist', title: 'Supply List' });
+    expect(routeSummary).toContain({ path: 'supplylist/workspace', title: 'Supply List Workspace' });
     expect(routeSummary).toContain({ path: 'supplylist/new', title: 'Add Supply List Item' });
     expect(routeSummary).toContain({ path: 'point-of-sale', title: 'Point Of Sale' });
     expect(routeSummary).toContain({ path: 'style-guide', title: 'Frontend Style Template' });
@@ -80,5 +81,20 @@ describe('AppRoutingModule', () => {
 
     expect(supplyRoutes.length).toBe(1);
     expect(supplyRoutes.every(route => route.title === 'Supply List')).toBeTrue();
+  });
+
+  // Test for the supply list workspace guard
+  it('requires a school when opening a supply-list workspace', () => {
+    const workspaceRoute = router.config.find(route => route.path === 'supplylist/workspace');
+    expect(workspaceRoute?.canActivate).toEqual([AuthGuard, RoleGuard, supplyListWorkspaceScopeGuard]);
+
+    const routeWithoutSchool = {
+      queryParamMap: { get: () => null }
+    } as unknown as ActivatedRouteSnapshot;
+    const result = TestBed.runInInjectionContext(() =>
+      supplyListWorkspaceScopeGuard(routeWithoutSchool, {} as RouterStateSnapshot));
+
+    expect(result instanceof UrlTree).toBeTrue();
+    expect(router.serializeUrl(result as UrlTree)).toBe('/supplylist');
   });
 });

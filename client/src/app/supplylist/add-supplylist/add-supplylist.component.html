@@ -64,6 +64,7 @@
             <mat-form-field>
               <mat-label>Brand</mat-label>
               <input matInput type="text" formControlName="brand"
+                     placeholder="One required value, or alternatives separated by |"
                      data-cy="brand-input"
                      [matAutocomplete]="brandAuto">
               <mat-autocomplete #brandAuto="matAutocomplete">
@@ -74,6 +75,7 @@
             <mat-form-field>
               <mat-label>Color</mat-label>
               <input matInput type="text" formControlName="color"
+                     placeholder="One required value, or alternatives separated by |"
                      data-cy="color-input"
                      [matAutocomplete]="colorAuto">
               <mat-autocomplete #colorAuto="matAutocomplete">
@@ -85,6 +87,7 @@
             <mat-form-field>
               <mat-label>Size</mat-label>
               <input matInput type="text" formControlName="size"
+                     placeholder="One required value, or alternatives separated by |"
                      data-cy="size-input"
                      [matAutocomplete]="sizeAuto">
               <mat-autocomplete #sizeAuto="matAutocomplete">
@@ -95,6 +98,7 @@
             <mat-form-field>
               <mat-label>Type</mat-label>
               <input matInput type="text" formControlName="type"
+                     placeholder="One required value, or alternatives separated by |"
                      data-cy="type-input"
                      [matAutocomplete]="typeAuto">
               <mat-autocomplete #typeAuto="matAutocomplete">
@@ -106,6 +110,7 @@
             <mat-form-field>
               <mat-label>Material</mat-label>
               <input matInput type="text" formControlName="material"
+                     placeholder="One required value, or alternatives separated by |"
                      data-cy="material-input"
                      [matAutocomplete]="materialAuto">
               <mat-autocomplete #materialAuto="matAutocomplete">
@@ -153,7 +158,8 @@
         <mat-card-actions>
           <button mat-flat-button color="primary" type="submit" [disabled]="addSupplyListForm.invalid" data-cy="submit-add-supply">Add Item</button>
           <button mat-stroked-button color="warn" type="button" (click)="clearForm()" data-cy="clear-add-supply">Clear</button>
-          <button mat-stroked-button type="button" routerLink="/supplylist" data-cy="cancel-add-supply">Cancel</button>
+          <button mat-stroked-button type="button" [routerLink]="returnPath" [queryParams]="returnQueryParams"
+            data-cy="cancel-add-supply">Cancel</button>
         </mat-card-actions>
 
       </mat-card>
@@ -161,13 +167,18 @@
   </div>
 
   <!-- ── Preview column (right side) ───────────────────────────────── -->
-  <div class="preview-col" *ngIf="showPreview">
+  <div class="preview-col" *ngIf="previewVisible">
     <mat-card class="preview-card" data-cy="add-supply-preview">
       <mat-card-header>
-        <mat-card-title>Preview</mat-card-title>
-        <mat-card-subtitle>This is what will be added. Adjust the fields above if needed.</mat-card-subtitle>
+        <mat-card-title>Description Preview</mat-card-title>
+        <mat-card-subtitle>This is what staff will read. Adjust the fields if it does not look right.</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
+        <p class="generated-description" data-cy="generated-description">{{ generatedDescription }}</p>
+        <p class="attribute-help app-text-muted">
+          A single value means <strong>Must be</strong>. Separate alternatives with <strong>|</strong> to mean
+          <strong>Any of</strong>. Leave a field empty for <strong>No preference</strong>.
+        </p>
         <table class="preview-table">
           <tbody>
             <tr *ngIf="previewValues.school"><th>School</th><td>{{ previewValues.school }}</td></tr>
