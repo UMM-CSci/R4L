@@ -6,9 +6,17 @@
           {{ isWorkspacePage ? workspaceTitle() : 'Supply List' }}
         </mat-card-title>
         @if (isWorkspacePage) {
-        <button type="button" mat-stroked-button (click)="leaveWorkspace()" data-cy="leave-workspace">
-          <mat-icon>arrow_back</mat-icon> Leave Workspace
-        </button>
+        <div class="workspace-navigation">
+          @if (hasSchoolWorkspaceParent()) {
+          <button type="button" mat-stroked-button (click)="backToSchoolWorkspace()"
+            data-cy="back-to-school-workspace">
+            <mat-icon>arrow_back</mat-icon> Back to School Workspace
+          </button>
+          }
+          <button type="button" mat-stroked-button (click)="leaveWorkspace()" data-cy="leave-workspace">
+            <mat-icon>exit_to_app</mat-icon> Leave Workspace
+          </button>
+        </div>
         } @else {
         <button type="button"
           class="app-corner-icon-button"
@@ -145,6 +153,15 @@
   </div>
 </div>
 
+@if (isWorkspacePage && school() && grade() && canAddSupplyList && mode() === 'edit') {
+<div class="app-page-shell grade-bulk-entry-shell">
+  <app-supply-list-bulk-entry
+    [school]="school()!"
+    [grade]="grade()!"
+    (listChanged)="onBulkListChanged($event)" />
+</div>
+}
+
 <!--Supply List Display-->
 <div class="app-page-shell">
   <mat-card class="search-grid app-page-stack" data-cy="supplylist-card">
@@ -170,10 +187,12 @@
             <mat-panel-description>{{ gradeItemCount(gradeGroup.teachers) }} item(s)</mat-panel-description>
           </mat-expansion-panel-header>
 
-          @if (!isWorkspacePage) {
+          @if (!isWorkspacePage || (isWorkspacePage && !grade())) {
           <div class="grade-workspace-row">
             <button type="button" mat-stroked-button [routerLink]="['/supplylist/workspace']"
-              [queryParams]="workspaceQueryParams(schoolGroup.school, gradeGroup.grade)"
+              [queryParams]="isWorkspacePage
+                ? gradeWorkspaceQueryParams(schoolGroup.school, gradeGroup.grade)
+                : workspaceQueryParams(schoolGroup.school, gradeGroup.grade)"
               data-cy="open-grade-workspace">
               <mat-icon>open_in_new</mat-icon> Open Grade Workspace
             </button>

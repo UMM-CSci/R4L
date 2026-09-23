@@ -1,0 +1,108 @@
+<mat-card class="bulk-entry-card" data-cy="grade-bulk-entry">
+  <mat-card-header>
+    <mat-card-title>Add a Grade List</mat-card-title>
+    <mat-card-subtitle>One request per line for {{ school }} · {{ grade }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p class="bulk-help">
+      Paste or type the list below. Preview the results, correct any fields, then add the requests or replace this
+      grade's current list.
+    </p>
+    <mat-form-field appearance="outline" class="bulk-textarea">
+      <mat-label>Supply requests</mat-label>
+      <textarea matInput rows="6" [(ngModel)]="text"
+        placeholder="2 large glue sticks&#10;1 pack of 50 count construction paper"
+        data-cy="bulk-entry-text"></textarea>
+      <mat-hint>Blank lines are ignored.</mat-hint>
+    </mat-form-field>
+    <div class="preview-actions">
+      <button type="button" mat-stroked-button color="primary" (click)="previewLines()"
+        [disabled]="!text.trim() || saving || !termsReady" data-cy="preview-bulk-items">
+        <mat-icon>preview</mat-icon> {{ termsLoading ? 'Loading Terms…' : 'Preview Items' }}
+      </button>
+      @if (termsLoadFailed) {
+        <button type="button" mat-stroked-button (click)="loadTerms()" data-cy="retry-terms">
+          <mat-icon>refresh</mat-icon> Retry Terms
+        </button>
+      }
+    </div>
+
+    @if (drafts.length) {
+      <div class="bulk-preview-heading">
+        <h3>Review {{ drafts.length }} item(s)</h3>
+        <p>Every item needs an item name, quantity, and count before it can be saved.</p>
+      </div>
+
+      <div class="bulk-preview-list">
+        @for (draft of drafts; track $index) {
+          <section class="bulk-preview-item" [class.invalid-draft]="!draft.item.trim()" data-cy="bulk-preview-item">
+            <div class="draft-heading">
+              <div>
+                <span class="source-line">{{ draft.source }}</span>
+                <strong>{{ description(draft) }}</strong>
+              </div>
+              <button type="button" mat-icon-button aria-label="Remove item" (click)="removeDraft($index)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+
+            @if (!draft.item.trim()) {
+              <p class="item-required">Choose an item name before saving.</p>
+            }
+
+            <div class="draft-fields">
+              <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="draft.quantity" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Count</mat-label>
+                <input matInput type="number" min="1" [(ngModel)]="draft.packageSize" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="wide-field">
+                <mat-label>Item</mat-label>
+                <input matInput [(ngModel)]="draft.item" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Brand</mat-label>
+                <input matInput [(ngModel)]="draft.brand" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Color</mat-label>
+                <input matInput [(ngModel)]="draft.color" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Size</mat-label>
+                <input matInput [(ngModel)]="draft.size" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <input matInput [(ngModel)]="draft.type" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Material</mat-label>
+                <input matInput [(ngModel)]="draft.material" />
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="wide-field">
+                <mat-label>Notes</mat-label>
+                <input matInput [(ngModel)]="draft.notes" />
+              </mat-form-field>
+            </div>
+          </section>
+        }
+      </div>
+
+      <div class="bulk-actions">
+        <button type="button" mat-flat-button color="primary" (click)="addAll()" [disabled]="!canSubmit"
+          data-cy="bulk-add-all">
+          <mat-icon>playlist_add</mat-icon> Add All to Existing List
+        </button>
+        <button type="button" mat-stroked-button color="warn" (click)="confirmReplace()" [disabled]="!canSubmit"
+          data-cy="bulk-replace-list">
+          <mat-icon>published_with_changes</mat-icon> Replace Existing Grade List
+        </button>
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

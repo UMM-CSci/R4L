@@ -87,6 +87,17 @@ th.mat-sort-header-sorted {
   margin-bottom: 1rem;
 }
 
+.workspace-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--app-space-sm);
+}
+
+.grade-bulk-entry-shell {
+  margin-top: var(--app-space-md);
+}
+
 .mode-toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -272,6 +283,14 @@ th.mat-sort-header-sorted {
 
   .mode-toolbar button {
     width: 100%;
+  }
+
+  .workspace-navigation {
+    width: 100%;
+  }
+
+  .workspace-navigation button {
+    flex: 1 1 auto;
   }
 
   .grade-panel,

@@ -156,7 +156,8 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-flat-button color="primary" type="submit" [disabled]="addSupplyListForm.invalid" data-cy="submit-add-supply">Add Item</button>
+          <button mat-flat-button color="primary" type="submit" [disabled]="addSupplyListForm.invalid"
+            data-cy="submit-add-supply">Add Item</button>
           <button mat-stroked-button color="warn" type="button" (click)="clearForm()" data-cy="clear-add-supply">Clear</button>
           <button mat-stroked-button type="button" [routerLink]="returnPath" [queryParams]="returnQueryParams"
             data-cy="cancel-add-supply">Cancel</button>

@@ -23,6 +23,12 @@ describe('DescriptionParserService', () => {
     expect(parsed).toEqual({ notes: [], quantity: '2', item: 'Glue Stick', brand: "Elmer's", size: 'Large' });
   });
 
+  it('recognizes a written leading quantity', () => {
+    const parsed = parser.parse('two glue sticks', terms);
+    expect(parsed.quantity).toBe('2');
+    expect(parsed.item).toBe('Glue Stick');
+  });
+
   it('uses a local or only for alternatives in that field', () => {
     const parsed = parser.parse('red or blue construction paper', terms);
     expect(parsed.color).toBe('Red | Blue');

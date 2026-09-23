@@ -24,6 +24,21 @@ import {
   SupplyListInventoryLinkFilters
 } from '../inventory-link-dialog/supply-list-inventory-link-dialog.component';
 
+type SupplyListInputValues = {
+  school?: string | null;
+  grade?: string | null;
+  item?: string | null;
+  brand?: string | null;
+  color?: string | null;
+  packageSize?: string | null;
+  size?: string | null;
+  type?: string | null;
+  material?: string | null;
+  quantity?: string | null;
+  notes?: string | null;
+  invIDs?: string[] | null;
+};
+
 @Component({
   selector: 'app-add-supplylist',
   templateUrl: './add-supplylist.component.html',
@@ -261,7 +276,10 @@ export class AddSupplyListComponent implements OnInit {
    * @returns A string representing the human-readable description of the supply list item.
   */
   get generatedDescription(): string {
-    const raw = this.addSupplyListForm.value;
+    return this.buildDescription(this.addSupplyListForm.value);
+  }
+
+  private buildDescription(raw: SupplyListInputValues): string {
     const quantity = Number(raw.quantity) || 1;
     const packageSize = Number(raw.packageSize) || 1;
     const item = this.firstFilterToken(raw.item) ?? '';
@@ -312,6 +330,9 @@ export class AddSupplyListComponent implements OnInit {
       ...(this.route.snapshot.queryParamMap.get('returnUrl')?.trim()
         ? { returnUrl: this.route.snapshot.queryParamMap.get('returnUrl')!.trim() }
         : {}),
+      ...(this.route.snapshot.queryParamMap.get('schoolWorkspaceReturnUrl')?.trim()
+        ? { schoolWorkspaceReturnUrl: this.route.snapshot.queryParamMap.get('schoolWorkspaceReturnUrl')!.trim() }
+        : {}),
       mode: this.returnMode
     };
   }
@@ -361,59 +382,12 @@ export class AddSupplyListComponent implements OnInit {
   }
 
   submitForm() {
-    const raw = this.addSupplyListForm.value;
-    // For AttributeOptions fields, '|' means anyOf; otherwise value is stored in exactly.
-    const toAttr = (val: string | null | undefined): AttributeOptions => {
-      if (!val || !val.trim()) {
-        return { exactly: '', anyOf: [] };
-      }
-      if (val.includes('|')) {
-        return { exactly: '', anyOf: val.split('|').map(s => s.trim()).filter(Boolean) };
-      }
-      return { exactly: val.split(',').map(s => s.trim()).filter(Boolean)[0] ?? '', anyOf: [] };
-    };
-
-    // Color keeps exactly/anyOf as string arrays.
-    const toColorAttr = (val: string | null | undefined): AttributeOptions => {
-      if (!val || !val.trim()) {
-        return { exactly: "", anyOf: [] };
-      }
-      if (val.includes('|')) {
-        return { exactly: "", anyOf: val.split('|').map(s => s.trim()).filter(Boolean) };
-      }
-      return { exactly: val.split(',').map(s => s.trim()).filter(Boolean)[0] ?? '', anyOf: [] };
-    };
-
-    const formData: Partial<SupplyList> = {
-      school: raw.school ?? undefined,
-      grade: raw.grade ?? undefined,
-      item: raw.item ? raw.item.split(',').map(s => s.trim()).filter(Boolean) : undefined,
-      brand: toAttr(raw.brand),
-      color: toColorAttr(raw.color),
-      size: toAttr(raw.size),
-      type: toAttr(raw.type),
-      material: toAttr(raw.material),
-      notes: raw.notes ?? undefined,
-      packageSize: raw.packageSize ? parseInt(raw.packageSize, 10) : 1,
-      quantity: raw.quantity ? parseInt(raw.quantity, 10) : 1,
-      invIDs: raw.invIDs && raw.invIDs.length > 0 ? this.normalizeInventoryIds(raw.invIDs) : undefined
-    };
+    const formData = this.createSupplyListPayload(this.addSupplyListForm.value);
 
     this.supplyListService.addSupplyList(formData).subscribe({
       next: (created) => {
         this.snackBar.open('Added supply list item', undefined, { duration: 2000 });
-        // Navigate back to the appropriate workspace or supply list view after adding the item.
-        const returnScope = this.returnToWorkspace
-          ? { school: this.workspaceSchool, ...(this.workspaceScope === 'grade' ? { grade: this.workspaceGrade } : {}) }
-          : {};
-        // Perform the navigation after constructing the return scope.
-        this.router.navigate([this.returnPath], {
-          queryParams: {
-            ...this.returnQueryParams,
-            ...returnScope,
-            highlight: created?._id || undefined
-          }
-        });
+        this.navigateAfterCreate(created?._id);
       },
       error: (err) => {
         this.snackBar.open(
@@ -421,6 +395,44 @@ export class AddSupplyListComponent implements OnInit {
           'OK',
           { duration: 6000 }
         );
+      }
+    });
+  }
+
+  private createSupplyListPayload(raw: SupplyListInputValues): Partial<SupplyList> {
+    return {
+      school: raw.school ?? undefined,
+      grade: raw.grade ?? undefined,
+      item: raw.item ? raw.item.split(',').map(s => s.trim()).filter(Boolean) : undefined,
+      brand: this.toAttributeOptions(raw.brand),
+      color: this.toAttributeOptions(raw.color),
+      size: this.toAttributeOptions(raw.size),
+      type: this.toAttributeOptions(raw.type),
+      material: this.toAttributeOptions(raw.material),
+      notes: raw.notes ?? undefined,
+      packageSize: raw.packageSize ? parseInt(raw.packageSize, 10) : 1,
+      quantity: raw.quantity ? parseInt(raw.quantity, 10) : 1,
+      invIDs: raw.invIDs && raw.invIDs.length > 0 ? this.normalizeInventoryIds(raw.invIDs) : undefined
+    };
+  }
+
+  private toAttributeOptions(value: string | null | undefined): AttributeOptions {
+    if (!value?.trim()) return { exactly: '', anyOf: [] };
+    if (value.includes('|')) {
+      return { exactly: '', anyOf: value.split('|').map(term => term.trim()).filter(Boolean) };
+    }
+    return { exactly: value.split(',').map(term => term.trim()).filter(Boolean)[0] ?? '', anyOf: [] };
+  }
+
+  private navigateAfterCreate(highlightedId?: string): void {
+    const returnScope = this.returnToWorkspace
+      ? { school: this.workspaceSchool, ...(this.workspaceScope === 'grade' ? { grade: this.workspaceGrade } : {}) }
+      : {};
+    void this.router.navigate([this.returnPath], {
+      queryParams: {
+        ...this.returnQueryParams,
+        ...returnScope,
+        highlight: highlightedId || undefined
       }
     });
   }

@@ -33,6 +33,7 @@ import {
   SupplyListInventoryLinkDialogComponent,
   SupplyListInventoryLinkFilters
 } from './inventory-link-dialog/supply-list-inventory-link-dialog.component';
+import { SupplyListBulkEntryComponent } from './bulk-entry/supply-list-bulk-entry.component';
 
 // Auth
 import { AuthService } from '../auth/auth-service';
@@ -63,7 +64,8 @@ type SupplyListMode = 'view' | 'edit' | 'link';
     MatTreeModule,
     MatExpansionModule,
     CommonModule,
-    RouterLink
+    RouterLink,
+    SupplyListBulkEntryComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -235,7 +237,12 @@ export class SupplyListComponent {
         return this.supplylistService.getSupplyList(filters).pipe(
           map(items => {
             this.errMsg.set(undefined);
-            return { loaded: true, items };
+            return {
+              loaded: true,
+              items: this.isWorkspacePage
+                ? items.filter(supply => this.isWithinWorkspaceScope(supply, school, grade))
+                : items
+            };
           }),
           catchError((err) => {
             const msg = `Problem contacting the server - Error Code: ${err.status}\nMessage: ${err.message}`;
@@ -343,6 +350,30 @@ export class SupplyListComponent {
     };
   }
 
+  gradeWorkspaceQueryParams(school: string, grade: string): Record<string, string> {
+    const mainReturnUrl = this.route.snapshot.queryParamMap.get('returnUrl')?.trim();
+    return {
+      school,
+      grade,
+      mode: this.mode(),
+      ...(mainReturnUrl ? { returnUrl: mainReturnUrl } : {}),
+      schoolWorkspaceReturnUrl: this.router.url
+    };
+  }
+
+  hasSchoolWorkspaceParent(): boolean {
+    return this.isSafeSchoolWorkspaceUrl(
+      this.route.snapshot.queryParamMap.get('schoolWorkspaceReturnUrl')?.trim()
+    );
+  }
+
+  backToSchoolWorkspace(): void {
+    const schoolWorkspaceReturnUrl = this.route.snapshot.queryParamMap.get('schoolWorkspaceReturnUrl')?.trim();
+    if (this.isSafeSchoolWorkspaceUrl(schoolWorkspaceReturnUrl)) {
+      void this.router.navigateByUrl(schoolWorkspaceReturnUrl!);
+    }
+  }
+
   leaveWorkspace(): void {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
     const isSafeSupplyListUrl = returnUrl === '/supplylist' || returnUrl?.startsWith('/supplylist?');
@@ -428,6 +459,7 @@ export class SupplyListComponent {
 
   addItemQueryParams(school = this.school(), grade = this.grade()): Record<string, string> {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl')?.trim();
+    const schoolWorkspaceReturnUrl = this.route.snapshot.queryParamMap.get('schoolWorkspaceReturnUrl')?.trim();
     return {
       ...(school ? { school } : {}),
       ...(grade ? { grade } : {}),
@@ -443,8 +475,19 @@ export class SupplyListComponent {
       ...(this.isWorkspacePage ? { returnTo: 'workspace' } : {}),
       ...(this.isWorkspacePage ? { workspaceScope: this.grade() ? 'grade' : 'school' } : {}),
       ...(this.isWorkspacePage && returnUrl ? { returnUrl } : {}),
+      ...(this.isWorkspacePage && this.isSafeSchoolWorkspaceUrl(schoolWorkspaceReturnUrl)
+        ? { schoolWorkspaceReturnUrl: schoolWorkspaceReturnUrl! }
+        : {}),
       mode: 'edit'
     };
+  }
+
+  onBulkListChanged(highlightedId?: string): void {
+    this.highlightedItemId.set(highlightedId);
+    this.highlightedSupplyItem.set(undefined);
+    this.hasScrolledToHighlight = false;
+    this.updateWorkspaceQuery({ highlight: highlightedId ?? null });
+    this.refreshTrigger.update(refresh => refresh + 1);
   }
 
   linkedInventorySummary(invIDs?: string[]): string {
@@ -617,6 +660,19 @@ export class SupplyListComponent {
     if (mode === 'edit' && this.canUseEditMode) return 'edit';
     if (mode === 'link' && this.canEditSupplyList) return 'link';
     return 'view';
+  }
+
+  private isSafeSchoolWorkspaceUrl(url: string | undefined): boolean {
+    return !!url
+      && url.startsWith('/supplylist/workspace?')
+      && /(?:^|[?&])school=/.test(url)
+      && !/(?:^|[?&])grade=/.test(url);
+  }
+
+  private isWithinWorkspaceScope(supply: SupplyList, school?: string, grade?: string): boolean {
+    const sameSchool = !school || supply.school?.trim().toLowerCase() === school.trim().toLowerCase();
+    const sameGrade = !grade || supply.grade?.trim().toLowerCase() === grade.trim().toLowerCase();
+    return sameSchool && sameGrade;
   }
 
   private updateWorkspaceQuery(queryParams: Record<string, string | null>): void {

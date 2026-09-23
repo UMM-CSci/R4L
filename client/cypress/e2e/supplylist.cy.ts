@@ -7,7 +7,7 @@ const FILTERS_TEST = {
 };
 
 const HANCOCK_GROUP = {
-  school: 'Hancock Elementary',
+  school: 'Hancock Elementary School',
   grade: 'Kindergarten',
   teacher: 'N/A',
   item: 'Binder',
@@ -144,6 +144,7 @@ describe('Supply List', () => {
   });
 
   it('Should enter inline edit mode when edit is clicked', () => {
+    cy.get('[data-cy="mode-edit"]').click();
     page.expandGradePanel(HANCOCK_GROUP.school, HANCOCK_GROUP.grade);
     page.getFirstItemRow(HANCOCK_GROUP.school, HANCOCK_GROUP.grade, HANCOCK_GROUP.teacher)
       .scrollIntoView()
@@ -159,6 +160,7 @@ describe('Supply List', () => {
   });
 
   it('Should leave inline edit mode when Cancel is clicked', () => {
+    cy.get('[data-cy="mode-edit"]').click();
     page.expandGradePanel(HANCOCK_GROUP.school, HANCOCK_GROUP.grade);
     page.getFirstItemRow(HANCOCK_GROUP.school, HANCOCK_GROUP.grade, HANCOCK_GROUP.teacher)
       .scrollIntoView()
@@ -175,5 +177,81 @@ describe('Supply List', () => {
     page.getTeacherGroup(HANCOCK_GROUP.school, HANCOCK_GROUP.grade, HANCOCK_GROUP.teacher)
       .find('[data-cy="save-item"]')
       .should('not.exist');
+  });
+
+  it('Should preserve school-workspace context while visiting a grade workspace', () => {
+    const school = HANCOCK_GROUP.school;
+    cy.visit(`/supplylist/workspace?school=${encodeURIComponent(school)}&mode=edit&returnUrl=%2Fsupplylist`);
+    page.expandGradePanel(school, HANCOCK_GROUP.grade);
+    page.getGradePanel(school, HANCOCK_GROUP.grade)
+      .find('[data-cy="open-grade-workspace"]')
+      .click();
+
+    cy.url().should('include', `grade=${encodeURIComponent(HANCOCK_GROUP.grade)}`);
+    cy.get('[data-cy="back-to-school-workspace"]').should('be.visible').click();
+    cy.url().should('include', '/supplylist/workspace?');
+    cy.url().should('not.include', 'grade=');
+  });
+
+  it('Should not invent a school-workspace back button for a directly opened grade workspace', () => {
+    cy.visit(`/supplylist/workspace?school=${encodeURIComponent(HANCOCK_GROUP.school)}`
+      + `&grade=${encodeURIComponent(HANCOCK_GROUP.grade)}&mode=edit&returnUrl=%2Fsupplylist`);
+
+    cy.get('[data-cy="grade-bulk-entry"]').should('be.visible');
+    cy.get('[data-cy="leave-workspace"]').should('be.visible');
+    cy.get('[data-cy="back-to-school-workspace"]').should('not.exist');
+  });
+
+  it('Should bulk-add parsed lines through the API', () => {
+    cy.intercept('POST', '/api/supplylist').as('bulkAdd');
+    cy.visit(`/supplylist/workspace?school=${encodeURIComponent(HANCOCK_GROUP.school)}`
+      + `&grade=${encodeURIComponent(HANCOCK_GROUP.grade)}&mode=edit&returnUrl=%2Fsupplylist`);
+
+    cy.get('[data-cy="bulk-entry-text"]')
+      .type('two glue sticks{enter}1 pack of 50 count construction paper');
+    cy.get('[data-cy="preview-bulk-items"]').click();
+    cy.get('[data-cy="bulk-preview-item"]').should('have.length', 2);
+    cy.get('[data-cy="bulk-add-all"]').click();
+
+    cy.wait(['@bulkAdd', '@bulkAdd']).then(interceptions => {
+      const requests = interceptions.map(interception => interception.request.body);
+      expect(requests).to.deep.include({
+        school: HANCOCK_GROUP.school,
+        grade: HANCOCK_GROUP.grade,
+        item: ['Glue Stick'],
+        brand: { exactly: '', anyOf: [] },
+        color: { exactly: '', anyOf: [] },
+        size: { exactly: '', anyOf: [] },
+        type: { exactly: '', anyOf: [] },
+        material: { exactly: '', anyOf: [] },
+        packageSize: 1,
+        quantity: 2,
+        notes: ''
+      });
+      expect(requests.some(request => request.item?.[0] === 'Construction Paper'
+        && request.quantity === 1 && request.packageSize === 50)).to.eq(true);
+    });
+  });
+
+  it('Should replace an exact grade list through the API', () => {
+    cy.visit(`/supplylist/workspace?school=${encodeURIComponent(HANCOCK_GROUP.school)}`
+      + `&grade=${encodeURIComponent(HANCOCK_GROUP.grade)}&mode=edit&returnUrl=%2Fsupplylist`);
+
+    cy.get('[data-cy="bulk-entry-text"]').type('two glue sticks');
+    cy.get('[data-cy="preview-bulk-items"]').click();
+    cy.get('[data-cy="bulk-replace-list"]').click();
+    cy.contains('button', 'Replace List').click();
+    cy.contains('Grade list replaced with 1 item(s)').should('be.visible');
+
+    cy.request({
+      url: '/api/supplylist',
+      qs: { school: HANCOCK_GROUP.school, grade: HANCOCK_GROUP.grade }
+    }).then(response => {
+      const exactGrade = (response.body as Array<{ school: string; grade: string; item: string[]; quantity: number }>)
+        .filter(item => item.school === HANCOCK_GROUP.school && item.grade === HANCOCK_GROUP.grade);
+      expect(exactGrade).to.have.length(1);
+      expect(exactGrade[0].item).to.deep.equal(['Glue Stick']);
+      expect(exactGrade[0].quantity).to.equal(2);
+    });
   });
 });

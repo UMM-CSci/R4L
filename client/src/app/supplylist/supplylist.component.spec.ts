@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync, tick, fakeAsync, flushMicrotasks } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { Observable, of, throwError } from 'rxjs';
 import { MockSupplyListService } from 'src/testing/supplylist.service.mock'
 import { SupplyList } from './supplylist';
@@ -91,6 +91,61 @@ describe('SupplyList Table', () => {
     });
   });
 
+  it('records the school workspace when opening one of its grade workspaces', () => {
+    const router = (supplylistTable as unknown as { router: { url: string } }).router;
+    Object.defineProperty(router, 'url', { configurable: true, value: '/supplylist/workspace?school=MHS&mode=edit&returnUrl=%2Fsupplylist' });
+    supplylistTable.mode.set('edit');
+
+    expect(supplylistTable.gradeWorkspaceQueryParams('MHS', 'PreK')).toEqual({
+      school: 'MHS',
+      grade: 'PreK',
+      mode: 'edit',
+      schoolWorkspaceReturnUrl: '/supplylist/workspace?school=MHS&mode=edit&returnUrl=%2Fsupplylist'
+    });
+  });
+
+  it('renders bulk entry only for an editable grade workspace with add permission', () => {
+    configureWorkspace({ school: 'MHS', grade: 'PreK', mode: 'edit', returnUrl: '/supplylist' });
+    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeTruthy();
+
+    supplylistTable.mode.set('view');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeNull();
+
+    supplylistTable.mode.set('edit');
+    const auth = (supplylistTable as unknown as { authService: { hasPermission: (permission: string) => boolean } }).authService;
+    auth.hasPermission = permission => permission !== 'add_supply_list';
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeNull();
+  });
+
+  it('shows only Leave Workspace when a grade workspace was opened directly', () => {
+    configureWorkspace({ school: 'MHS', grade: 'PreK', mode: 'edit', returnUrl: '/supplylist' });
+
+    expect(fixture.nativeElement.querySelector('[data-cy="leave-workspace"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('[data-cy="back-to-school-workspace"]')).toBeNull();
+  });
+
+  it('shows Back to School Workspace only when the grade was opened from one', () => {
+    configureWorkspace({
+      school: 'MHS',
+      grade: 'PreK',
+      mode: 'edit',
+      returnUrl: '/supplylist',
+      schoolWorkspaceReturnUrl: '/supplylist/workspace?school=MHS&mode=edit&returnUrl=%2Fsupplylist'
+    });
+
+    expect(fixture.nativeElement.querySelector('[data-cy="back-to-school-workspace"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('[data-cy="leave-workspace"]')).toBeTruthy();
+  });
+
+  it('does not show bulk entry in a school-wide workspace', () => {
+    configureWorkspace({ school: 'MHS', mode: 'edit', returnUrl: '/supplylist' });
+
+    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeNull();
+    expect(fixture.nativeElement.querySelector('[data-cy="open-grade-workspace"]')).toBeTruthy();
+  });
+
   it('preserves active detail filters in add-item navigation', () => {
     supplylistTable.school.set('MHS');
     supplylistTable.grade.set('PreK');
@@ -107,6 +162,22 @@ describe('SupplyList Table', () => {
       mode: 'edit'
     });
   });
+
+  function configureWorkspace(params: Record<string, string>): void {
+    const route = TestBed.inject(ActivatedRoute);
+    Object.defineProperty(route, 'snapshot', {
+      configurable: true,
+      value: {
+        data: { workspace: true },
+        queryParamMap: convertToParamMap(params)
+      }
+    });
+    (supplylistTable as unknown as { isWorkspacePage: boolean }).isWorkspacePage = true;
+    supplylistTable.school.set(params['school']);
+    supplylistTable.grade.set(params['grade']);
+    supplylistTable.mode.set((params['mode'] ?? 'view') as 'view' | 'edit' | 'link');
+    fixture.detectChanges();
+  }
 
   it('does not turn a grade-row add default into a browse-page grade filter', () => {
     expect(supplylistTable.addItemQueryParams('MHS', 'PreK')).toEqual({
