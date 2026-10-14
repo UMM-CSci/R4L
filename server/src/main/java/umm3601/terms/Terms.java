@@ -1,8 +1,9 @@
 // Package
-package umm3601.Terms;
+package umm3601.terms;
 
 // Java imports
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the shared vocabulary collected from both the supplylist
@@ -17,4 +18,5 @@ public class Terms {
   public List<String> size;
   public List<String> type;
   public List<String> material;
+  public Map<String, String> itemPackageModes;
 }

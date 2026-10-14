@@ -405,6 +405,10 @@ public class SupplyListController {
       updatedSupplyList._id = id;
       // These fields are not editable, and must be preserved from the existing document
       updatedSupplyList.supplyID = existingSupplyList.supplyID;
+      // Parser provenance is immutable. Editing structured fields must not
+      // rewrite history or make the source text look newly generated.
+      updatedSupplyList.sourceText = existingSupplyList.sourceText;
+      updatedSupplyList.parserVersion = existingSupplyList.parserVersion;
       List<String> existingInvIDs = sanitizeInventoryIds(existingSupplyList.invIDs);
       List<String> existingPreferredIds = sanitizePreferredInventoryIds(
         existingSupplyList.preferredInventoryIds,

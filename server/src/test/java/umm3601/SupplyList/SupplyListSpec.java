@@ -82,7 +82,17 @@ public class SupplyListSpec {
 
   @Test
   void listToString() {
-    assertEquals(inv1.toString(), "2 20ct Pencils yellow, Ticonderoga");
+    assertEquals(inv1.toString(), "2 20ct yellow Pencils Ticonderoga");
+  }
+
+  @Test
+  void listToStringPlacesColorBeforeItem() {
+    inv1.packageSize = 1;
+    inv1.item = Arrays.asList("Folder");
+    inv1.brand = null;
+    inv1.color.exactly = "Red";
+
+    assertEquals("2 Red Folders", inv1.toString());
   }
 
   @Test

@@ -16,7 +16,14 @@ import { Observable, of } from 'rxjs';
 import { SupplyListService } from '../supplylist.service';
 import { TermsService } from '../../terms/terms.service';
 import { Terms } from '../../terms/terms';
+import { itemPackageMode } from '../../terms/term-standard';
 import { DescriptionParserService } from '../../terms/description-parser.service';
+import {
+  TermPlacementIssue,
+  TermPlacementService,
+  TermPlacementValues
+} from '../../terms/term-placement.service';
+import { TermPlacementReviewComponent } from '../../terms/term-placement-review.component';
 import { AttributeOptions, GRADES, SupplyList } from '../supplylist';
 import { SettingsService } from '../../settings/settings.service';
 import {
@@ -56,13 +63,15 @@ type SupplyListInputValues = {
     MatSelectModule,
     MatAutocompleteModule,
     RouterLink,
-    CommonModule
+    CommonModule,
+    TermPlacementReviewComponent
   ]
 })
 export class AddSupplyListComponent implements OnInit {
   private supplyListService = inject(SupplyListService); // Service for interacting with the supply list API
   private termsService = inject(TermsService); // Service for interacting with the terms API
   private descriptionParser = inject(DescriptionParserService); // Service for parsing item descriptions
+  private termPlacement = inject(TermPlacementService); // Service for handling term placement logic
 
   private settingsService = inject(SettingsService); // Service for accessing application settings
 
@@ -107,7 +116,6 @@ export class AddSupplyListComponent implements OnInit {
     'clorox': ['disinfectant wipe', 'wipe', 'disinfecting wipe'],
     'lysol': ['disinfectant wipe', 'wipe', 'disinfecting wipe', 'spray'],
     // Art / drawing
-    'crayola': ['crayon', 'marker', 'colored pencil', 'paint', 'watercolor'],
     'fiskars': ['scissors'],
     'sharpie': ['marker', 'permanent marker'],
     'expo': ['marker', 'dry erase marker', 'dry erase'],
@@ -141,6 +149,16 @@ export class AddSupplyListComponent implements OnInit {
 
   // Controls whether the preview card is visible
   showPreview = false;
+  incompletePackage = false;
+  countChoice = '';
+  preferenceBrand = '';
+  sourceText?: string;
+  private readonly parserVersion = 'terms-v2';
+
+  // Term placement issues detected for the current form input.
+  placementIssues: TermPlacementIssue[] = [];
+  private placementUndo: SupplyListInputValues | null = null;
+  private preserveUndoForNextFormChange = false;
 
   // Filtered suggestion lists for each autocomplete field
   filteredItem$!: Observable<string[]>;
@@ -201,6 +219,7 @@ export class AddSupplyListComponent implements OnInit {
         this.filteredSize$ = this.filterFor('size', terms.size);
         this.filteredType$ = this.filterFor('type', terms.type);
         this.filteredMaterial$ = this.filterFor('material', terms.material);
+        this.refreshPlacementIssues(); // Refresh term placement issues after loading terms
       },
       error: () => {
         // Terms are optional; autocomplete just will not suggest anything.
@@ -210,6 +229,21 @@ export class AddSupplyListComponent implements OnInit {
         this.filteredSize$ = of([]);
         this.filteredType$ = of([]);
         this.filteredMaterial$ = of([]);
+      }
+    });
+
+    // Subscribe to form value changes to update term placement issues and handle undo logic.
+    this.addSupplyListForm.valueChanges.subscribe(() => {
+      if (this.preserveUndoForNextFormChange) {
+        this.preserveUndoForNextFormChange = false;
+      } else {
+        this.placementUndo = null;
+      }
+      this.refreshPlacementIssues();
+    });
+    this.addSupplyListForm.controls.item.valueChanges.subscribe(item => {
+      if (itemPackageMode(this.firstFilterToken(item), this.terms) === 'INDIVIDUAL') {
+        this.addSupplyListForm.controls.packageSize.setValue('1', { emitEvent: false });
       }
     });
   }
@@ -253,7 +287,13 @@ export class AddSupplyListComponent implements OnInit {
   parseDescription(input: string): void {
     if (!input.trim()) return;
     const parsed = this.descriptionParser.parse(input, this.terms, this.brandItemHints);
-    const { notes, ...patch } = parsed;
+    const { notes, incompletePackage, countChoice, preferenceBrand, ...patch } = parsed;
+    this.incompletePackage = incompletePackage === true;
+    this.countChoice = countChoice ?? '';
+    this.preferenceBrand = preferenceBrand ?? '';
+    if (this.preferenceBrand) patch.brand = '';
+    this.sourceText = input;
+    if (this.incompletePackage) patch.quantity = '';
     if (notes.length) {
       const existing = (this.addSupplyListForm.get('notes')?.value ?? '').trim();
       patch['notes'] = [existing, ...notes].filter(Boolean).join('; ');
@@ -280,19 +320,24 @@ export class AddSupplyListComponent implements OnInit {
   }
 
   private buildDescription(raw: SupplyListInputValues): string {
-    const quantity = Number(raw.quantity) || 1;
+    const quantity = Number(raw.quantity);
     const packageSize = Number(raw.packageSize) || 1;
     const item = this.firstFilterToken(raw.item) ?? '';
     const parts: string[] = []; // Array to accumulate parts of the generated description
 
     if (quantity > 0) parts.push(`${quantity}x`);
+    if (this.isPackagedItem && !raw.packageSize && quantity === 1) parts.push('Package of');
+    if (this.isPackagedItem && !raw.packageSize && quantity > 1) parts.push('Packages of');
     if (packageSize > 1) parts.push(`${packageSize}ct.`);
 
     const size = this.displayAttribute(raw.size);
     if (size) parts.push(size);
+
+    const color = this.displayAttribute(raw.color);
+    if (color) parts.push(color);
     if (item) parts.push(quantity > 1 ? this.pluralizeItem(item) : item);
 
-    for (const value of [raw.brand, raw.color, raw.type, raw.material]) {
+    for (const value of [raw.brand, raw.type, raw.material]) {
       const display = this.displayAttribute(value);
       if (display && !parts.some(part => part.toLowerCase().includes(display.toLowerCase()))) {
         parts.push(display);
@@ -379,9 +424,41 @@ export class AddSupplyListComponent implements OnInit {
     });
     this.descriptionInput = '';
     this.showPreview = false;
+    this.incompletePackage = false;
+    this.countChoice = '';
+    this.preferenceBrand = '';
+    this.sourceText = undefined;
+    this.placementIssues = [];
+    this.placementUndo = null;
   }
 
   submitForm() {
+    if (this.preferenceBrand) {
+      this.snackBar.open('Choose whether the preferred brand is optional or required before adding.', 'OK', { duration: 5000 });
+      return;
+    }
+    if (this.countChoice) {
+      this.snackBar.open(`Choose one count (${this.countChoice}) before adding.`, 'OK', { duration: 5000 });
+      return;
+    }
+    if (this.addSupplyListForm.invalid) {
+      this.addSupplyListForm.markAllAsTouched();
+      this.snackBar.open('Complete the required fields before adding.', 'OK', { duration: 5000 });
+      return;
+    }
+    // Refresh term placement issues before attempting to submit the form.
+    this.refreshPlacementIssues();
+    if (this.placementIssues.length) {
+      this.addSupplyListForm.markAllAsTouched();
+      this.snackBar.open(
+        'Fix the recognized terms that are in the wrong field before adding.',
+        'OK',
+        { duration: 5000 }
+      );
+      return;
+    }
+
+    // Create the payload for the supply list item based on the current form values.
     const formData = this.createSupplyListPayload(this.addSupplyListForm.value);
 
     this.supplyListService.addSupplyList(formData).subscribe({
@@ -399,6 +476,69 @@ export class AddSupplyListComponent implements OnInit {
     });
   }
 
+  /**
+   * Fixes a term placement issue in the form by applying the suggested correction.
+   * @param event The event containing the issue to fix and whether to keep existing conflicts.
+   */
+  fixPlacement(event: { issue: TermPlacementIssue; keepExistingConflicts: boolean }): void {
+    this.placementUndo = { ...this.addSupplyListForm.getRawValue() };
+    const fixed = this.termPlacement.apply(
+      this.addSupplyListForm.getRawValue() as TermPlacementValues,
+      event.issue,
+      event.keepExistingConflicts
+    );
+    this.preserveUndoForNextFormChange = true;
+    this.addSupplyListForm.patchValue({
+      item: this.stringValue(fixed.item),
+      brand: this.stringValue(fixed.brand),
+      color: this.stringValue(fixed.color),
+      size: this.stringValue(fixed.size),
+      type: this.stringValue(fixed.type),
+      material: this.stringValue(fixed.material),
+      quantity: this.stringValue(fixed.quantity),
+      packageSize: this.stringValue(fixed.packageSize)
+    });
+    this.refreshPlacementIssues();
+  }
+
+  /**
+   * Undoes the last term placement fix, restoring the previous form values.
+   */
+  undoPlacementFix(): void {
+    if (!this.placementUndo) return;
+    this.preserveUndoForNextFormChange = true;
+    this.addSupplyListForm.patchValue(this.placementUndo);
+    this.placementUndo = null;
+    this.refreshPlacementIssues();
+  }
+
+  /**
+   * Indicates whether there is a term placement fix that can be undone.
+   */
+  get canUndoPlacementFix(): boolean {
+    return this.placementUndo !== null;
+  }
+
+  /**
+   * Refreshes the term placement issues based on the current form values.
+   */
+  private refreshPlacementIssues(): void {
+    this.placementIssues = this.termPlacement.analyze(
+      this.addSupplyListForm.getRawValue() as TermPlacementValues,
+      this.terms,
+      'supplyList'
+    );
+  }
+
+  /**
+   * Converts a value to a string, handling null and undefined values.
+   * @param value The value to convert.
+   * @returns The string representation of the value.
+   */
+  private stringValue(value: string | number | null | undefined): string {
+    return value === null || value === undefined ? '' : String(value);
+  }
+
   private createSupplyListPayload(raw: SupplyListInputValues): Partial<SupplyList> {
     return {
       school: raw.school ?? undefined,
@@ -410,10 +550,30 @@ export class AddSupplyListComponent implements OnInit {
       type: this.toAttributeOptions(raw.type),
       material: this.toAttributeOptions(raw.material),
       notes: raw.notes ?? undefined,
-      packageSize: raw.packageSize ? parseInt(raw.packageSize, 10) : 1,
+      packageSize: this.isPackagedItem
+        ? (raw.packageSize ? parseInt(raw.packageSize, 10) : null)
+        : 1,
       quantity: raw.quantity ? parseInt(raw.quantity, 10) : 1,
-      invIDs: raw.invIDs && raw.invIDs.length > 0 ? this.normalizeInventoryIds(raw.invIDs) : undefined
+      invIDs: raw.invIDs && raw.invIDs.length > 0 ? this.normalizeInventoryIds(raw.invIDs) : undefined,
+      sourceText: this.sourceText,
+      parserVersion: this.sourceText ? this.parserVersion : undefined
     };
+  }
+
+  get isPackagedItem(): boolean {
+    return itemPackageMode(this.firstFilterToken(this.addSupplyListForm.controls.item.value), this.terms) === 'PACKAGED';
+  }
+
+  resolveBrandPreference(requireBrand: boolean): void {
+    const brand = this.preferenceBrand;
+    if (!brand) return;
+    const phrase = `${brand} preferred`;
+    const notes = this.addSupplyListForm.controls.notes.value?.trim() ?? '';
+    this.addSupplyListForm.patchValue({
+      brand: requireBrand ? brand : '',
+      notes: [notes, phrase].filter(Boolean).join('; ')
+    });
+    this.preferenceBrand = '';
   }
 
   private toAttributeOptions(value: string | null | undefined): AttributeOptions {
@@ -435,6 +595,7 @@ export class AddSupplyListComponent implements OnInit {
         highlight: highlightedId || undefined
       }
     });
+
   }
 
   private inventoryFiltersFromForm(): SupplyListInventoryLinkFilters {
@@ -454,10 +615,10 @@ export class AddSupplyListComponent implements OnInit {
     const parts = [
       raw.quantity ? `${raw.quantity}x` : undefined,
       raw.packageSize ? `${raw.packageSize}ct.` : undefined,
+      this.firstFilterToken(raw.size),
+      this.firstFilterToken(raw.color),
       this.firstFilterToken(raw.item),
       this.firstFilterToken(raw.brand),
-      this.firstFilterToken(raw.color),
-      this.firstFilterToken(raw.size),
       this.firstFilterToken(raw.type),
       this.firstFilterToken(raw.material)
     ].filter((value): value is string => !!value);
@@ -480,7 +641,8 @@ export class AddSupplyListComponent implements OnInit {
   private displayAttribute(value: string | null | undefined): string {
     const terms = (value ?? '').split('|').map(term => term.trim())
       .filter(term => !!term && term.toLowerCase() !== 'n/a');
-    if (terms.length > 1) return `(${terms.join(' or ')})`;
+    if (terms.length === 2) return `(${terms.join(' or ')})`;
+    if (terms.length > 2) return `(${terms.slice(0, -1).join(', ')}, or ${terms.at(-1)})`;
     return terms[0] ?? '';
   }
 

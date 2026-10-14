@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { MockSupplyListService } from 'src/testing/supplylist.service.mock';
 import { AddSupplyListComponent } from './add-supplylist.component';
 import { SupplyListService } from '../supplylist.service';
@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SupplyListInventoryLinkDialogComponent } from '../inventory-link-dialog/supply-list-inventory-link-dialog.component';
 // Minimal terms object reused across parse / helper tests
 const testTerms = {
-  item:     ['crayon', 'marker', 'notebook', 'pencil', 'folder', 'tissue'],
+  item:     ['crayon', 'eraser', 'marker', 'notebook', 'pencil', 'folder', 'tissue'],
   brand:    ['Crayola', 'Kleenex', 'Expo', 'BIC'],
   color:    ['red', 'blue', 'green', 'yellow', 'black'],
   size:     ['letter', 'legal', 'wide ruled', 'college ruled'],
@@ -358,7 +358,7 @@ describe('AddSupplyListComponent#submitForm()', () => {
   const validFormValues = {
     school:   'MHS',
     grade:    'PreK',
-    item:     'Markers',
+    item:     'Marker',
     brand:    'Crayola',
     color:    'N/A',
     packageSize:    '8',
@@ -397,7 +397,7 @@ describe('AddSupplyListComponent#submitForm()', () => {
     const created = {
       _id: 'created-item-id',
       ...validFormValues,
-      item: ['Markers'],
+      item: ['Marker'],
       packageSize: 8,
       quantity: 3
     } as unknown as import('../supplylist').SupplyList;
@@ -416,6 +416,11 @@ describe('AddSupplyListComponent#submitForm()', () => {
   it('builds a readable generated description from manually entered fields', () => {
     expect(component.generatedDescription).toBe('3x 8ct. Wide Markers Crayola Washable');
     expect(component.previewVisible).toBeTrue();
+  });
+
+  it('places color before the item in the generated description', () => {
+    component.addSupplyListForm.patchValue({ item: 'Folder', color: 'Red', quantity: '2' });
+    expect(component.generatedDescription).toBe('2x Wide Red Folders Crayola Washable');
   });
 
   it('should call addSupplyList() and handle 500 error response', () => {
@@ -486,9 +491,18 @@ describe('AddSupplyListComponent#parseDescription()', () => {
     expect(component.addSupplyListForm.get('quantity')?.value).toBe('3');
   });
 
-  it('should parse quantity from a "N boxes of …" pattern', () => {
+  it('should allow packaged items with no count', () => {
     component.parseDescription('2 boxes of crayons');
     expect(component.addSupplyListForm.get('quantity')?.value).toBe('2');
+    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('');
+    expect(component.incompletePackage).toBeFalse();
+  });
+
+  it('should parse box quantity when its item count is explicit', () => {
+    component.parseDescription('2 boxes of 24 crayons');
+    expect(component.addSupplyListForm.get('quantity')?.value).toBe('2');
+    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('24');
+    expect(component.incompletePackage).toBeFalse();
   });
 
   it('should parse packageSize from a "N count" pattern', () => {
@@ -503,12 +517,14 @@ describe('AddSupplyListComponent#parseDescription()', () => {
 
   it('should parse packageSize from a "container of N" pattern', () => {
     component.parseDescription('container of 24 pencils');
-    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('24');
+    expect(component.addSupplyListForm.get('quantity')?.value).toBe('24');
+    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('1');
   });
 
   it('should parse packageSize from a "bag of N" pattern', () => {
     component.parseDescription('bag of 30 erasers');
-    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('30');
+    expect(component.addSupplyListForm.get('quantity')?.value).toBe('30');
+    expect(component.addSupplyListForm.get('packageSize')?.value).toBe('1');
   });
 
   it('should match an item by exact term', () => {
@@ -677,7 +693,7 @@ describe('AddSupplyListComponent inventory linking', () => {
       maxWidth: '95vw',
       maxHeight: '95vh',
       data: jasmine.objectContaining({
-        requirementLabel: '2x 8ct. Markers Crayola Blue Wide Washable',
+        requirementLabel: '2x 8ct. Wide Blue Markers Crayola Washable',
         selectedInventoryIds: ['inv-1'],
         filters: {
           item: 'Markers',
@@ -956,7 +972,7 @@ describe('AddSupplyListComponent#submitForm() — pipe separator (anyOf) path', 
   let supplyListService: SupplyListService;
 
   const baseFormValues = {
-    school: 'MHS', grade: 'PreK', item: 'Markers',
+    school: 'MHS', grade: 'PreK', item: 'Marker',
     brand: '', color: '', packageSize: '', size: '', type: '', material: '', quantity: '1', notes: '', invIDs: []
   };
 
@@ -975,20 +991,35 @@ describe('AddSupplyListComponent#submitForm() — pipe separator (anyOf) path', 
 
   it('should map a | separator to anyOf when submitting', () => {
     const addSpy = spyOn(supplyListService, 'addSupplyList').and.returnValue(of(undefined));
-    component.addSupplyListForm.patchValue({ color: 'red | blue' });
+    component.addSupplyListForm.patchValue({ color: 'Red | Blue' });
     component.submitForm();
     expect(addSpy).toHaveBeenCalledWith(jasmine.objectContaining({
-      color: jasmine.objectContaining({ anyOf: ['red', 'blue'], exactly: "" })
+      color: jasmine.objectContaining({ anyOf: ['Red', 'Blue'], exactly: "" })
     }));
   });
 
-  it('should keep only the first token for comma-separated exact input', () => {
+  it('should normalize capitalization and show a new fix after the next manual edit', fakeAsync(() => {
+    component.addSupplyListForm.patchValue({ item: 'Backpack', color: 'red' });
+    tick(351);
+    const colorIssue = component.placementIssues.find(issue => issue.sourceField === 'color');
+    expect(colorIssue?.changes.color).toBe('Red');
+
+    component.fixPlacement({ issue: colorIssue!, keepExistingConflicts: false });
+    expect(component.addSupplyListForm.controls.color.value).toBe('Red');
+    expect(component.canUndoPlacementFix).toBeTrue();
+
+    component.addSupplyListForm.patchValue({ item: 'backpacks' });
+    tick(351);
+    expect(component.canUndoPlacementFix).toBeFalse();
+    expect(component.placementIssues.find(issue => issue.sourceField === 'item')?.changes.item).toBe('Backpack');
+  }));
+
+  it('should block comma-separated exact input instead of silently discarding a term', () => {
     const addSpy = spyOn(supplyListService, 'addSupplyList').and.returnValue(of(undefined));
-    component.addSupplyListForm.patchValue({ brand: 'red, blue' });
+    component.addSupplyListForm.patchValue({ brand: 'Crayola, Expo' });
     component.submitForm();
-    expect(addSpy).toHaveBeenCalledWith(jasmine.objectContaining({
-      brand: jasmine.objectContaining({ exactly: 'red', anyOf: [] })
-    }));
+    expect(addSpy).not.toHaveBeenCalled();
+    expect(component.placementIssues.length).toBeGreaterThan(0);
   });
 
   it('should produce empty exactly/anyOf for empty field (toAttr empty-val branch)', () => {
@@ -1023,17 +1054,14 @@ describe('AddSupplyListComponent#submitForm() — pipe separator (anyOf) path', 
     }));
   });
 
-  it('should default optional numeric and item fields when they are blank', () => {
+  it('should not submit when required item and quantity fields are blank', () => {
     const addSpy = spyOn(supplyListService, 'addSupplyList').and.returnValue(of(undefined));
     component.addSupplyListForm.patchValue({ item: '', packageSize: '', quantity: '' });
 
     component.submitForm();
 
-    expect(addSpy).toHaveBeenCalledWith(jasmine.objectContaining({
-      item: undefined,
-      packageSize: 1,
-      quantity: 1
-    }));
+    expect(addSpy).not.toHaveBeenCalled();
+    expect(component.addSupplyListForm.invalid).toBeTrue();
   });
 });
 

@@ -78,7 +78,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -114,7 +114,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -388,7 +388,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "Set of markers; black preferred",
     "supplyID": "Supply-00012",
@@ -582,7 +582,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Binder Pencil bag"
+      "Pencil Pouch"
     ],
     "brand": {
       "exactly": "",
@@ -798,7 +798,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -1158,7 +1158,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -1410,7 +1410,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -1662,7 +1662,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -1864,7 +1864,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00053",
@@ -1914,7 +1914,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Dry Erase Board Eraser"
+      "Whiteboard Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -2152,8 +2152,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 24,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 24,
     "notes": "",
     "supplyID": "Supply-00061",
     "invIDs": [],
@@ -2335,7 +2335,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00066",
@@ -2409,7 +2409,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 2,
     "notes": "Ticonderoga preferred",
     "supplyID": "Supply-00068",
@@ -2567,7 +2567,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -2603,7 +2603,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -2877,8 +2877,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 24,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 24,
     "notes": "",
     "supplyID": "Supply-00081",
     "invIDs": [],
@@ -2963,7 +2963,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Dry Erase Board Eraser"
+      "Whiteboard Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -3057,7 +3057,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 2,
     "notes": "Wooden or mechanical",
     "supplyID": "Supply-00086",
@@ -3251,7 +3251,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -3287,7 +3287,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -3323,7 +3323,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Paper"
+      "Loose-Leaf Paper"
     ],
     "brand": {
       "exactly": "",
@@ -3338,14 +3338,14 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Loose Leaf",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "Loose Leaf or Filler Paper",
     "supplyID": "Supply-00094",
@@ -3578,7 +3578,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Dry Erase Board Eraser"
+      "Whiteboard Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -3636,7 +3636,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00102",
@@ -3708,7 +3708,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00104",
@@ -3744,7 +3744,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00105",
@@ -3866,7 +3866,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -4033,7 +4033,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00113",
@@ -4069,7 +4069,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00114",
@@ -4177,7 +4177,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "No red pens",
     "supplyID": "Supply-00117",
@@ -4264,7 +4264,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -4300,7 +4300,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -4336,7 +4336,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -4574,7 +4574,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "For Language Arts",
     "supplyID": "Supply-00128",
@@ -4610,7 +4610,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "For Language Arts",
     "supplyID": "Supply-00129",
@@ -4646,7 +4646,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00130",
@@ -4682,7 +4682,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "For Language Arts",
     "supplyID": "Supply-00131",
@@ -4718,7 +4718,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "For Language Arts",
     "supplyID": "Supply-00132",
@@ -4754,7 +4754,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00133",
@@ -5020,7 +5020,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -5078,7 +5078,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "Crackers, granola bars, fruit Snacks, etc.",
     "supplyID": "Supply-00142",
@@ -5272,7 +5272,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -5524,7 +5524,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -5992,7 +5992,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Lysol",
@@ -6194,8 +6194,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 8,
-    "quantity": 2,
+    "packageSize": 1,
+    "quantity": 16,
     "notes": "or 10ct packs",
     "supplyID": "Supply-00173",
     "invIDs": [],
@@ -6532,7 +6532,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Lysol",
@@ -6568,7 +6568,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Puffs",
@@ -6662,7 +6662,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00186",
@@ -6770,7 +6770,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": null,
     "notes": "",
     "supplyID": "Supply-00189",
@@ -6950,7 +6950,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": null,
     "notes": "",
     "supplyID": "Supply-00194",
@@ -7382,7 +7382,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": null,
     "notes": "",
     "supplyID": "Supply-00206",
@@ -7864,7 +7864,7 @@
     "grade": "3",
     "teacher": "Ms. Anderson",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -7900,7 +7900,7 @@
     "grade": "3",
     "teacher": "Ms. Anderson",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -7936,7 +7936,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -8174,7 +8174,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00228",
@@ -8333,7 +8333,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -8643,7 +8643,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "",
     "supplyID": "Supply-00241",
@@ -8874,7 +8874,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -8932,7 +8932,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 3,
     "notes": "3-5 boxes of pencils",
     "supplyID": "Supply-00249",
@@ -9306,7 +9306,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -9379,7 +9379,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -9595,7 +9595,7 @@
     "grade": "High School",
     "teacher": "Mrs. Nuest",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -10698,7 +10698,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "3-D Art, may reuse Sketchbook from Studio Art",
     "supplyID": "Supply-00298",
@@ -10892,7 +10892,7 @@
     "grade": "High School",
     "teacher": "Mrs. A. Schmidgall",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -11000,7 +11000,7 @@
     "grade": "High School",
     "teacher": "Mrs. P. Schmidgall",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -11144,7 +11144,7 @@
     "grade": "High School",
     "teacher": "Ms. Schmidt",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -11382,7 +11382,7 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": null,
+    "packageSize": 1,
     "quantity": 1,
     "notes": "Required for Science",
     "supplyID": "Supply-00317",
@@ -11794,7 +11794,7 @@
     "grade": "PreK",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -12082,7 +12082,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -12118,7 +12118,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -12262,7 +12262,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -12298,7 +12298,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -12442,7 +12442,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -12622,7 +12622,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -12658,7 +12658,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -12896,8 +12896,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 12,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 12,
     "notes": "",
     "supplyID": "Supply-00359",
     "invIDs": [],
@@ -13378,7 +13378,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -13558,7 +13558,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -13762,8 +13762,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 12,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 12,
     "notes": "",
     "supplyID": "Supply-00383",
     "invIDs": [],
@@ -14244,7 +14244,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -14424,7 +14424,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -14628,8 +14628,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 12,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 12,
     "notes": "",
     "supplyID": "Supply-00407",
     "invIDs": [],
@@ -15110,7 +15110,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -15290,7 +15290,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "",
@@ -15688,7 +15688,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -16228,7 +16228,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -16336,7 +16336,7 @@
     "grade": "Kindergarten",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -16430,8 +16430,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 8,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 8,
     "notes": "",
     "supplyID": "Supply-00457",
     "invIDs": [],
@@ -17056,7 +17056,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -17452,7 +17452,7 @@
     "grade": "1",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -17956,7 +17956,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -18172,7 +18172,7 @@
     "grade": "2",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -18482,8 +18482,8 @@
       "exactly": "Plastic",
       "anyOf": []
     },
-    "packageSize": 54,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 54,
     "notes": "1 package (54 ct) of plastic cups",
     "supplyID": "Supply-00514",
     "invIDs": [],
@@ -18532,7 +18532,7 @@
     "grade": "3",
     "teacher": "Mrs. Greenwaldt",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -18590,8 +18590,8 @@
       "exactly": "Plastic",
       "anyOf": []
     },
-    "packageSize": 54,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 54,
     "notes": "1 package (54 ct) of plastic cups",
     "supplyID": "Supply-00517",
     "invIDs": [],
@@ -18604,7 +18604,7 @@
     "grade": "3",
     "teacher": "Mrs. Helberg",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -19180,7 +19180,7 @@
     "grade": "3",
     "teacher": "",
     "item": [
-      "Dry Erase Board Eraser"
+      "Whiteboard Eraser"
     ],
     "brand": {
       "exactly": "",
@@ -19612,7 +19612,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -20080,7 +20080,7 @@
     "grade": "4",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -20476,7 +20476,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Pencil box"
+      "Pencil Box"
     ],
     "brand": {
       "exactly": "",
@@ -20584,7 +20584,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "",
@@ -20620,7 +20620,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -20656,7 +20656,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Index Cards"
+      "Index Card"
     ],
     "brand": {
       "exactly": "",
@@ -20894,8 +20894,8 @@
       "exactly": "",
       "anyOf": []
     },
-    "packageSize": 4,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 4,
     "notes": "",
     "supplyID": "Supply-00581",
     "invIDs": [],
@@ -21484,7 +21484,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -21520,7 +21520,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Disinfectant Wipe"
+      "Disinfectant Wipes"
     ],
     "brand": {
       "exactly": "Clorox",
@@ -21592,7 +21592,7 @@
     "grade": "6",
     "teacher": "",
     "item": [
-      "Index Cards"
+      "Index Card"
     ],
     "brand": {
       "exactly": "",
@@ -22816,7 +22816,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Tissue"
+      "Facial Tissue"
     ],
     "brand": {
       "exactly": "Kleenex",
@@ -22888,7 +22888,7 @@
     "grade": "High School",
     "teacher": "",
     "item": [
-      "Paper"
+      "Loose-Leaf Paper"
     ],
     "brand": {
       "exactly": "",
@@ -22903,7 +22903,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Loose Leaf",
+      "exactly": "",
       "anyOf": []
     },
     "material": {

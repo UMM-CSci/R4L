@@ -195,6 +195,52 @@ th.mat-sort-header-sorted {
   animation: newly-added-pulse 1.4s ease-in-out 2;
 }
 
+.item-row.source-group-item {
+  flex-wrap: wrap;
+  border-left: 3px solid var(--app-primary-color);
+}
+
+.item-row.source-group-item:not(.source-group-end) {
+  margin-bottom: calc(-1 * var(--app-space-xs));
+  border-bottom-color: transparent;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.item-row.source-group-item:not(.source-group-start) {
+  border-top-color: transparent;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.source-group-heading {
+  display: flex;
+  flex: 0 0 100%;
+  align-items: flex-start;
+  gap: var(--app-space-xs);
+  padding: 0.35rem 0.25rem 0.15rem;
+  color: var(--app-primary-color);
+
+  mat-icon {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+  }
+
+  span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  small {
+    color: var(--app-text-muted);
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+}
+
 @keyframes newly-added-pulse {
   50% {
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--app-primary-color) 20%, transparent);

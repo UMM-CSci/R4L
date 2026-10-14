@@ -9,6 +9,15 @@ import { Inventory } from "../inventory";
 import { InventoryService } from "../inventory.service";
 import { MatButtonModule } from "@angular/material/button";
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { debounceTime } from 'rxjs/operators';
+import { DescriptionParserService } from '../../terms/description-parser.service';
+import {
+  TermPlacementIssue,
+  TermPlacementService,
+  TermPlacementValues
+} from '../../terms/term-placement.service';
+import { TermPlacementReviewComponent } from '../../terms/term-placement-review.component';
+import { itemPackageMode } from '../../terms/term-standard';
 
 export type ManualEntryResult =
 {
@@ -36,11 +45,16 @@ export type ManualEntryResult =
     MatError,
     MatInputModule,
     MatButtonModule,
-    ScrollingModule
+    ScrollingModule,
+    TermPlacementReviewComponent
   ]
 })
 export class ManualEntry implements OnInit {
   form: FormGroup;
+  placementIssues: TermPlacementIssue[] = [];
+  private placementUndo: TermPlacementValues | null = null;
+  private preserveUndoForNextFormChange = false;
+  private readonly termPlacement = new TermPlacementService(new DescriptionParserService());
 
   filteredItems: Inventory[] = [];
   selectedItem: Inventory | null = null;
@@ -76,14 +90,39 @@ export class ManualEntry implements OnInit {
     this.loadInventory();
     this.form.valueChanges.subscribe(() => {
       this.filteredItems = this.getFilteredItems();
+      if (this.preserveUndoForNextFormChange) {
+        this.preserveUndoForNextFormChange = false;
+      } else {
+        this.placementUndo = null;
+      }
     })
+    this.form.valueChanges.pipe(debounceTime(350)).subscribe(() => this.refreshPlacementIssues());
+    this.form.get('item')?.valueChanges.subscribe(() => this.applyPackagePolicy());
   }
 
   validateInput(control: AbstractControl): ValidationErrors | null {
     return control.errors;
   }
+
+  get isPackagedItem(): boolean {
+    return itemPackageMode(this.form.get('item')?.value) === 'PACKAGED';
+  }
+
+  private applyPackagePolicy(): void {
+    const count = this.form.get('packageSize');
+    if (!count) return;
+    if (this.isPackagedItem) {
+      count.setValidators([Validators.required, Validators.min(1)]);
+    } else {
+      count.setValue(1, { emitEvent: false });
+      count.setValidators([Validators.min(1)]);
+    }
+    count.updateValueAndValidity({ emitEvent: false });
+  }
   selectExistingItem(item: Inventory) {
     this.selectedItem = item;
+    this.placementIssues = [];
+    this.placementUndo = null;
 
     this.form.patchValue({
       item: item.item ?? '',
@@ -106,6 +145,7 @@ export class ManualEntry implements OnInit {
 
   clearSelectedItem(): void {
     this.selectedItem = null;
+    this.placementUndo = null;
 
     this.form.patchValue({
       item: '',
@@ -149,6 +189,13 @@ export class ManualEntry implements OnInit {
       return;
     }
 
+    // Refresh term placement issues before attempting to submit the form.
+    this.refreshPlacementIssues();
+    if (this.placementIssues.length) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
     if (this.form.valid) {
       const scanned = (this.data.barcode ?? '').trim();
       const scannedIsInternal = this.isInternalBarcode(scanned);
@@ -181,6 +228,46 @@ export class ManualEntry implements OnInit {
     } else {
       this.form.markAllAsTouched();
     }
+  }
+
+  /**
+   * Fixes a term placement issue for the current form values.
+   * @param event The event containing the issue to fix and whether to keep existing conflicts.
+   */
+  fixPlacement(event: { issue: TermPlacementIssue; keepExistingConflicts: boolean }): void {
+    this.placementUndo = { ...this.form.getRawValue() };
+    const fixed = this.termPlacement.apply(this.form.getRawValue(), event.issue, event.keepExistingConflicts);
+    this.preserveUndoForNextFormChange = true;
+    this.form.patchValue(fixed);
+    this.refreshPlacementIssues();
+  }
+
+  /**
+   * Undoes the last term placement fix for the current form values, restoring the previous values.
+   */
+  undoPlacementFix(): void {
+    if (!this.placementUndo) return;
+    this.preserveUndoForNextFormChange = true;
+    this.form.patchValue(this.placementUndo);
+    this.placementUndo = null;
+    this.refreshPlacementIssues();
+  }
+
+  /**
+   * Indicates whether there is a term placement fix that can be undone for the current form values.
+   * @returns True if there is a placement fix that can be undone; otherwise, false.
+   */
+  get canUndoPlacementFix(): boolean {
+    return this.placementUndo !== null;
+  }
+
+  /**
+   * Refreshes the term placement issues for the current form values.
+   */
+  private refreshPlacementIssues(): void {
+    this.placementIssues = this.selectedItem
+      ? []
+      : this.termPlacement.analyze(this.form.getRawValue());
   }
   cancel() {
     this.dialogRef.close(undefined);

@@ -31,15 +31,19 @@
     @if (drafts.length) {
       <div class="bulk-preview-heading">
         <h3>Review {{ drafts.length }} item(s)</h3>
-        <p>Every item needs an item name, quantity, and count before it can be saved.</p>
+        <p>Every item needs an item name and quantity. Package counts may be left unspecified.</p>
       </div>
 
       <div class="bulk-preview-list">
         @for (draft of drafts; track $index) {
-          <section class="bulk-preview-item" [class.invalid-draft]="!draft.item.trim()" data-cy="bulk-preview-item">
+          <section class="bulk-preview-item" [class.invalid-draft]="!draft.item.trim() || !draft.quantity"
+            data-cy="bulk-preview-item">
             <div class="draft-heading">
               <div>
                 <span class="source-line">{{ draft.source }}</span>
+                @if (draft.alternativeText) {
+                  <span class="source-line">Option: {{ draft.alternativeText }}</span>
+                }
                 <strong>{{ description(draft) }}</strong>
               </div>
               <button type="button" mat-icon-button aria-label="Remove item" (click)="removeDraft($index)">
@@ -50,45 +54,69 @@
             @if (!draft.item.trim()) {
               <p class="item-required">Choose an item name before saving.</p>
             }
+            @if (draft.incompletePackage && !draft.quantity) {
+              <p class="item-required" data-cy="package-clarification">
+                “{{ draft.source }}” does not say what one package means. Enter the intended quantity before saving.
+              </p>
+            }
+            @if (draft.countChoice) {
+              <p class="item-required" data-cy="count-choice-required">
+                Choose one count ({{ draft.countChoice }}) before saving.
+              </p>
+            }
+            @if (draft.preferenceBrand) {
+              <div class="preview-actions" data-cy="brand-preference-choice">
+                <span>“{{ draft.preferenceBrand }} preferred”:</span>
+                <button mat-stroked-button type="button" (click)="resolveBrandPreference(draft, false)">Preference only</button>
+                <button mat-stroked-button type="button" (click)="resolveBrandPreference(draft, true)">Require brand</button>
+              </div>
+            }
 
             <div class="draft-fields">
               <mat-form-field appearance="outline">
                 <mat-label>Quantity</mat-label>
                 <input matInput type="number" min="1" [(ngModel)]="draft.quantity" />
               </mat-form-field>
-              <mat-form-field appearance="outline">
+              <mat-form-field appearance="outline" *ngIf="isPackaged(draft)">
                 <mat-label>Count</mat-label>
                 <input matInput type="number" min="1" [(ngModel)]="draft.packageSize" />
+                <mat-hint>Optional when the source does not specify a count.</mat-hint>
               </mat-form-field>
               <mat-form-field appearance="outline" class="wide-field">
                 <mat-label>Item</mat-label>
-                <input matInput [(ngModel)]="draft.item" />
+                <input matInput [(ngModel)]="draft.item" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Brand</mat-label>
-                <input matInput [(ngModel)]="draft.brand" />
+                <input matInput [(ngModel)]="draft.brand" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Color</mat-label>
-                <input matInput [(ngModel)]="draft.color" />
+                <input matInput [(ngModel)]="draft.color" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Size</mat-label>
-                <input matInput [(ngModel)]="draft.size" />
+                <input matInput [(ngModel)]="draft.size" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Type</mat-label>
-                <input matInput [(ngModel)]="draft.type" />
+                <input matInput [(ngModel)]="draft.type" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Material</mat-label>
-                <input matInput [(ngModel)]="draft.material" />
+                <input matInput [(ngModel)]="draft.material" (input)="clearPlacementUndo(draft)" />
               </mat-form-field>
               <mat-form-field appearance="outline" class="wide-field">
                 <mat-label>Notes</mat-label>
                 <input matInput [(ngModel)]="draft.notes" />
               </mat-form-field>
             </div>
+            <app-term-placement-review
+              [issues]="placementIssues(draft)"
+              [canUndo]="canUndoPlacementFix(draft)"
+              (fixIssue)="fixPlacement(draft, $event)"
+              (undo)="undoPlacementFix(draft)">
+            </app-term-placement-review>
           </section>
         }
       </div>

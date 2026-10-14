@@ -296,8 +296,8 @@
     "size": "",
     "type": "Wide Ruled",
     "material": "",
-    "packageSize": 6,
-    "quantity": 16,
+    "packageSize": 1,
+    "quantity": 96,
     "maxQuantity": 0,
     "minQuantity": 0,
     "calculatedMinQuantity": null,
@@ -625,8 +625,8 @@
     "size": "Large",
     "type": "Beginner",
     "material": "",
-    "packageSize": 6,
-    "quantity": 5,
+    "packageSize": 1,
+    "quantity": 30,
     "maxQuantity": 0,
     "minQuantity": 0,
     "calculatedMinQuantity": null,
@@ -646,7 +646,7 @@
     "brand": "Crayola",
     "color": "",
     "size": "",
-    "type": "Washable",
+    "type": "",
     "material": "",
     "packageSize": 8,
     "quantity": 1,
@@ -717,7 +717,7 @@
     "size": "",
     "type": "",
     "material": "",
-    "packageSize": 24,
+    "packageSize": 1,
     "quantity": 0,
     "maxQuantity": 0,
     "minQuantity": 0,
@@ -740,8 +740,8 @@
     "size": "",
     "type": "",
     "material": "",
-    "packageSize": 12,
-    "quantity": 1,
+    "packageSize": 1,
+    "quantity": 12,
     "maxQuantity": 0,
     "minQuantity": 0,
     "calculatedMinQuantity": null,
@@ -804,7 +804,7 @@
       "735854725075",
       "071641815056"
     ],
-    "item": "Dry Erase Board Eraser",
+    "item": "Whiteboard Eraser",
     "description": "Dry Erase Board Eraser",
     "brand": "",
     "color": "",
@@ -834,8 +834,8 @@
     "size": "",
     "type": "",
     "material": "",
-    "packageSize": 5,
-    "quantity": 103,
+    "packageSize": 1,
+    "quantity": 515,
     "maxQuantity": 0,
     "minQuantity": 0,
     "calculatedMinQuantity": null,
@@ -1409,7 +1409,7 @@
     "externalBarcode": [
       "INDEXCARDS"
     ],
-    "item": "Index Cards",
+    "item": "Index Card",
     "description": "White Index Cards",
     "brand": "",
     "color": "White",
@@ -2008,7 +2008,7 @@
       "026229591563",
       "LOOSELEAFPAPER"
     ],
-    "item": "Loose Leaf Paper",
+    "item": "Loose-Leaf Paper",
     "description": "150 Pack of College Ruled Loose Leaf Papers",
     "brand": "",
     "color": "",
@@ -2109,8 +2109,8 @@
     "size": "",
     "type": "#2 Unsharpened",
     "material": "",
-    "packageSize": 12,
-    "quantity": 12,
+    "packageSize": 1,
+    "quantity": 144,
     "maxQuantity": 0,
     "minQuantity": 0,
     "calculatedMinQuantity": null,
@@ -2149,7 +2149,7 @@
     "externalBarcode": [
       "KLEENEXLARGEBOX200"
     ],
-    "item": "Tissue",
+    "item": "Facial Tissue",
     "description": "200 Pack of Kleenex Tissues",
     "brand": "Kleenex",
     "color": "",
@@ -2173,7 +2173,7 @@
       "BOXOFTISSUESUNSPECIFIEDCOUNTORSIZE",
       "749507989714"
     ],
-    "item": "Tissue",
+    "item": "Facial Tissue",
     "description": "Kleenex Tissue",
     "brand": "Kleenex",
     "color": "",
@@ -2268,7 +2268,7 @@
     "externalBarcode": [
       "DISINFECTANTWIPESLYSOL"
     ],
-    "item": "Disinfectant Wipe",
+    "item": "Disinfectant Wipes",
     "description": "Lysol Disinfectant Wipe",
     "brand": "Lysol",
     "color": "",
@@ -2291,7 +2291,7 @@
     "externalBarcode": [
       "DISINFECTANTWIPESCLOROX"
     ],
-    "item": "Disinfectant Wipe",
+    "item": "Disinfectant Wipes",
     "description": "Clorox Disinfectant Wipe",
     "brand": "Clorox",
     "color": "",
@@ -2484,7 +2484,7 @@
     "size": "",
     "type": "",
     "material": "Plastic",
-    "packageSize": 48,
+    "packageSize": 1,
     "quantity": 0,
     "maxQuantity": 0,
     "minQuantity": 0,
@@ -2500,7 +2500,7 @@
     "externalBarcode": [
       "843718065080"
     ],
-    "item": "Loose Leaf Paper",
+    "item": "Loose-Leaf Paper",
     "description": "100 Pack of Up&Up Grid Loose Leaf Papers",
     "brand": "Up&Up",
     "color": "",
@@ -2684,7 +2684,7 @@
     "externalBarcode": [
       "CLOROX"
     ],
-    "item": "Disinfectant Wipe",
+    "item": "Disinfectant Wipes",
     "description": "Clorox Disinfectant Wipe",
     "brand": "Clorox",
     "color": "",

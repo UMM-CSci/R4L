@@ -10,9 +10,9 @@ import { SupplyListService } from '../supplylist.service';
 import { SupplyListBulkEntryComponent } from './supply-list-bulk-entry.component';
 
 const terms: Terms = {
-  item: ['Glue Stick', 'Construction Paper'],
-  brand: [],
-  color: [],
+  item: ['Glue Stick', 'Construction Paper', 'Crayon', 'Facial Tissue', 'Disinfectant Wipes', 'Folder', 'Marker', 'Dry Erase Marker'],
+  brand: ['Kleenex', 'Expo'],
+  color: ['Black', 'Blue', 'Green', 'Red', 'Yellow'],
   size: ['Large'],
   type: [],
   material: ['Paper']
@@ -89,6 +89,17 @@ describe('SupplyListBulkEntryComponent', () => {
     }));
   });
 
+  it('allows a packaged request with an unspecified count', () => {
+    component.text = '1 box of crayons';
+
+    component.previewLines();
+
+    expect(component.drafts[0]).toEqual(jasmine.objectContaining({
+      quantity: '1', packageSize: '', item: 'Crayon', incompletePackage: false
+    }));
+    expect(component.canSubmit).toBeTrue();
+  });
+
   it('parses written quantities, ignores blank lines, and skips duplicate requests', () => {
     component.text = 'two glue sticks\n\nTWO GLUE STICKS\n1 construction paper';
 
@@ -97,6 +108,72 @@ describe('SupplyListBulkEntryComponent', () => {
     expect(component.drafts.length).toBe(2);
     expect(component.drafts[0]).toEqual(jasmine.objectContaining({ quantity: '2', item: 'Glue Stick' }));
     expect(snackBar.open).toHaveBeenCalledWith('1 duplicate line(s) were skipped.', undefined, { duration: 3500 });
+  });
+
+  it('represents two item alternatives as a shared one-of group', () => {
+    component.text = '2 boxes of Kleenex OR 1 container of disinfectant wipes';
+
+    component.previewLines();
+
+    expect(component.drafts.length).toBe(2);
+    expect(component.drafts.map(draft => draft.item)).toEqual(['Facial Tissue', 'Disinfectant Wipes']);
+    expect(component.drafts[0].choiceGroupId).toBeTruthy();
+    expect(component.drafts[1].choiceGroupId).toBe(component.drafts[0].choiceGroupId);
+    expect(component.drafts.every(draft => draft.choiceGroupMode === 'ONE_OF')).toBeTrue();
+  });
+
+  it('splits one-in-each-color folders into separate requests', () => {
+    component.text = '4 double pocket folders (one in each color: blue, red, yellow, green)';
+
+    component.previewLines();
+
+    expect(component.drafts.length).toBe(4);
+    expect(component.drafts.map(draft => ({ quantity: draft.quantity, color: draft.color }))).toEqual([
+      { quantity: '1', color: 'Blue' },
+      { quantity: '1', color: 'Red' },
+      { quantity: '1', color: 'Yellow' },
+      { quantity: '1', color: 'Green' }
+    ]);
+    expect(component.drafts.every(draft => draft.source === component.text)).toBeTrue();
+  });
+
+  it('splits a required color minimum from the remaining quantity', () => {
+    component.text = '3 dry erase markers(at least 1 black or blue)';
+
+    component.previewLines();
+
+    expect(component.drafts.map(draft => ({ quantity: draft.quantity, color: draft.color }))).toEqual([
+      { quantity: '1', color: 'Black | Blue' },
+      { quantity: '2', color: '' }
+    ]);
+  });
+
+  it('splits a specified color from a color-of-choice remainder', () => {
+    component.text = '2 plastic folders-1 green & 1 color of your choice';
+
+    component.previewLines();
+
+    expect(component.drafts.map(draft => ({ quantity: draft.quantity, color: draft.color }))).toEqual([
+      { quantity: '1', color: 'Green' },
+      { quantity: '1', color: '' }
+    ]);
+  });
+
+  it('requires a quantity decision for an unspecified set of individual markers', () => {
+    component.text = '1 set of expo markers(preferably black but others are okay)';
+
+    component.previewLines();
+
+    expect(component.drafts[0]).toEqual(jasmine.objectContaining({
+      item: 'Dry Erase Marker',
+      brand: 'Expo',
+      color: '',
+      quantity: '',
+      packageSize: '1',
+      notes: 'preferably black but others are okay',
+      incompletePackage: true
+    }));
+    expect(component.canSubmit).toBeFalse();
   });
 
   it('previews a large pasted list without dropping requests', () => {
@@ -133,7 +210,8 @@ describe('SupplyListBulkEntryComponent', () => {
 
     expect(supplyService.addSupplyList).toHaveBeenCalledTimes(2);
     expect(supplyService.addSupplyList.calls.first().args[0]).toEqual(jasmine.objectContaining({
-      school: 'MHS', grade: '1', quantity: 2, item: ['Glue Stick']
+      school: 'MHS', grade: '1', quantity: 2, item: ['Glue Stick'],
+      sourceText: '2 large glue sticks', parserVersion: 'terms-v2'
     }));
     expect(component.listChanged.emit).toHaveBeenCalledWith('new-2');
     expect(component.drafts).toEqual([]);

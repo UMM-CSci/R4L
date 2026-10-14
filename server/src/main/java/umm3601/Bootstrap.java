@@ -29,11 +29,11 @@ import umm3601.PurchaseList.PurchaseListService;
 import umm3601.Settings.SettingsController;
 import umm3601.StockReport.StockReportController;
 import umm3601.SupplyList.SupplyListController;
-import umm3601.Terms.TermsController;
 import umm3601.Users.UsersController;
 import umm3601.Users.UsersPolicy;
 import umm3601.Users.UsersService;
 import umm3601.Users.UsersValidator;
+import umm3601.terms.TermsController;
 
 /**
  * Bootstrap is the entry point for the application. It wires together the

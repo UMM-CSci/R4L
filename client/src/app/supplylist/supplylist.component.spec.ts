@@ -623,6 +623,43 @@ describe('SupplyList Table', () => {
     expect(groups[0].grades[0].grade).toBe('Unknown Grade');
   }));
 
+  it('keeps separate records from the same original request together', fakeAsync(() => {
+    const sourceText = 'Folders (one red, one blue)';
+    const redFolder = supplyListItem({
+      _id: 'red-folder',
+      item: ['Folder'],
+      color: { exactly: 'Red', anyOf: [] },
+      sourceText
+    });
+    const unrelated = supplyListItem({
+      _id: 'pencil',
+      item: ['Pencil'],
+      sourceText: '12 pencils'
+    });
+    const blueFolder = supplyListItem({
+      _id: 'blue-folder',
+      item: ['Folder'],
+      color: { exactly: 'Blue', anyOf: [] },
+      sourceText
+    });
+    spyOn(supplylistService, 'getSupplyList').and.returnValue(of([
+      redFolder,
+      unrelated,
+      blueFolder
+    ]));
+
+    supplylistTable.item.set('Folder');
+    fixture.detectChanges();
+    tick(300);
+
+    const items = supplylistTable.groupedSupplyList()[0].grades[0].teachers[0].items;
+    expect(items.map(item => item._id)).toEqual(['red-folder', 'blue-folder', 'pencil']);
+    expect(supplylistTable.sourceGroupSize(items[0], items)).toBe(2);
+    expect(supplylistTable.isSourceGroupStart(0, items)).toBeTrue();
+    expect(supplylistTable.isSourceGroupEnd(1, items)).toBeTrue();
+    expect(supplylistTable.sourceGroupSize(items[2], items)).toBe(1);
+  }));
+
   // ── confirmDelete() tests ──────────────────────────────────────────────────
 
   describe('confirmDelete()', () => {
@@ -863,8 +900,8 @@ describe('SupplyList Table', () => {
         item: ['Notebook'],
         brand: { exactly: '', anyOf: ['Five Star'] },
         color: { exactly: '', anyOf: ['Blue'] },
-        size: { exactly: 'Wide Ruled', anyOf: [] },
-        type: { exactly: 'Spiral', anyOf: [] },
+        size: { exactly: 'Large', anyOf: [] },
+        type: { exactly: 'Wide Ruled', anyOf: [] },
         material: { exactly: '', anyOf: [] },
         packageSize: 1,
         quantity: 2,
@@ -1083,7 +1120,7 @@ describe('SupplyListComponent#toLabel()', () => {
 
   it('should place size before the item without pluralizing it', () => {
     const label = supplylistTable.toLabel({ ...base, size: { exactly: 'pack', anyOf: [] }, quantity: 1 } as unknown as SupplyList);
-    expect(label).toBe('1x pack crayon');
+    expect(label).toBe('1x package of pack crayon');
     expect(label).not.toContain('packs');
   });
 
@@ -1097,14 +1134,40 @@ describe('SupplyListComponent#toLabel()', () => {
     expect(label).toBe('2x Large Glue Sticks');
   });
 
+  it('should place color before the item', () => {
+    const label = supplylistTable.toLabel({
+      ...base,
+      quantity: 2,
+      color: { exactly: 'Red', anyOf: [] },
+      item: ['Folder']
+    });
+    expect(label).toBe('2x Red Folders');
+  });
+
+  it('should display color alternatives with or before the item', () => {
+    const label = supplylistTable.toLabel({
+      ...base,
+      quantity: 2,
+      color: { exactly: '', anyOf: ['Blue', 'Black', 'Red'] },
+      item: ['Folder']
+    });
+    expect(label).toBe('2x (Blue, Black, or Red) Folders');
+  });
+
+  it('should preserve anyOf values when editing an attribute', () => {
+    const options = { exactly: '', anyOf: ['Blue', 'Black', 'Red'] };
+    expect(supplylistTable.attributeEditValue(options)).toBe('Blue | Black | Red');
+    expect(supplylistTable.parseAttributeOptions('Blue | Black | Red')).toEqual(options);
+  });
+
   it('should omit size section when size is empty string', () => {
     const label = supplylistTable.toLabel({ ...base, size: { exactly: '', anyOf: [] } } as unknown as SupplyList);
-    expect(label).not.toContain(' of ');
+    expect(label).toBe('1x package of crayon');
   });
 
   it('should omit size section when size is N/A', () => {
     const label = supplylistTable.toLabel({ ...base, size: { exactly: 'N/A', anyOf: [] } } as unknown as SupplyList);
-    expect(label).not.toContain(' of ');
+    expect(label).toBe('1x package of crayon');
   });
 
   it('should pluralize item when quantity > 1 and item does not end with s', () => {

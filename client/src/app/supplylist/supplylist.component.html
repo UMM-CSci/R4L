@@ -213,9 +213,22 @@
             <h4 class="teacher-heading"><strong>Teacher(s):</strong> {{ teacherGroup.teacher }}</h4>
 
             <ul class="item-list">
-              @for (element of teacherGroup.items; track element._id) {
+              @for (element of teacherGroup.items; track element._id; let itemIndex = $index) {
               <li class="item-row" [attr.id]="'supply-item-' + element._id"
-                [class.newly-added]="highlightedItemId() === element._id">
+                [class.newly-added]="highlightedItemId() === element._id"
+                [class.source-group-item]="sourceGroupSize(element, teacherGroup.items) > 1"
+                [class.source-group-start]="isSourceGroupStart(itemIndex, teacherGroup.items)"
+                [class.source-group-end]="isSourceGroupEnd(itemIndex, teacherGroup.items)">
+
+                @if (isSourceGroupStart(itemIndex, teacherGroup.items)) {
+                <div class="source-group-heading" data-cy="source-group-heading">
+                  <mat-icon aria-hidden="true">segment</mat-icon>
+                  <span>
+                    <strong>One original request · {{ sourceGroupSize(element, teacherGroup.items) }} items</strong>
+                    <small>{{ element.sourceText }}</small>
+                  </span>
+                </div>
+                }
 
                 @if (editingItemId === element._id) {
                 <!-- Inline edit mode -->
@@ -223,36 +236,43 @@
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Item</mat-label>
                     <input matInput [ngModel]="element.item?.join(', ')"
-                      (ngModelChange)="element.item = parseStringArray($event)" />
+                      (ngModelChange)="element.item = parseStringArray($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Brand</mat-label>
-                    <input matInput [ngModel]="element.brand?.exactly ?? ''"
-                      (ngModelChange)="element.brand = { exactly: ($event ?? '').trim(), anyOf: element.brand?.anyOf ?? [] }" />
+                    <input matInput [ngModel]="attributeEditValue(element.brand)"
+                      (ngModelChange)="element.brand = parseAttributeOptions($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Color</mat-label>
-                    <input matInput [ngModel]="element.color?.exactly ?? ''"
-                      (ngModelChange)="element.color = { exactly: ($event ?? '').trim(), anyOf: element.color?.anyOf ?? [] }" />
+                    <input matInput [ngModel]="attributeEditValue(element.color)"
+                      (ngModelChange)="element.color = parseAttributeOptions($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Size</mat-label>
-                    <input matInput [ngModel]="element.size?.exactly ?? ''"
-                      (ngModelChange)="element.size = { exactly: ($event ?? '').trim(), anyOf: element.size?.anyOf ?? [] }" />
+                    <input matInput [ngModel]="attributeEditValue(element.size)"
+                      (ngModelChange)="element.size = parseAttributeOptions($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Type</mat-label>
-                    <input matInput [ngModel]="element.type?.exactly ?? ''"
-                      (ngModelChange)="element.type = { exactly: ($event ?? '').trim(), anyOf: element.type?.anyOf ?? [] }" />
+                    <input matInput [ngModel]="attributeEditValue(element.type)"
+                      (ngModelChange)="element.type = parseAttributeOptions($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Material</mat-label>
-                    <input matInput [ngModel]="element.material?.exactly ?? ''"
-                      (ngModelChange)="element.material = { exactly: ($event ?? '').trim(), anyOf: element.material?.anyOf ?? [] }" />
+                    <input matInput [ngModel]="attributeEditValue(element.material)"
+                      (ngModelChange)="element.material = parseAttributeOptions($event)"
+                      (input)="clearPlacementUndo(element)" />
                   </mat-form-field>
-                  <mat-form-field appearance="outline" class="edit-field">
+                  <mat-form-field appearance="outline" class="edit-field" *ngIf="isPackagedSupply(element)">
                     <mat-label>Count</mat-label>
                     <input matInput type="number" [(ngModel)]="element.packageSize" />
+                    <mat-hint>Optional for a package request.</mat-hint>
                   </mat-form-field>
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Quantity</mat-label>
@@ -271,8 +291,15 @@
                     <span>{{ linkedInventorySummary(element.invIDs) }}</span>
                   </div>
                 </div>
+                <app-term-placement-review
+                  [issues]="placementIssues(element)"
+                  [canUndo]="canUndoPlacementFix(element)"
+                  (fixIssue)="fixPlacement(element, $event)"
+                  (undo)="undoPlacementFix(element)">
+                </app-term-placement-review>
                 <div class="item-actions">
-                  <button type="button" mat-icon-button color="primary" matTooltip="Save" (click)="saveEdit(element)"
+                  <button type="button" mat-icon-button color="primary" matTooltip="Save"
+                    [disabled]="placementIssues(element).length > 0" (click)="saveEdit(element)"
                     data-cy="save-item">
                     <mat-icon>check</mat-icon>
                   </button>
@@ -283,6 +310,12 @@
                 } @else {
                 <!-- Display mode -->
                 <span class="item-label" data-cy="supplylist-item-label">{{ toLabel(element) }}</span>
+                @if (element.choiceGroupId) {
+                <span class="highlight-filter-note" data-cy="choice-group-label">Either/or option</span>
+                }
+                @if (element.sourceText && mode() === 'edit') {
+                <small class="app-text-muted" data-cy="original-request">Original request: {{ element.sourceText }}</small>
+                }
                 @if (isOutsideActiveFilters(element._id)) {
                 <span class="highlight-filter-note" data-cy="highlight-filter-note">New item shown outside active filters</span>
                 }

@@ -37,9 +37,16 @@ public class SupplyList {
   public Integer packageSize;
   public Integer quantity;
   public String notes;
+  /** Original parser input. It is provenance only and never drives matching. */
+  public String sourceText;
+  public String parserVersion;
+  public String choiceGroupId;
+  public String choiceGroupMode;
+
   public String supplyID; // ID of the supply item in the supply collection
   public List<String> invIDs; // List of inventory IDs associated with this supply list item
   public List<String> preferredInventoryIds;
+
   public Integer percentageFilled = -1; // Percentage of the supply list item that has been filled
   // >= 0 is a "percentage" filled
   // -1 is "not calculated" (default)
@@ -93,6 +100,16 @@ public class SupplyList {
       }
     }
 
+    // Color reads most naturally as an adjective before the item, such as
+    // "Red Folders" rather than "Folders Red".
+    String colorStr = formatExactly(color, "");
+    if (colorStr.isEmpty()) {
+      colorStr = formatAnyOf(color).trim();
+    }
+    if (!colorStr.isEmpty()) {
+      sb.append(colorStr).append(" ");
+    }
+
     // Item (pluralize if quantity > 1)
     if (item != null && !item.isEmpty()) {
       sb.append(String.join(" or ", item));
@@ -105,7 +122,6 @@ public class SupplyList {
 
     // Format exactly/anyOf for each attribute
     String exactlyStr = formatExactly(type, "");
-    exactlyStr += formatExactly(color, exactlyStr.isEmpty() ? "" : ", ");
     exactlyStr += formatExactly(brand, exactlyStr.isEmpty() ? "" : ", ");
     exactlyStr += formatExactly(material, exactlyStr.isEmpty() ? "" : ", ");
     if (!exactlyStr.isEmpty()) {
@@ -114,7 +130,6 @@ public class SupplyList {
 
     // Format anyOf for each attribute (grouped by category)
     String anyOfStr = formatAnyOf(type);
-    anyOfStr += formatAnyOf(color);
     anyOfStr += formatAnyOf(brand);
     anyOfStr += formatAnyOf(material);
     if (!anyOfStr.isEmpty()) {

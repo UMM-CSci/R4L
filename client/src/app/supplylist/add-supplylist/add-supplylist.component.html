@@ -122,12 +122,19 @@
             <mat-form-field>
               <mat-label>Quantity</mat-label>
               <input matInput type="number" formControlName="quantity" required min="1" data-cy="quantity-input">
+              <mat-hint *ngIf="incompletePackage && !addSupplyListForm.controls.quantity.value" data-cy="package-clarification">
+                Enter a quantity after deciding what one package means for this request.
+              </mat-hint>
+              <mat-hint *ngIf="countChoice" data-cy="count-choice-required">
+                Choose one count: {{ countChoice }}.
+              </mat-hint>
               <mat-error *ngIf="formControlHasError('quantity')" data-cy="quantity-error">{{ getErrorMessage('quantity') }}</mat-error>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field *ngIf="isPackagedItem">
               <mat-label>Count per unit</mat-label>
               <input matInput type="number" formControlName="packageSize" min="1" data-cy="packageSize-input">
+              <mat-hint>May be left blank when the request only says package, box, or container.</mat-hint>
             </mat-form-field>
 
             <div class="inventory-link-field span-2" data-cy="inventory-link-field">
@@ -153,10 +160,21 @@
             </mat-form-field>
 
           </div>
+          <app-term-placement-review
+            [issues]="placementIssues"
+            [canUndo]="canUndoPlacementFix"
+            (fixIssue)="fixPlacement($event)"
+            (undo)="undoPlacementFix()">
+          </app-term-placement-review>
+          <div *ngIf="preferenceBrand" class="app-field-action-row" data-cy="brand-preference-choice">
+            <span>“{{ preferenceBrand }} preferred” is ambiguous.</span>
+            <button mat-stroked-button type="button" (click)="resolveBrandPreference(false)">Preference only</button>
+            <button mat-stroked-button type="button" (click)="resolveBrandPreference(true)">Require {{ preferenceBrand }}</button>
+          </div>
         </mat-card-content>
 
         <mat-card-actions>
-          <button mat-flat-button color="primary" type="submit" [disabled]="addSupplyListForm.invalid"
+          <button mat-flat-button color="primary" type="submit" [disabled]="addSupplyListForm.invalid || placementIssues.length > 0 || !!countChoice || !!preferenceBrand"
             data-cy="submit-add-supply">Add Item</button>
           <button mat-stroked-button color="warn" type="button" (click)="clearForm()" data-cy="clear-add-supply">Clear</button>
           <button mat-stroked-button type="button" [routerLink]="returnPath" [queryParams]="returnQueryParams"
@@ -194,6 +212,7 @@
             <tr *ngIf="previewValues.material"><th>Material</th><td>{{ previewValues.material }}</td></tr>
           </tbody>
         </table>
+        <p *ngIf="sourceText" class="app-text-muted" data-cy="source-text"><strong>Original request:</strong> {{ sourceText }}</p>
       </mat-card-content>
       <mat-card-actions>
         <button mat-button color="warn" type="button" (click)="showPreview = false">Dismiss</button>

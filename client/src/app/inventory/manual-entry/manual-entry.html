@@ -87,9 +87,10 @@
             <input matInput formControlName="material" placeholder="Material" />
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" *ngIf="isPackagedItem">
             <mat-label>Package Size</mat-label>
-            <input matInput formControlName="packageSize" placeholder="Package Size" />
+            <input matInput formControlName="packageSize" type="number" min="1" placeholder="Package Size" />
+            <mat-error *ngIf="form.get('packageSize')?.hasError('required')">Package size is required for inventory.</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -127,6 +128,13 @@
           </mat-form-field>
         </div>
       </form>
+      <app-term-placement-review
+        *ngIf="!selectedItem"
+        [issues]="placementIssues"
+        [canUndo]="canUndoPlacementFix"
+        (fixIssue)="fixPlacement($event)"
+        (undo)="undoPlacementFix()">
+      </app-term-placement-review>
     </section>
 
     <section class="results-section">
@@ -199,7 +207,8 @@
   >
     Clear Selection
   </button>
-  <button mat-raised-button color="primary" type="button" (click)="submit()">
+  <button mat-raised-button color="primary" type="button" (click)="submit()"
+    [disabled]="!selectedItem && (form.invalid || placementIssues.length > 0)">
     Save
   </button>
 </mat-dialog-actions>

@@ -1,0 +1,28 @@
+<section class="term-review" *ngIf="issues.length || canUndo" aria-live="polite" data-cy="term-placement-review">
+  <div class="term-review__heading" *ngIf="issues.length">
+    <mat-icon aria-hidden="true">rule</mat-icon>
+    <div>
+      <strong>Some recognized terms are in the wrong field</strong>
+      <p>Fix the highlighted placement before saving. Unknown wording is still allowed.</p>
+    </div>
+  </div>
+
+  <article class="term-review__issue" *ngFor="let issue of issues">
+    <p>{{ issue.message }}</p>
+    <div class="term-review__actions" *ngIf="issue.fixable !== false">
+      <button mat-stroked-button color="primary" type="button"
+        (click)="fixIssue.emit({ issue: issue, keepExistingConflicts: false })">
+        Fix fields
+      </button>
+      <button *ngIf="issue.conflicts.length" mat-stroked-button type="button"
+        (click)="fixIssue.emit({ issue: issue, keepExistingConflicts: true })">
+        Keep current {{ fieldLabel(issue.conflicts[0].field) }}
+      </button>
+    </div>
+  </article>
+
+  <button *ngIf="canUndo && !issues.length" mat-button type="button" (click)="undo.emit()" data-cy="undo-term-fix">
+    <mat-icon aria-hidden="true">undo</mat-icon>
+    Undo last fix
+  </button>
+</section>

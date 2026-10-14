@@ -21,11 +21,17 @@ export interface SupplyList {
   color: AttributeOptions;
   size: AttributeOptions;
   material: AttributeOptions;
-  packageSize: number;
+  packageSize?: number | null;
   quantity: number;
   notes: string;
   supplyID: string;
   invIDs: string[];
   preferredInventoryIds?: string[];
   percentageFilled: number;
+  /** Original unedited text supplied to the parser; debugging provenance only. */
+  sourceText?: string;
+  parserVersion?: string;
+  /** Requirements sharing this id are alternatives when mode is ONE_OF. */
+  choiceGroupId?: string;
+  choiceGroupMode?: 'ONE_OF';
 }

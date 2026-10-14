@@ -1,6 +1,7 @@
 package umm3601.Terms;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doAnswer;
@@ -13,6 +14,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
+import umm3601.terms.Terms;
+import umm3601.terms.TermsController;
 
 import org.bson.Document;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +61,7 @@ class TermsControllerSpec {
   }
 
   @Test
-  void getTermsMergesSortsDeduplicatesAndPreservesStoredTerms() {
+  void getTermsReturnsCanonicalCatalogInsteadOfPromotingStoredMistakes() {
     DistinctIterable<String> slItem = makeIterable(Arrays.asList("Crayons", "Markers"));
     DistinctIterable<String> slBrandA = makeIterable(Arrays.asList("Crayola", "BIC"));
     DistinctIterable<String> slBrandO = makeIterable(Arrays.asList("Expo"));
@@ -99,12 +102,19 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertEquals(Arrays.asList("Construction Paper", "crayon", "Crayons", "Markers", "Pencil"), terms.item);
-      assertEquals(Arrays.asList("BIC", "Crayola", "Expo", "Papermate"), terms.brand);
-      assertEquals(Arrays.asList("Blue", "Green", "Red", "Yellow"), terms.color);
-      assertEquals(Arrays.asList("Boxes", "Large", "Small"), terms.size);
-      assertEquals(Arrays.asList("Dry Erase", "Permanent", "Washable"), terms.type);
-      assertEquals(Arrays.asList("Metal", "Plastic", "Wood"), terms.material);
+      assertTrue(terms.item.containsAll(List.of("Construction Paper", "Crayon", "Pencil", "Washable Marker")));
+      assertFalse(terms.item.contains("Crayons"));
+      assertFalse(terms.item.contains("Markers"));
+      assertTrue(terms.brand.containsAll(List.of("BIC", "Crayola", "Expo")));
+      assertTrue(terms.color.containsAll(List.of("Blue", "Green", "Red", "Yellow")));
+      assertFalse(terms.size.contains("Boxes"));
+      assertFalse(terms.type.contains("Washable"));
+      assertFalse(terms.material.contains("Metal"));
+      assertTrue(terms.itemPackageModes.get("Crayon").equals("PACKAGED"));
+      assertTrue(terms.itemPackageModes.get("Snack").equals("PACKAGED"));
+      assertTrue(terms.itemPackageModes.get("Dry Erase Marker").equals("INDIVIDUAL"));
+      assertTrue(terms.itemPackageModes.get("Permanent Marker").equals("INDIVIDUAL"));
+      assertTrue(terms.itemPackageModes.get("Pencil").equals("INDIVIDUAL"));
       return null;
     }).when(ctx).json(any(Terms.class));
 
@@ -128,7 +138,8 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertEquals(List.of("Construction Paper", "Crayon"), terms.item);
+      assertTrue(terms.item.containsAll(List.of("Construction Paper", "Crayon")));
+      assertFalse(terms.item.contains(""));
       return null;
     }).when(ctx).json(any(Terms.class));
 
@@ -138,7 +149,7 @@ class TermsControllerSpec {
   }
 
   @Test
-  void getTermsFiltersOverlappingHashNumberMarkersFromType() {
+  void getTermsKeepsPencilMarkersInTheirCanonicalTypeField() {
     DistinctIterable<String> empty = makeIterable(new ArrayList<>());
     DistinctIterable<String> sizeFromInventory = makeIterable(Arrays.asList("#2"));
     DistinctIterable<String> typeFromInventory = makeIterable(Arrays.asList("#2", "Sharpened"));
@@ -151,13 +162,41 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertEquals(List.of("#2"), terms.size);
-      assertEquals(List.of("Sharpened"), terms.type);
+      assertFalse(terms.size.contains("#2"));
+      assertTrue(terms.type.contains("#2"));
+      assertTrue(terms.type.contains("Sharpened"));
       return null;
     }).when(ctx).json(any(Terms.class));
 
     controller.getTerms(ctx);
     verify(ctx).json(any(Terms.class));
+    verify(ctx).status(eq(HttpStatus.OK));
+  }
+
+  @Test
+  void getTermsDoesNotPromoteAliasesOrUnknownStoredTerms() {
+    DistinctIterable<String> empty = makeIterable(new ArrayList<>());
+    DistinctIterable<String> items = makeIterable(List.of("glue sticks", "backpack", "Custom Classroom Kit"));
+    DistinctIterable<String> sizes = makeIterable(List.of("1 inch"));
+
+    when(supplyListCollection.distinct(any(String.class), eq(String.class))).thenReturn(empty);
+    when(inventoryCollection.distinct(any(String.class), eq(String.class))).thenReturn(empty);
+    when(inventoryCollection.distinct(eq("item"), eq(String.class))).thenReturn(items);
+    when(inventoryCollection.distinct(eq("size"), eq(String.class))).thenReturn(sizes);
+
+    doAnswer(inv -> {
+      Terms terms = inv.getArgument(0);
+      assertTrue(terms.item.contains("Glue Stick"));
+      assertFalse(terms.item.contains("glue sticks"));
+      assertTrue(terms.item.contains("Backpack"));
+      assertFalse(terms.item.contains("backpack"));
+      assertFalse(terms.item.contains("Custom Classroom Kit"));
+      assertTrue(terms.size.contains("1 in"));
+      assertFalse(terms.size.contains("1 inch"));
+      return null;
+    }).when(ctx).json(any(Terms.class));
+
+    controller.getTerms(ctx);
     verify(ctx).status(eq(HttpStatus.OK));
   }
 

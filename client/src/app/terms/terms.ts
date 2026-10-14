@@ -5,4 +5,7 @@ export interface Terms {
   size: string[];
   type: string[];
   material: string[];
+  itemPackageModes?: Record<string, ItemPackageMode>;
 }
+
+export type ItemPackageMode = 'INDIVIDUAL' | 'PACKAGED';
