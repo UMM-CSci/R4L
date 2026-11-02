@@ -25,6 +25,7 @@ export interface SupplyListInventoryLinkDialogData {
   requirementLabel: string;
   selectedInventoryIds: string[];
   actionLabel?: string;
+  readOnly?: boolean;
   filters: SupplyListInventoryLinkFilters;
 }
 
@@ -96,6 +97,7 @@ export class SupplyListInventoryLinkDialogComponent implements OnInit {
   }
 
   toggleInventory(item: Inventory, checked: boolean): void {
+    if (this.data.readOnly) return;
     if (!item.internalID) {
       return;
     }
@@ -108,10 +110,12 @@ export class SupplyListInventoryLinkDialogComponent implements OnInit {
   }
 
   removeInventoryId(inventoryId: string): void {
+    if (this.data.readOnly) return;
     this.selectedInventoryIds.update(ids => ids.filter(id => id !== inventoryId));
   }
 
   selectVisibleInventory(): void {
+    if (this.data.readOnly) return;
     const visibleIds = this.inventory()
       .map(item => item.internalID)
       .filter((id): id is string => !!id);
@@ -119,6 +123,7 @@ export class SupplyListInventoryLinkDialogComponent implements OnInit {
   }
 
   clearSelectedInventory(): void {
+    if (this.data.readOnly) return;
     this.selectedInventoryIds.set([]);
   }
 
@@ -147,6 +152,10 @@ export class SupplyListInventoryLinkDialogComponent implements OnInit {
   }
 
   save(): void {
+    if (this.data.readOnly) {
+      this.dialogRef.close();
+      return;
+    }
     this.dialogRef.close(this.selectedInventoryIds());
   }
 

@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,12 +20,13 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DialogService } from '../shared/dialog/dialog.service';
 
 // RxJS Imports
-import { catchError, combineLatest, debounceTime, map, of, switchMap } from 'rxjs';
+import { catchError, combineLatest, debounceTime, forkJoin, map, of, switchMap } from 'rxjs';
 
 // Supply List Imports
 import { SupplyList, AttributeOptions } from './supplylist';
@@ -34,6 +36,10 @@ import {
   SupplyListInventoryLinkFilters
 } from './inventory-link-dialog/supply-list-inventory-link-dialog.component';
 import { SupplyListBulkEntryComponent } from './bulk-entry/supply-list-bulk-entry.component';
+import {
+  DuplicateSupplyListDialogComponent,
+  SupplyListDestination
+} from './duplicate-list-dialog/duplicate-supply-list-dialog.component';
 import { TermsService } from '../terms/terms.service';
 import { Terms } from '../terms/terms';
 import {
@@ -43,6 +49,8 @@ import {
 } from '../terms/term-placement.service';
 import { TermPlacementReviewComponent } from '../terms/term-placement-review.component';
 import { itemPackageMode } from '../terms/term-standard';
+import { Inventory } from '../inventory/inventory';
+import { InventoryService } from '../inventory/inventory.service';
 
 // Auth
 import { AuthService } from '../auth/auth-service';
@@ -67,11 +75,13 @@ type SupplyListMode = 'view' | 'edit' | 'link';
     MatOptionModule,
     MatRadioModule,
     MatListModule,
+    MatMenuModule,
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
     MatTreeModule,
     MatExpansionModule,
+    MatProgressBarModule,
     CommonModule,
     RouterLink,
     SupplyListBulkEntryComponent,
@@ -111,6 +121,7 @@ export class SupplyListComponent {
   private destroyRef = inject(DestroyRef);
   private termsService = inject(TermsService);
   private termPlacement = inject(TermPlacementService);
+  private inventoryService = inject(InventoryService);
   private terms: Terms = { item: [], brand: [], color: [], size: [], type: [], material: [] };
   private editPlacementUndo: SupplyList | null = null;
   private hasScrolledToHighlight = false;
@@ -253,6 +264,54 @@ export class SupplyListComponent {
   private material$ = toObservable(this.material);
   private quantity$ = toObservable(this.quantity);
   private refresh$ = toObservable(this.refreshTrigger);
+
+  /**
+   * The explorer deliberately uses an unfiltered request. If it shared the main
+   * request, choosing a school would also make every other school disappear
+   * from the navigation.
+   */
+  private explorerSupplyListState = toSignal(
+    this.refresh$.pipe(
+      switchMap(() => this.supplylistService.getSupplyList().pipe(
+        catchError(() => of([] as SupplyList[]))
+      ))
+    ),
+    { initialValue: [] as SupplyList[] }
+  );
+
+  supplyListExplorer = computed(() => {
+    type ExplorerGrade = { grade: string; count: number };
+    type ExplorerSchool = { school: string; count: number; grades: ExplorerGrade[] };
+    const schools = new Map<string, Map<string, number>>();
+
+    for (const supply of this.explorerSupplyListState()) {
+      if (supply._id && this.removedItemIds().has(supply._id)) continue;
+      const school = supply.school?.trim() || 'Unknown School';
+      const grade = supply.grade?.trim() || 'Unknown Grade';
+      const grades = schools.get(school) ?? new Map<string, number>();
+      grades.set(grade, (grades.get(grade) ?? 0) + 1);
+      schools.set(school, grades);
+    }
+
+    return [...schools.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([school, grades]): ExplorerSchool => ({
+        school,
+        count: [...grades.values()].reduce((total, count) => total + count, 0),
+        grades: [...grades.entries()]
+          .sort(([a], [b]) => a.localeCompare(b))
+          .map(([grade, count]) => ({ grade, count }))
+      }));
+  });
+
+  explorerItemCount = computed(() =>
+    this.supplyListExplorer().reduce((total, school) => total + school.count, 0)
+  );
+
+  private inventoryForFulfillment = toSignal(
+    this.inventoryService.getInventory().pipe(catchError(() => of([] as Inventory[]))),
+    { initialValue: [] as Inventory[] }
+  );
 
   /**
    * Combines filter signals into one debounced request stream. Filtering on the
@@ -440,10 +499,26 @@ export class SupplyListComponent {
     this.updateWorkspaceQuery({ grade: grade ?? null, highlight: null });
   }
 
+  /** Changes the visible list without collapsing the persistent explorer. */
+  openExplorerScope(school?: string, grade?: string): void {
+    if (!school && this.isWorkspacePage) {
+      this.leaveWorkspace();
+      return;
+    }
+
+    this.school.set(school);
+    this.grade.set(grade);
+    this.updateWorkspaceQuery({
+      school: school ?? null,
+      grade: grade ?? null,
+      highlight: null
+    });
+  }
+
   // Constructs the query parameters for the workspace URL based on the current school and grade.
-  workspaceQueryParams(school: string, grade?: string): Record<string, string> {
+  workspaceQueryParams(school?: string, grade?: string): Record<string, string> {
     return {
-      school,
+      ...(school ? { school } : {}),
       ...(grade ? { grade } : {}),
       mode: this.mode(),
       returnUrl: this.router.url
@@ -511,6 +586,39 @@ export class SupplyListComponent {
   // Returns the total number of supply list items for the given teachers in the current grade.
   gradeItemCount(teachers: { items: SupplyList[] }[]): number {
     return teachers.reduce((count, teacher) => count + teacher.items.length, 0);
+  }
+
+  gradeListGroups<T extends { grade: string; teachers: { items: SupplyList[] }[] }>(grades: T[]): { grades: T[] }[] {
+    const groups = new Map<string, T[]>();
+    for (const grade of grades) {
+      const signature = this.gradeListSignature(grade.teachers);
+      groups.set(signature, [...(groups.get(signature) ?? []), grade]);
+    }
+    return [...groups.values()].map(groupedGrades => ({ grades: groupedGrades }));
+  }
+
+  gradeGroupTitle(grades: { grade: string }[]): string {
+    const names = grades.map(grade => grade.grade);
+    if (names.length === 1) return `Grade ${names[0]}`;
+    if (names.length === 2) return `Grades ${names[0]} & ${names[1]}`;
+    return `Grades ${names.slice(0, -1).join(', ')} & ${names.at(-1)}`;
+  }
+
+  displayedGradeGroups<T extends { teachers: { items: SupplyList[] }[] }>(grades: T[]): T[] {
+    if (grades.length <= 1 || this.mode() !== 'view') return grades;
+    const highlightedId = this.highlightedItemId();
+    const highlightedGrade = highlightedId
+      ? grades.find(grade => grade.teachers.some(teacher =>
+        teacher.items.some(item => item._id === highlightedId)))
+      : undefined;
+    return [highlightedGrade ?? grades[0]];
+  }
+
+  private gradeListSignature(teachers: { items: SupplyList[] }[]): string {
+    return teachers.flatMap(teacher => teacher.items)
+      .map(item => this.toLabel(item).trim().toLowerCase())
+      .sort()
+      .join('\n');
   }
 
   // Checks if any of the given teachers' supply list items contain the currently highlighted item.
@@ -613,6 +721,65 @@ export class SupplyListComponent {
     return linkedCount === 0 ? 'No linked inventory' : `${linkedCount} linked item${linkedCount === 1 ? '' : 's'}`;
   }
 
+  duplicateGradeList(school: string, grade: string, teachers: { items: SupplyList[] }[]): void {
+    const sourceItems = teachers.flatMap(teacher => teacher.items);
+    const dialogRef = this.dialog.open(DuplicateSupplyListDialogComponent, {
+      width: '760px',
+      maxWidth: '95vw',
+      data: { sourceSchool: school, sourceGrade: grade, itemCount: sourceItems.length }
+    });
+
+    dialogRef.afterClosed().subscribe((destinations: SupplyListDestination[] | undefined) => {
+      if (!destinations?.length) return;
+      const requests = destinations.flatMap((destination, destinationIndex) => {
+        const choiceGroups = new Map<string, string>();
+        return sourceItems.map(item => {
+          const originalChoiceId = item.choiceGroupId?.trim();
+          if (originalChoiceId && !choiceGroups.has(originalChoiceId)) {
+            choiceGroups.set(originalChoiceId, `choice-copy-${Date.now()}-${destinationIndex}-${choiceGroups.size}`);
+          }
+          return this.supplylistService.addSupplyList({
+            academicYear: item.academicYear,
+            school: destination.school,
+            grade: destination.grade,
+            teacher: item.teacher,
+            item: [...(item.item ?? [])],
+            brand: this.cloneAttribute(item.brand),
+            color: this.cloneAttribute(item.color),
+            size: this.cloneAttribute(item.size),
+            type: this.cloneAttribute(item.type),
+            material: this.cloneAttribute(item.material),
+            packageSize: item.packageSize,
+            quantity: item.quantity,
+            notes: item.notes,
+            invIDs: [],
+            preferredInventoryIds: [],
+            sourceText: item.sourceText,
+            parserVersion: item.parserVersion,
+            choiceGroupId: originalChoiceId ? choiceGroups.get(originalChoiceId) : undefined,
+            choiceGroupMode: item.choiceGroupMode
+          }).pipe(catchError(error => of({ error })));
+        });
+      });
+
+      forkJoin(requests).subscribe(results => {
+        const failures = results.filter(result => 'error' in result).length;
+        this.refreshTrigger.update(refresh => refresh + 1);
+        this.snackBar.open(
+          failures
+            ? `List copied with ${failures} request(s) that could not be added.`
+            : `List copied to ${destinations.length} destination(s).`,
+          failures ? 'OK' : undefined,
+          { duration: failures ? 6500 : 3500 }
+        );
+      });
+    });
+  }
+
+  private cloneAttribute(attribute: AttributeOptions | undefined): AttributeOptions {
+    return { exactly: attribute?.exactly ?? '', anyOf: [...(attribute?.anyOf ?? [])] };
+  }
+
   // Opens a dialog to link inventory items to the specified supply item, optionally saving on close.
   openInventoryLinkDialogForSupply(supply: SupplyList, saveOnClose: boolean): void {
     const dialogRef = this.dialog.open(SupplyListInventoryLinkDialogComponent, {
@@ -623,12 +790,13 @@ export class SupplyListComponent {
         requirementLabel: this.toLabel(supply),
         selectedInventoryIds: this.normalizeInventoryIds(supply.invIDs),
         actionLabel: saveOnClose ? 'Save Links' : 'Apply Links',
+        readOnly: !this.canEditSupplyList,
         filters: this.inventoryFiltersFromSupply(supply)
       }
     });
 
     dialogRef.afterClosed().subscribe((selectedInventoryIds: string[] | undefined) => {
-      if (selectedInventoryIds === undefined) {
+      if (selectedInventoryIds === undefined || !this.canEditSupplyList) {
         return;
       }
 
@@ -637,6 +805,31 @@ export class SupplyListComponent {
         this.saveEdit(supply);
       }
     });
+  }
+
+  sourceGroupHeading(item: SupplyList, siblings: SupplyList[]): string {
+    const count = this.sourceGroupSize(item, siblings);
+    return item.choiceGroupId
+      ? `Either / or · one requirement · ${count} options`
+      : `One original request · ${count} items`;
+  }
+
+  estimatedFulfillment(supply: SupplyList): { available: number; needed: number; percent: number; explanation: string } {
+    const needed = Math.max(0, Number(supply.quantity) || 0);
+    const linkedIds = new Set(this.normalizeInventoryIds(supply.invIDs));
+    const available = this.inventoryForFulfillment()
+      .filter(inventory => linkedIds.has(inventory.internalID))
+      .reduce((total, inventory) => total + Math.max(
+        0,
+        (Number(inventory.quantity) || 0) - (Number(inventory.reservedQuantity) || 0)
+      ), 0);
+    const percent = needed > 0 ? Math.min(100, Math.round((available / needed) * 100)) : 0;
+    const explanation = linkedIds.size === 0
+      ? 'No inventory is linked to this request.'
+      : needed === 0
+        ? 'Add a requested quantity to estimate fulfillment.'
+        : 'Estimate uses the available quantities from all linked inventory and is capped at 100%. It is not a reservation.';
+    return { available: Math.min(available, needed || available), needed, percent, explanation };
   }
 
   // Builds a compact human-readable label for an item, mirroring the server-side toString().

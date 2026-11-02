@@ -31,6 +31,117 @@ th.mat-sort-header-sorted {
   margin-bottom: var(--app-space-sm);
 }
 
+.workspace-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--app-space-lg);
+}
+
+.app-page-shell.supplylist-page-header,
+.app-page-shell.grade-bulk-entry-shell,
+.app-page-shell.workspace-layout {
+  max-width: 1680px;
+}
+
+.workspace-main {
+  min-width: 0;
+}
+
+.list-explorer {
+  position: sticky;
+  top: var(--app-space-md);
+  max-height: calc(100dvh - (2 * var(--app-space-md)));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  background: var(--app-surface);
+
+  > header {
+    display: grid;
+    gap: 2px;
+    padding: var(--app-space-md);
+    border-bottom: 1px solid var(--app-border);
+
+    small {
+      color: var(--app-text-muted);
+    }
+  }
+}
+
+.explorer-root,
+.explorer-school-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--app-space-sm);
+  width: 100%;
+  padding: var(--app-space-sm) var(--app-space-md);
+  border: 0;
+  background: transparent;
+  color: var(--app-text);
+  text-align: left;
+  cursor: pointer;
+
+  > span {
+    display: grid;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  small {
+    color: var(--app-text-muted);
+  }
+
+  &:hover,
+  &.active {
+    background: color-mix(in srgb, var(--app-primary-color) 10%, var(--app-surface));
+  }
+
+  &.active {
+    color: var(--app-primary-color);
+  }
+}
+
+.explorer-school {
+  border-top: 1px solid var(--app-border);
+}
+
+.explorer-grades {
+  display: grid;
+  padding: 0 var(--app-space-sm) var(--app-space-sm) 42px;
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--app-space-sm);
+    padding: 7px var(--app-space-sm);
+    border: 0;
+    border-radius: var(--app-radius-sm);
+    background: transparent;
+    color: var(--app-text);
+    text-align: left;
+    cursor: pointer;
+
+    small {
+      color: var(--app-text-muted);
+    }
+
+    &:hover,
+    &.active {
+      background: color-mix(in srgb, var(--app-primary-color) 10%, var(--app-surface));
+    }
+
+    &.active {
+      color: var(--app-primary-color);
+      font-weight: 700;
+    }
+  }
+}
+
 .school-heading-row {
   display: flex;
   align-items: center;
@@ -141,6 +252,12 @@ th.mat-sort-header-sorted {
   margin: 0.25rem 0 0.25rem 1rem;
 }
 
+.grade-panel.grouped-view-panel {
+  .grade-panel-header {
+    display: none;
+  }
+}
+
 .teacher-group {
   margin-left: 1rem;
 }
@@ -173,6 +290,26 @@ th.mat-sort-header-sorted {
   display: flex;
   flex-direction: column;
   gap: var(--app-space-xs);
+}
+
+.shared-grade-list {
+  display: grid;
+  gap: var(--app-space-xs);
+  margin-bottom: var(--app-space-sm);
+}
+
+.shared-grade-list.is-shared {
+  padding: var(--app-space-sm);
+  border: 1px solid color-mix(in srgb, var(--app-primary-color) 45%, var(--app-border));
+  border-radius: var(--app-radius-md);
+  background: color-mix(in srgb, var(--app-primary-color) 5%, var(--app-surface));
+}
+
+.shared-grade-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-xs);
+  color: var(--app-primary-color);
 }
 
 .item-row {
@@ -265,6 +402,19 @@ th.mat-sort-header-sorted {
   font-size: 0.95rem;
 }
 
+.linked-inventory-cell {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 190px;
+  justify-content: flex-start;
+
+  .linked-inventory-chevron {
+    margin-left: auto;
+  }
+}
+
 .highlight-filter-note {
   color: var(--app-primary-color);
   font-size: 0.78rem;
@@ -307,6 +457,9 @@ th.mat-sort-header-sorted {
 }
 
 @media (max-width: 720px) {
+  .linked-inventory-cell {
+    width: 100%;
+  }
   .filter-container,
   .primary-filters {
     grid-template-columns: 1fr;
@@ -363,5 +516,413 @@ th.mat-sort-header-sorted {
 
   .inventory-link-edit-field {
     min-width: 0;
+  }
+}
+
+/* Production version of the approved Supply List prototype visual language. */
+.supplylist-page-header {
+  padding-top: var(--app-space-lg);
+
+  mat-card {
+    overflow: hidden;
+    border: 1px solid var(--app-border);
+    border-top: 4px solid var(--app-primary-color);
+    background: var(--app-surface);
+    box-shadow: var(--app-shadow-sm);
+  }
+}
+
+.list-card {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-sm);
+}
+
+.school-group {
+  padding: var(--app-space-lg);
+
+  + .school-group {
+    border-top: 1px solid var(--app-border);
+  }
+}
+
+.school-heading-row {
+  margin-bottom: var(--app-space-md);
+  padding-bottom: var(--app-space-sm);
+  border-bottom: 1px solid var(--app-border);
+}
+
+.school-heading {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.shared-grade-list {
+  gap: var(--app-space-sm);
+}
+
+.shared-grade-list.is-shared {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--app-primary-color) 36%, var(--app-border));
+  border-left: 5px solid var(--app-primary-color);
+  border-radius: var(--app-radius-lg);
+  background: color-mix(in srgb, var(--app-primary-color) 4%, var(--app-surface));
+
+  .grade-panel {
+    margin: 0 var(--app-space-md) var(--app-space-md);
+  }
+}
+
+.shared-grade-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-md);
+  padding: var(--app-space-md) var(--app-space-lg);
+  color: var(--app-text);
+
+  h3 {
+    margin: 2px 0 0;
+    font-size: 1.15rem;
+  }
+}
+
+.grade-stack-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--app-primary-color) 15%, var(--app-surface));
+  color: var(--app-primary-color);
+}
+
+.section-kicker,
+.generated-label {
+  color: var(--app-primary-color);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.grade-panel {
+  overflow: hidden;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md) !important;
+  box-shadow: none !important;
+}
+
+.teacher-group {
+  padding: var(--app-space-md) var(--app-space-lg);
+
+  + .teacher-group {
+    border-top: 1px solid var(--app-border);
+  }
+}
+
+.teacher-heading {
+  margin: 0 0 var(--app-space-sm);
+}
+
+.request-column-headings {
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) minmax(210px, 1fr) minmax(150px, 0.7fr) auto;
+  gap: var(--app-space-md);
+  padding: 0 var(--app-space-md) var(--app-space-xs);
+  color: var(--app-text-muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  span:last-child {
+    min-width: 72px;
+    text-align: center;
+  }
+}
+
+.item-list {
+  gap: var(--app-space-sm);
+}
+
+.item-row.request-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) minmax(210px, 1fr) minmax(150px, 0.7fr) auto;
+  align-items: center;
+  gap: var(--app-space-md);
+  min-height: 82px;
+  padding: var(--app-space-md);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md);
+  background: var(--app-surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--app-primary-color) 44%, var(--app-border));
+    background: var(--app-surface);
+  }
+
+  &.newly-added {
+    border-color: var(--app-tertiary, var(--app-primary-color));
+    background: color-mix(in srgb, var(--app-tertiary, var(--app-primary-color)) 10%, var(--app-surface));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--app-tertiary, var(--app-primary-color)) 18%, transparent);
+  }
+}
+
+.request-copy,
+.request-link,
+.request-progress {
+  display: grid;
+  align-content: center;
+  gap: var(--app-space-xs);
+  min-width: 0;
+}
+
+.request-progress {
+  display: grid;
+  gap: var(--app-space-xs);
+  min-width: 0;
+
+  strong {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  mat-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--app-text-muted);
+    font-size: 16px;
+  }
+
+  small {
+    color: var(--app-text-muted);
+    font-size: 0.75rem;
+  }
+}
+
+.request-copy > small,
+.request-link > small {
+  color: var(--app-text-muted);
+  font-size: 0.79rem;
+}
+
+.original-description {
+  color: var(--app-text-muted);
+  font-style: italic;
+}
+
+.request-copy .item-label {
+  font-size: 1rem;
+}
+
+.request-link {
+  position: relative;
+}
+
+.linked-inventory-cell {
+  width: 100%;
+  min-width: 0;
+  border-color: color-mix(in srgb, var(--app-primary-color) 34%, var(--app-border));
+  background: color-mix(in srgb, var(--app-primary-color) 6%, var(--app-surface));
+
+  &.unlinked {
+    color: var(--app-warn-color, #b3261e);
+    border-color: color-mix(in srgb, var(--app-warn-color, #b3261e) 42%, var(--app-border));
+    background: color-mix(in srgb, var(--app-warn-color, #b3261e) 6%, var(--app-surface));
+  }
+}
+
+.item-row.source-group-item {
+  border-left: 5px solid var(--app-primary-color);
+  background: color-mix(in srgb, var(--app-primary-color) 3%, var(--app-surface));
+}
+
+.source-group-heading {
+  grid-column: 1 / -1;
+  padding: var(--app-space-xs) 0 var(--app-space-sm);
+}
+
+/* The old inline editor now behaves like the prototype's focused modal. */
+.item-row.request-row.editing-row {
+  position: fixed;
+  z-index: 1000;
+  inset: 50% auto auto 50%;
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  width: min(920px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  box-sizing: border-box;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  background: var(--app-surface);
+  box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.54), var(--app-shadow-lg);
+  margin: 0;
+
+
+  > .source-group-heading {
+    display: none;
+  }
+
+  .edit-header {
+    display: flex;
+    flex: 0 0 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--app-space-lg);
+    padding: var(--app-space-lg);
+    border-bottom: 1px solid var(--app-border);
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    p {
+      margin-top: var(--app-space-xs);
+      color: var(--app-text-muted);
+    }
+  }
+
+  .source-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 0 0 100%;
+    gap: var(--app-space-md);
+    padding: var(--app-space-md) var(--app-space-lg);
+    background: var(--app-surface-muted);
+
+    > div {
+      display: grid;
+      gap: var(--app-space-xs);
+    }
+
+    span {
+      color: var(--app-text-muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    blockquote {
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
+  .item-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    flex: 0 0 100%;
+    gap: 0 var(--app-space-md);
+    padding: var(--app-space-lg);
+    box-sizing: border-box;
+
+    .edit-field {
+      width: auto;
+    }
+  }
+
+  app-term-placement-review {
+    flex: 0 0 100%;
+    padding: 0 var(--app-space-lg);
+  }
+
+  > .item-actions {
+    flex: 0 0 100%;
+    justify-content: flex-end;
+    padding: var(--app-space-md) var(--app-space-lg) var(--app-space-lg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .workspace-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .list-explorer {
+    position: static;
+    max-height: 18rem;
+  }
+
+  .request-column-headings {
+    display: none;
+  }
+
+  .item-row.request-row {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr) auto;
+  }
+
+  .request-copy {
+    grid-row: 1 / span 2;
+  }
+
+  .request-link {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .request-progress {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .item-actions {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+
+  .item-row.request-row.editing-row .item-edit-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .workspace-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .list-explorer {
+    position: static;
+  }
+
+  .school-group,
+  .teacher-group {
+    padding: var(--app-space-md);
+  }
+
+  .item-row.request-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .request-copy,
+  .request-link {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .request-progress {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .item-actions {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .item-row.request-row.editing-row .source-preview,
+  .item-row.request-row.editing-row .item-edit-grid {
+    grid-template-columns: 1fr;
   }
 }

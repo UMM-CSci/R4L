@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Terms } from './terms';
+import { ItemPackageMode } from './terms';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,9 @@ export class TermsService {
 
   getTerms(): Observable<Terms> {
     return this.httpClient.get<Terms>(this.termsUrl);
+  }
+
+  approveItemTerm(term: string, packageMode: ItemPackageMode): Observable<unknown> {
+    return this.httpClient.post(`${this.termsUrl}/items`, { term, packageMode });
   }
 }

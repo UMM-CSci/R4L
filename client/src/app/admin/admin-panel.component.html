@@ -6,6 +6,73 @@
     </div>
   </section>
 
+  <section class="term-review-info">
+    <header class="missing-item-header">
+      <h2 class="missing-item-title">Term Review</h2>
+      <p class="missing-item-description">
+        Requests appear here when an item is not in the approved vocabulary or a known term seems to be in the wrong field.
+      </p>
+    </header>
+
+    @for (review of unknownTermReviews(); track review.key) {
+      <article class="term-review-card" data-cy="unknown-term-review">
+        <div>
+          <span class="review-kicker">New item term · {{ review.records.length }} request(s)</span>
+          <h3>{{ review.canonicalTerm }}</h3>
+          <p>{{ requestLabel(review.records[0]) }}</p>
+          <mat-form-field appearance="outline" class="canonical-term-field">
+            <mat-label>Approved item name</mat-label>
+            <input matInput [(ngModel)]="review.canonicalTerm">
+            <mat-hint>Use the singular canonical name, such as Crayon instead of Crayons.</mat-hint>
+          </mat-form-field>
+        </div>
+        <div class="package-mode-help">
+          <p><strong>How is this item fulfilled?</strong></p>
+          <p><strong>Individual</strong> means each unit is counted separately and the Count field stays hidden.</p>
+          <p><strong>Packaged</strong> means it may be requested as a box, pack, or container with an optional Count.</p>
+        </div>
+        <div class="term-review-actions">
+          <button mat-stroked-button type="button"
+            [disabled]="reviewingTerm() === review.key || !review.canonicalTerm.trim()"
+            (click)="approveTerm(review, 'INDIVIDUAL')">
+            Approve as Individual
+          </button>
+          <button mat-flat-button color="primary" type="button"
+            [disabled]="reviewingTerm() === review.key || !review.canonicalTerm.trim()"
+            (click)="approveTerm(review, 'PACKAGED')">
+            Approve as Packaged
+          </button>
+          @if (review.records[0]._id) {
+            <a mat-button [routerLink]="['/supplylist']"
+              [queryParams]="{ highlight: review.records[0]._id, mode: 'edit' }">
+              Review Request
+            </a>
+          }
+        </div>
+      </article>
+    }
+
+    @for (review of placementReviews(); track review.record._id) {
+      <article class="term-review-card placement-review-card" data-cy="placement-term-review">
+        <div>
+          <span class="review-kicker">Check term placement</span>
+          <h3>{{ requestLabel(review.record) }}</h3>
+          @for (message of review.messages; track message) {
+            <p>{{ message }}</p>
+          }
+        </div>
+        <a mat-stroked-button [routerLink]="['/supplylist']"
+          [queryParams]="{ highlight: review.record._id, mode: 'edit' }">
+          <mat-icon>rate_review</mat-icon> Review and Fix
+        </a>
+      </article>
+    }
+
+    @if (!unknownTermReviews().length && !placementReviews().length) {
+      <p class="missing-item-empty">No supply terms need review.</p>
+    }
+  </section>
+
   <section class="missing-item-info">
     <div class="missing-item-header">
       <h2 class="missing-item-title">Needed Items</h2>

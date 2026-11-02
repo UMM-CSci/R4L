@@ -15,6 +15,8 @@ import org.bson.Document;
 // Com imports
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 
 // Javalin imports
 import io.javalin.http.Context;
@@ -22,6 +24,8 @@ import io.javalin.http.HttpStatus;
 
 // App imports
 import umm3601.Auth.HttpMethod;
+import umm3601.Auth.RequireRole;
+import umm3601.Auth.Role;
 import umm3601.Auth.Route;
 
 /**
@@ -44,7 +48,7 @@ public class TermsController {
     "Composition Notebook", "Construction Paper", "Facial Tissue", "Index Card",
     "Loose-Leaf Paper", "Notebook", "Page Protector", "Paper Plate", "Single-Subject Notebook", "Single-Subject Spiral Notebook",
     "Spiral Notebook", "Sticky Note", "Colored Pencil", "Crayon", "Dry Erase Marker",
-    "Eraser", "Glue Stick", "Highlighter", "Liquid Glue", "Marker", "Washable Marker", "Pencil", "Pen",
+    "Eraser", "Glue Stick", "Highlighter", "Liquid Glue", "Marker", "Washable Marker", "Mechanical Pencil", "Pencil", "Pen",
     "Permanent Marker", "Watercolor Paint", "3-Hole Folder", "3-Prong Folder",
     "3-Ring Binder", "Backpack", "Bag", "Folder", "Pencil Box", "Pencil Pouch", "Tab Divider",
     "Calculator", "Headphones", "Pencil Sharpener", "Ruler", "Scientific Calculator", "Compass", "Computer Mouse", "Earbuds",
@@ -76,7 +80,7 @@ public class TermsController {
   private static final List<String> CANONICAL_TYPES = List.of(
     "#2", "#2 Sharpened", "#2 Unsharpened", "2-Pocket", "Ballpoint", "Broad Tip", "Wide Tip",
     "Chisel Tip", "Coated", "Hard", "Sharpened", "College Ruled", "Fine Tip", "Front Pocket", "Grid Ruled",
-    "Mechanical", "Pink Pearl", "Single Subject", "Wide Ruled"
+    "Pink Pearl", "Single Subject", "Wide Ruled"
   );
   // Canonical lists of terms for materials
   private static final List<String> CANONICAL_MATERIALS = List.of(
@@ -100,6 +104,8 @@ public class TermsController {
     Map.entry("3-hole folder", "3-Hole Folder"),
     Map.entry("folders", "Folder"),
     Map.entry("glue sticks", "Glue Stick"),
+    Map.entry("mechanical pencils", "Mechanical Pencil"),
+    Map.entry("mechanical pencil", "Mechanical Pencil"),
     Map.entry("white board eraser", "Whiteboard Eraser"),
     Map.entry("dry board eraser", "Whiteboard Eraser"),
     Map.entry("school box", "Pencil Box"),
@@ -139,11 +145,13 @@ public class TermsController {
   // MongoDB collections for supply list and inventory
   private final MongoCollection<Document> supplyListCollection;
   private final MongoCollection<Document> inventoryCollection;
+  private final MongoCollection<Document> customTermCollection;
 
   // Constructor for TermsController, initializes MongoDB collections for supply list and inventory
   public TermsController(MongoDatabase database) {
     supplyListCollection = database.getCollection("supplylist");
     inventoryCollection = database.getCollection("inventory");
+    customTermCollection = database.getCollection("termCatalog");
   }
 
   /**
@@ -159,7 +167,20 @@ public class TermsController {
     // Autocomplete is intentionally catalog-driven. Reading arbitrary stored
     // values back into this response made deleted/legacy mistakes become valid
     // suggestions again.
-    terms.item = sorted(CANONICAL_ITEMS);
+    List<String> customItems = new ArrayList<>();
+    Map<String, String> customPackageModes = new LinkedHashMap<>();
+    if (customTermCollection != null) {
+      customTermCollection.find().forEach(term -> {
+        String value = term.getString("term");
+        String packageMode = term.getString("packageMode");
+        if (value != null && !value.isBlank()
+            && ("INDIVIDUAL".equals(packageMode) || "PACKAGED".equals(packageMode))) {
+          customItems.add(value.trim());
+          customPackageModes.put(value.trim(), packageMode);
+        }
+      });
+    }
+    terms.item = sorted(merge(CANONICAL_ITEMS, customItems));
     terms.brand = sorted(CANONICAL_BRANDS);
     terms.color = sorted(CANONICAL_COLORS);
     terms.size = sorted(CANONICAL_SIZES);
@@ -167,11 +188,37 @@ public class TermsController {
     terms.material = sorted(CANONICAL_MATERIALS);
     terms.itemPackageModes = new LinkedHashMap<>();
     for (String item : terms.item) {
-      terms.itemPackageModes.put(item, PACKAGED_ITEMS.contains(item) ? "PACKAGED" : "INDIVIDUAL");
+      terms.itemPackageModes.put(item, customPackageModes.getOrDefault(
+        item, PACKAGED_ITEMS.contains(item) ? "PACKAGED" : "INDIVIDUAL"));
     }
 
     ctx.json(terms); // Return the merged and normalized terms as JSON response
     ctx.status(HttpStatus.OK); // Set HTTP status to 200 OK
+  }
+
+  /** Adds or updates an admin-approved item term and its required package behavior. */
+  @Route(method = HttpMethod.POST, path = API_TERMS + "/items")
+  @RequireRole(Role.ADMIN)
+  public void approveItemTerm(Context ctx) {
+    Document body = ctx.bodyAsClass(Document.class);
+    String term = body.getString("term");
+    String packageMode = body.getString("packageMode");
+    if (term == null || term.isBlank()
+        || !("INDIVIDUAL".equals(packageMode) || "PACKAGED".equals(packageMode))) {
+      ctx.status(HttpStatus.BAD_REQUEST);
+      return;
+    }
+
+    String canonical = term.trim();
+    Document stored = new Document("term", canonical)
+      .append("normalized", canonical.toLowerCase(Locale.ROOT))
+      .append("packageMode", packageMode);
+    customTermCollection.replaceOne(
+      Filters.eq("normalized", canonical.toLowerCase(Locale.ROOT)),
+      stored,
+      new ReplaceOptions().upsert(true));
+    ctx.json(stored);
+    ctx.status(HttpStatus.OK);
   }
 
   private List<String> sorted(List<String> values) {

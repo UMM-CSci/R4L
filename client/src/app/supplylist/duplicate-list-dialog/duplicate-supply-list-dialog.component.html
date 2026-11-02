@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Duplicate Grade List</h2>
+<mat-dialog-content>
+  <p>
+    Copy all {{ data.itemCount }} requests from <strong>{{ data.sourceSchool }} · {{ data.sourceGrade }}</strong>.
+    The copied requests still use the same parsed fields and generated descriptions.
+  </p>
+
+  <div class="destination-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Destination school</mat-label>
+      <input matInput [(ngModel)]="school" data-cy="duplicate-school">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Destination grade(s)</mat-label>
+      <input matInput [(ngModel)]="grades" (keyup.enter)="addDestination()"
+        placeholder="For example: 6, 7, 8" data-cy="duplicate-grades">
+      <mat-hint>Separate multiple grades with commas.</mat-hint>
+    </mat-form-field>
+    <button mat-stroked-button type="button" (click)="addDestination()"
+      [disabled]="!school.trim() || !grades.trim()">
+      <mat-icon>add</mat-icon> Add Destination
+    </button>
+  </div>
+
+  <section class="destination-list" aria-label="Copy destinations">
+    @for (destination of destinations; track destination.school + destination.grade; let index = $index) {
+      <div class="destination-row">
+        <span><strong>{{ destination.school }}</strong> · {{ destination.grade }}</span>
+        <button mat-icon-button type="button" aria-label="Remove destination" (click)="removeDestination(index)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    } @empty {
+      <p>No destinations added yet.</p>
+    }
+  </section>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()" [disabled]="!destinations.length"
+    data-cy="duplicate-list-confirm">
+    Duplicate List
+  </button>
+</mat-dialog-actions>

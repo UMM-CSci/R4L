@@ -172,6 +172,19 @@ describe('DescriptionParserService', () => {
     expect(parser.parse('glue sticks', { ...terms, item: ['Glue', 'Glue Stick'] }).item).toBe('Glue Stick');
   });
 
+  it('keeps mechanical pencil together as an item term', () => {
+    const vocabulary: Terms = {
+      ...terms,
+      item: [...terms.item, 'Mechanical Pencil', 'Pencil'],
+      type: terms.type.filter(type => type !== 'Mechanical')
+    };
+
+    expect(parser.parse('2 mechanical pencils', vocabulary)).toEqual(jasmine.objectContaining({
+      quantity: '2',
+      item: 'Mechanical Pencil'
+    }));
+  });
+
   it('normalizes common school-list item wording', () => {
     const vocabulary: Terms = {
       ...terms,

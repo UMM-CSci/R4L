@@ -9,7 +9,7 @@ export const CANONICAL_TERMS: Terms = {
     'Composition Notebook', 'Construction Paper', 'Facial Tissue', 'Index Card', 'Loose-Leaf Paper', 'Notebook',
     'Page Protector', 'Paper Plate', 'Single-Subject Notebook', 'Single-Subject Spiral Notebook', 'Spiral Notebook', 'Sticky Note',
     'Colored Pencil', 'Crayon', 'Dry Erase Marker', 'Eraser', 'Glue Stick', 'Highlighter', 'Liquid Glue',
-    'Marker', 'Washable Marker', 'Pencil', 'Pen', 'Permanent Marker', 'Watercolor Paint', '3-Hole Folder', '3-Prong Folder',
+    'Marker', 'Washable Marker', 'Mechanical Pencil', 'Pencil', 'Pen', 'Permanent Marker', 'Watercolor Paint', '3-Hole Folder', '3-Prong Folder',
     '3-Ring Binder', 'Backpack', 'Bag', 'Folder', 'Pencil Box', 'Pencil Pouch', 'Tab Divider', 'Calculator',
     'Headphones', 'Pencil Sharpener', 'Ruler', 'Scientific Calculator', 'Scissors', 'Whiteboard Eraser',
     'Blanket', 'Bowl', 'Compass', 'Computer Mouse', 'Cup', 'Disinfectant Wipes', 'Earbuds', 'Fork',
@@ -29,7 +29,7 @@ export const CANONICAL_TERMS: Terms = {
 
   type: [
     '#2', '#2 Sharpened', '#2 Unsharpened', '2-Pocket', 'Ballpoint', 'Broad Tip', 'Wide Tip', 'Chisel Tip', 'Coated', 'Hard', 'Sharpened',
-    'College Ruled', 'Fine Tip', 'Front Pocket', 'Grid Ruled', 'Mechanical', 'Pink Pearl', 'Single Subject',
+    'College Ruled', 'Fine Tip', 'Front Pocket', 'Grid Ruled', 'Pink Pearl', 'Single Subject',
     'Wide Ruled'
   ],
 
@@ -49,6 +49,8 @@ export const TERM_ALIASES: Record<string, string> = {
   '3-hole folder': '3-Hole Folder',
   'folders': 'Folder',
   'glue sticks': 'Glue Stick',
+  'mechanical pencils': 'Mechanical Pencil',
+  'mechanical pencil': 'Mechanical Pencil',
   'washable markers': 'Washable Marker',
   'washable marker': 'Washable Marker',
   'paper towels': 'Paper Towel Roll',

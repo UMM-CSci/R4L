@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  max-height: 95vh;
+  width: 100%;
+  height: min(860px, calc(100dvh - 32px));
+  max-height: calc(100dvh - 32px);
   overflow: hidden;
-  padding: 0 0 24px;
+  padding: 0;
   color: var(--app-text);
   background: var(--app-surface);
 }
@@ -19,10 +21,11 @@ h2[mat-dialog-title] {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  margin: 0 32px;
+  margin: 0 32px 24px;
   padding: 18px;
-  height: min(760px, calc(95vh - 86px));
-  max-height: calc(95vh - 86px);
+  height: auto;
+  max-height: none;
+  flex: 1 1 auto;
   min-height: 0;
   overflow: hidden;
   border: 1px solid var(--app-border);
@@ -38,7 +41,9 @@ h2[mat-dialog-title] {
   box-sizing: border-box;
   min-height: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   color: var(--app-text);
 }
 
@@ -60,6 +65,11 @@ h2[mat-dialog-title] {
     color: var(--app-text);
     font-weight: 700;
   }
+
+  small {
+    color: var(--app-text-muted);
+    line-height: 1.35;
+  }
 }
 
 .inventory-filter-grid {
@@ -69,12 +79,12 @@ h2[mat-dialog-title] {
 }
 
 .inventory-link-toolbar {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(128px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--app-space-sm);
 
   button {
-    width: 100%;
+    flex: 1 1 150px;
   }
 }
 
@@ -116,7 +126,7 @@ h2[mat-dialog-title] {
 }
 
 .inventory-list-frame {
-  flex: 1 1 auto;
+  flex: 0 0 clamp(220px, 38vh, 430px);
   display: flex;
   min-height: 0;
   overflow: hidden;
@@ -191,8 +201,13 @@ h2[mat-dialog-title] {
 
 @media (max-width: 720px) {
   .inventory-link-dialog-panel {
-    margin: 0 16px;
+    margin: 0 12px 12px;
     padding: var(--app-space-sm);
+  }
+
+
+  h2[mat-dialog-title] {
+    padding: 14px 16px 6px;
   }
 
   .inventory-filter-grid,

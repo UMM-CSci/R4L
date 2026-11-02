@@ -11,7 +11,7 @@ import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { DialogService } from '../../shared/dialog/dialog.service';
 import { DescriptionParserService } from '../../terms/description-parser.service';
 import { Terms } from '../../terms/terms';
-import { itemPackageMode } from '../../terms/term-standard';
+import { BRAND_ITEM_HINTS, itemPackageMode } from '../../terms/term-standard';
 import { expandColorAllocations } from '../../terms/request-expansion';
 import { TermsService } from '../../terms/terms.service';
 import {
@@ -79,42 +79,29 @@ export class SupplyListBulkEntryComponent implements OnInit {
   termsLoading = false;
   termsLoadFailed = false;
   terms: Terms = { item: [], brand: [], color: [], size: [], type: [], material: [] };
+  targetGrades: string[] = [];
+  newTargetGrade = '';
 
   // Stores the previous term placement values for each draft, allowing undo operations.
   private readonly placementUndo = new WeakMap<BulkDraft, TermPlacementValues>();
   private choiceGroupSequence = 0;
 
-  // Provides hints for inferring the item based on the brand, used when the item field is not explicitly set.
-  private readonly brandItemHints: Record<string, string[]> = {
-    puffs: ['tissue', 'facial tissue'],
-    kleenex: ['tissue', 'facial tissue'],
-    clorox: ['disinfectant wipe', 'wipe', 'disinfecting wipe'],
-    lysol: ['disinfectant wipe', 'wipe', 'disinfecting wipe', 'spray'],
-    fiskars: ['scissors'],
-    sharpie: ['marker', 'permanent marker'],
-    expo: ['marker', 'dry erase marker', 'dry erase'],
-    elmer: ['glue', 'glue stick'],
-    scotch: ['tape', 'scissors'],
-    avery: ['label', 'binder', 'divider'],
-    'post-it': ['sticky note', 'note', 'flag'],
-    ticonderoga: ['pencil'],
-    dixon: ['pencil'],
-    papermate: ['pencil', 'pen', 'eraser'],
-    bic: ['pen', 'pencil', 'eraser'],
-    pentel: ['pen', 'pencil', 'marker'],
-    pilot: ['pen', 'marker'],
-    hammermill: ['paper', 'copy paper'],
-    astrobrights: ['paper', 'cardstock'],
-    mead: ['notebook', 'folder', 'binder', 'composition book'],
-    'five star': ['notebook', 'folder', 'binder'],
-    oxford: ['index card', 'notebook'],
-    purell: ['hand sanitizer', 'sanitizer'],
-    'germ-x': ['hand sanitizer', 'sanitizer'],
-    dial: ['soap', 'hand soap']
-  };
-
   ngOnInit(): void {
+    this.targetGrades = this.grade.trim() ? [this.grade.trim()] : [];
     this.loadTerms();
+  }
+
+  addTargetGrade(): void {
+    const grade = this.newTargetGrade.trim();
+    if (grade && !this.targetGrades.some(existing => existing.toLowerCase() === grade.toLowerCase())) {
+      this.targetGrades = [...this.targetGrades, grade];
+    }
+    this.newTargetGrade = '';
+  }
+
+  removeTargetGrade(grade: string): void {
+    if (this.targetGrades.length === 1) return;
+    this.targetGrades = this.targetGrades.filter(existing => existing !== grade);
   }
 
   // Loads the terms from the service and updates the component state accordingly.
@@ -165,7 +152,7 @@ export class SupplyListBulkEntryComponent implements OnInit {
   private draftsForLine(source: string): BulkDraft[] {
     const alternatives = source.split(/\s+OR\s+/i).map(value => value.trim()).filter(Boolean);
     if (alternatives.length === 2) {
-      const parsedAlternatives = alternatives.map(value => this.descriptionParser.parse(value, this.terms, this.brandItemHints));
+      const parsedAlternatives = alternatives.map(value => this.descriptionParser.parse(value, this.terms, BRAND_ITEM_HINTS));
       if (parsedAlternatives.every(parsed => !!parsed.item)) {
         const groupId = `choice-${Date.now()}-${++this.choiceGroupSequence}`;
         return parsedAlternatives.map((parsed, index) => this.draftFromParsed(
@@ -176,7 +163,7 @@ export class SupplyListBulkEntryComponent implements OnInit {
         ));
       }
     }
-    const parsed = this.descriptionParser.parse(source, this.terms, this.brandItemHints);
+    const parsed = this.descriptionParser.parse(source, this.terms, BRAND_ITEM_HINTS);
     return expandColorAllocations(source, parsed).map(variant => this.draftFromParsed(source, variant));
   }
 
@@ -214,7 +201,7 @@ export class SupplyListBulkEntryComponent implements OnInit {
   // Determines if the current drafts can be submitted based on validation rules,
   // such as having valid quantities and no placement issues.
   get canSubmit(): boolean {
-    return !this.saving && this.drafts.length > 0 && this.drafts.every(draft =>
+    return !this.saving && this.targetGrades.length > 0 && this.drafts.length > 0 && this.drafts.every(draft =>
       !!draft.item.trim()
       && Number(draft.quantity) >= 1
       && (this.isPackaged(draft) || Number(draft.packageSize) === 1)
@@ -268,11 +255,26 @@ export class SupplyListBulkEntryComponent implements OnInit {
   addAll(): void {
     if (!this.canSubmit) return;
     this.saving = true;
-    this.createDrafts(this.drafts).subscribe(results => {
+    this.createDrafts(this.drafts, this.targetGrades).subscribe(results => {
       const failed = results.filter(result => !!result.error);
       const created = results.filter(result => !!result.item);
+      if (failed.length && this.targetGrades.length > 1) {
+        const createdIds = created.map(result => result.item?._id).filter((id): id is string => !!id);
+        const rollback = createdIds.length
+          ? forkJoin(createdIds.map(id => this.supplyListService.deleteSupplyList(id).pipe(catchError(() => of(undefined)))))
+          : of([]);
+        rollback.subscribe(() => {
+          this.saving = false;
+          this.snackBar.open(
+            'The multi-grade list could not be added completely, so completed copies were rolled back. No grade was partially updated.',
+            'OK',
+            { duration: 7000 }
+          );
+        });
+        return;
+      }
       this.saving = false;
-      this.drafts = failed.map(result => result.draft);
+      this.drafts = failed.map(result => result.draft).filter((draft, index, all) => all.indexOf(draft) === index);
       this.text = this.drafts.map(draft => draft.source).join('\n');
       this.listChanged.emit(created.at(-1)?.item?._id);
 
@@ -284,14 +286,18 @@ export class SupplyListBulkEntryComponent implements OnInit {
         );
       } else {
         this.text = '';
-        this.snackBar.open(`${created.length} item(s) added`, undefined, { duration: 3000 });
+        this.snackBar.open(
+          `${created.length} request(s) added across ${this.targetGrades.length} grade(s)`,
+          undefined,
+          { duration: 3500 }
+        );
       }
     });
   }
 
   // Confirms with the user before replacing the entire grade list with the current drafts.
   confirmReplace(): void {
-    if (!this.canSubmit) return;
+    if (!this.canSubmit || this.targetGrades.length !== 1) return;
     const dialogRef = this.dialogService.openDialog({
       title: 'Replace Grade List',
       message: `Replace every existing ${this.school} · ${this.grade} request with these ${this.drafts.length} item(s)?`,
@@ -332,7 +338,7 @@ export class SupplyListBulkEntryComponent implements OnInit {
         const existing = serverMatches.filter(item =>
           item.school?.trim().toLowerCase() === this.school.trim().toLowerCase()
           && item.grade?.trim().toLowerCase() === this.grade.trim().toLowerCase());
-        return this.createDrafts(this.drafts).pipe(
+        return this.createDrafts(this.drafts, [this.grade]).pipe(
           switchMap(results => {
             const created = results.filter(result => !!result.item);
             const failed = results.filter(result => !!result.error);
@@ -390,18 +396,21 @@ export class SupplyListBulkEntryComponent implements OnInit {
   }
 
   // Creates drafts for the given array of BulkDrafts by submitting them to the supply list service.
-  private createDrafts(drafts: BulkDraft[]) {
-    return forkJoin(drafts.map(draft => this.supplyListService.addSupplyList(this.toPayload(draft)).pipe(
-      map(item => ({ draft, item }) as CreateResult),
-      catchError(error => of({ draft, error } as CreateResult))
-    )));
+  private createDrafts(drafts: BulkDraft[], grades: string[]) {
+    const requests = grades.flatMap((grade, gradeIndex) => drafts.map(draft =>
+      this.supplyListService.addSupplyList(this.toPayload(draft, grade, gradeIndex)).pipe(
+        map(item => ({ draft, item }) as CreateResult),
+        catchError(error => of({ draft, error } as CreateResult))
+      )
+    ));
+    return forkJoin(requests);
   }
 
   // Converts a BulkDraft into a Partial<SupplyList> payload suitable for submission to the service.
-  private toPayload(draft: BulkDraft): Partial<SupplyList> {
+  private toPayload(draft: BulkDraft, grade = this.grade, gradeIndex = 0): Partial<SupplyList> {
     return {
       school: this.school,
-      grade: this.grade,
+      grade,
       item: [draft.item.trim()],
       brand: this.toAttribute(draft.brand),
       color: this.toAttribute(draft.color),
@@ -413,7 +422,7 @@ export class SupplyListBulkEntryComponent implements OnInit {
       notes: draft.notes.trim(),
       sourceText: draft.source,
       parserVersion: 'terms-v2',
-      choiceGroupId: draft.choiceGroupId,
+      choiceGroupId: draft.choiceGroupId ? `${draft.choiceGroupId}-g${gradeIndex}` : undefined,
       choiceGroupMode: draft.choiceGroupMode
     };
   }

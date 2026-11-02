@@ -286,6 +286,10 @@
     linear-gradient(180deg, var(--app-bg) 0%, var(--app-surface-muted) 52%, var(--app-bg) 100%);
 }
 
+.main-content:has(app-supplylist-component) {
+  max-width: 1760px;
+}
+
 .main-content:has(app-admin-panel) {
   box-sizing: border-box;
   height: calc(100vh - 64px);

@@ -1,8 +1,6 @@
 :host {
   display: block;
-  height: 100%;
-  min-height: 0;
-  overflow: hidden;
+  min-height: 100%;
 }
 
 .admin-panel-container {
@@ -10,11 +8,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--app-space-md);
-  height: 100%;
+  min-height: 100%;
   margin: 0 auto;
   max-width: 1100px;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
   padding: var(--app-space-md);
 }
 
@@ -49,12 +47,65 @@
   display: flex;
   flex-direction: column;
   gap: var(--app-space-lg);
-  flex: 1;
+  flex: 0 0 auto;
   min-height: 0;
   min-width: 400px;
   overflow: hidden;
   padding: var(--app-space-md);
-  width: 33%;
+  width: 100%;
+}
+
+.term-review-info {
+  display: grid;
+  gap: var(--app-space-md);
+  padding: var(--app-space-md);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-lg);
+}
+
+.term-review-card {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(260px, 1.25fr) auto;
+  align-items: center;
+  gap: var(--app-space-md);
+  padding: var(--app-space-md);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-md);
+  background: var(--app-surface-muted);
+
+  h3,
+  p {
+    margin: 0.2rem 0;
+  }
+}
+
+.review-kicker {
+  color: var(--app-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.package-mode-help {
+  color: var(--app-text-muted);
+  font-size: 0.88rem;
+}
+
+.canonical-term-field {
+  display: block;
+  margin-top: var(--app-space-sm);
+}
+
+.term-review-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-xs);
+}
+
+.placement-review-card {
+  grid-template-columns: 1fr auto;
 }
 
 .missing-item-header {
@@ -220,5 +271,10 @@
   .missing-item-row {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .term-review-card,
+  .placement-review-card {
+    grid-template-columns: 1fr;
   }
 }

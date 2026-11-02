@@ -91,6 +91,28 @@ describe('SupplyList Table', () => {
     });
   });
 
+  it('uses a combined human heading for grades that share one list', () => {
+    expect(supplylistTable.gradeGroupTitle([{ grade: '5' }, { grade: '6' }])).toBe('Grades 5 & 6');
+    expect(supplylistTable.gradeGroupTitle([{ grade: 'K' }])).toBe('Grade K');
+  });
+
+  it('estimates fulfillment from available quantities across every linked inventory record', () => {
+    (supplylistTable as unknown as { inventoryForFulfillment: () => unknown[] }).inventoryForFulfillment = () => [
+      { internalID: 'INV-1', quantity: 3, reservedQuantity: 1 },
+      { internalID: 'INV-2', quantity: 4, reservedQuantity: 0 },
+      { internalID: 'UNLINKED', quantity: 100, reservedQuantity: 0 }
+    ];
+
+    expect(supplylistTable.estimatedFulfillment(supplyListItem({
+      quantity: 10,
+      invIDs: ['INV-1', 'INV-2']
+    }))).toEqual(jasmine.objectContaining({
+      available: 6,
+      needed: 10,
+      percent: 60
+    }));
+  });
+
   it('records the school workspace when opening one of its grade workspaces', () => {
     const router = (supplylistTable as unknown as { router: { url: string } }).router;
     Object.defineProperty(router, 'url', { configurable: true, value: '/supplylist/workspace?school=MHS&mode=edit&returnUrl=%2Fsupplylist' });
@@ -139,10 +161,10 @@ describe('SupplyList Table', () => {
     expect(fixture.nativeElement.querySelector('[data-cy="leave-workspace"]')).toBeTruthy();
   });
 
-  it('does not show bulk entry in a school-wide workspace', () => {
+  it('shows bulk entry in a school-wide workspace so a new grade can be named explicitly', () => {
     configureWorkspace({ school: 'MHS', mode: 'edit', returnUrl: '/supplylist' });
 
-    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeNull();
+    expect(fixture.nativeElement.querySelector('[data-cy="grade-bulk-entry"]')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('[data-cy="open-grade-workspace"]')).toBeTruthy();
   });
 
@@ -554,6 +576,24 @@ describe('SupplyList Table', () => {
 
     expect(supply.invIDs).toEqual(['inv-4']);
     expect(saveSpy).toHaveBeenCalledWith(supply);
+  });
+
+  it('opens linked inventory read-only and never saves for a viewer without edit permission', () => {
+    const auth = (supplylistTable as unknown as {
+      authService: { hasPermission: (permission: string) => boolean }
+    }).authService;
+    auth.hasPermission = () => false;
+    const supply = supplyListItem({ invIDs: ['inv-1'] });
+    const saveSpy = spyOn(supplylistTable, 'saveEdit');
+    const openSpy = spyOn(dialog, 'open').and.returnValue({ afterClosed: () => of(['inv-2']) } as never);
+
+    supplylistTable.openInventoryLinkDialogForSupply(supply, true);
+
+    expect(openSpy).toHaveBeenCalledWith(SupplyListInventoryLinkDialogComponent, jasmine.objectContaining({
+      data: jasmine.objectContaining({ readOnly: true })
+    }));
+    expect(supply.invIDs).toEqual(['inv-1']);
+    expect(saveSpy).not.toHaveBeenCalled();
   });
 
   it('should return undefined filters when supply fields are blank or N/A', () => {

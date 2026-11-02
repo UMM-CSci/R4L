@@ -1,10 +1,14 @@
-<h2 mat-dialog-title>Link Inventory</h2>
+<h2 mat-dialog-title>{{ data.readOnly ? 'Linked Inventory' : 'Choose Linked Inventory' }}</h2>
 
 <div class="inventory-link-dialog-panel">
   <mat-dialog-content class="inventory-link-content">
     <section class="requirement-summary">
-      <span>Supply List Item</span>
+      <span>Request</span>
       <strong>{{ data.requirementLabel }}</strong>
+      <small>
+        Suggested matches use the request's item family and attributes. For example, Notebook also finds
+        Spiral Notebook and Composition Notebook.
+      </small>
     </section>
 
     <div class="inventory-filter-grid">
@@ -48,6 +52,7 @@
         <mat-icon>filter_alt_off</mat-icon>
         Clear Filters
       </button>
+      @if (!data.readOnly) {
       <button mat-stroked-button type="button" (click)="selectVisibleInventory()" [disabled]="inventory().length === 0">
         <mat-icon>playlist_add_check</mat-icon>
         Select Visible
@@ -56,6 +61,7 @@
         <mat-icon>remove_done</mat-icon>
         Clear Selected
       </button>
+      }
     </div>
 
     <section class="selected-links" aria-label="Selected inventory links">
@@ -63,6 +69,7 @@
         @for (inventoryId of selectedInventoryIds(); track inventoryId) {
           <span class="linked-inventory-pill">
             {{ selectedInventoryLabel(inventoryId) }}
+            @if (!data.readOnly) {
             <button
               mat-icon-button
               type="button"
@@ -71,6 +78,7 @@
               (click)="removeInventoryId(inventoryId)">
               <mat-icon>close</mat-icon>
             </button>
+            }
           </span>
         }
       } @else {
@@ -91,6 +99,7 @@
             <div class="inventory-result-row">
               <mat-checkbox
                 [checked]="isSelected(item)"
+                [disabled]="data.readOnly"
                 (change)="toggleInventory(item, $event.checked)">
               </mat-checkbox>
               <div class="inventory-result-info">
@@ -109,9 +118,11 @@
   </mat-dialog-content>
 
   <mat-dialog-actions class="inventory-link-actions" align="end">
-    <button mat-stroked-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-stroked-button type="button" (click)="cancel()">{{ data.readOnly ? 'Close' : 'Cancel' }}</button>
+    @if (!data.readOnly) {
     <button mat-raised-button color="primary" type="button" (click)="save()" data-cy="inventory-link-save">
       {{ actionLabel }}
     </button>
+    }
   </mat-dialog-actions>
 </div>

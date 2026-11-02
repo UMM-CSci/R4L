@@ -102,7 +102,7 @@ class TermsControllerSpec {
 
     doAnswer(inv -> {
       Terms terms = inv.getArgument(0);
-      assertTrue(terms.item.containsAll(List.of("Construction Paper", "Crayon", "Pencil", "Washable Marker")));
+      assertTrue(terms.item.containsAll(List.of("Construction Paper", "Crayon", "Mechanical Pencil", "Pencil", "Washable Marker")));
       assertFalse(terms.item.contains("Crayons"));
       assertFalse(terms.item.contains("Markers"));
       assertTrue(terms.brand.containsAll(List.of("BIC", "Crayola", "Expo")));
@@ -115,6 +115,8 @@ class TermsControllerSpec {
       assertTrue(terms.itemPackageModes.get("Dry Erase Marker").equals("INDIVIDUAL"));
       assertTrue(terms.itemPackageModes.get("Permanent Marker").equals("INDIVIDUAL"));
       assertTrue(terms.itemPackageModes.get("Pencil").equals("INDIVIDUAL"));
+      assertTrue(terms.itemPackageModes.get("Mechanical Pencil").equals("INDIVIDUAL"));
+      assertFalse(terms.type.contains("Mechanical"));
       return null;
     }).when(ctx).json(any(Terms.class));
 

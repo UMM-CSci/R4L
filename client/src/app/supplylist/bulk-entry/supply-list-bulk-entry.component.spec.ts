@@ -217,6 +217,18 @@ describe('SupplyListBulkEntryComponent', () => {
     expect(component.drafts).toEqual([]);
   });
 
+  it('duplicates a reviewed bulk list across explicitly selected grades', () => {
+    supplyService.addSupplyList.and.callFake(payload => of(supply(`new-${payload.grade}`, payload.item?.[0])));
+    component.targetGrades = ['1', '2'];
+    component.text = '2 large glue sticks';
+    component.previewLines();
+
+    component.addAll();
+
+    expect(supplyService.addSupplyList).toHaveBeenCalledTimes(2);
+    expect(supplyService.addSupplyList.calls.allArgs().map(args => args[0].grade)).toEqual(['1', '2']);
+  });
+
   it('keeps only failed lines after a partial add', () => {
     let request = 0;
     supplyService.addSupplyList.and.callFake(() => {

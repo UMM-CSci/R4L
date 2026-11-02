@@ -3686,7 +3686,7 @@
     "grade": "5",
     "teacher": "",
     "item": [
-      "Pencil"
+      "Mechanical Pencil"
     ],
     "brand": {
       "exactly": "",
@@ -3701,7 +3701,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Mechanical",
+      "exactly": "",
       "anyOf": []
     },
     "material": {
@@ -9559,7 +9559,7 @@
     "grade": "High School",
     "teacher": "Mrs. Dougherty",
     "item": [
-      "Pencil"
+      "Mechanical Pencil"
     ],
     "brand": {
       "exactly": "",
@@ -9574,7 +9574,7 @@
       "anyOf": []
     },
     "type": {
-      "exactly": "Mechanical",
+      "exactly": "",
       "anyOf": []
     },
     "material": {

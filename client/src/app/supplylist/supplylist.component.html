@@ -1,4 +1,4 @@
-<div class="flex-row app-page-shell">
+<div class="flex-row app-page-shell supplylist-page-header">
   <div class="flex-1">
     <mat-card class="search-grid app-page-stack app-corner-anchor">
       <mat-card-header class="page-card-header app-page-header app-page-header-with-corner">
@@ -153,18 +153,55 @@
   </div>
 </div>
 
-@if (isWorkspacePage && school() && grade() && canAddSupplyList && mode() === 'edit') {
+@if (isWorkspacePage && school() && canAddSupplyList && mode() === 'edit') {
 <div class="app-page-shell grade-bulk-entry-shell">
   <app-supply-list-bulk-entry
     [school]="school()!"
-    [grade]="grade()!"
+    [grade]="grade() || ''"
     (listChanged)="onBulkListChanged($event)" />
 </div>
 }
 
 <!--Supply List Display-->
-<div class="app-page-shell">
-  <mat-card class="search-grid app-page-stack" data-cy="supplylist-card">
+<div class="app-page-shell workspace-layout">
+  <aside class="list-explorer" aria-label="Supply list schools and grades" data-cy="supply-list-explorer">
+    <header>
+      <span class="section-kicker">Supply lists</span>
+      <strong>Schools & grades</strong>
+      <small>Choose a list without losing the rest of the navigation.</small>
+    </header>
+
+    <button type="button" class="explorer-root"
+      [class.active]="!school()"
+      (click)="openExplorerScope()"
+      data-cy="explorer-all-lists">
+      <mat-icon>format_list_bulleted</mat-icon>
+      <span><strong>All supply lists</strong><small>{{ explorerItemCount() }} requests</small></span>
+    </button>
+
+    @for (schoolEntry of supplyListExplorer(); track schoolEntry.school) {
+    <section class="explorer-school">
+      <button type="button" class="explorer-school-row"
+        [class.active]="school() === schoolEntry.school && !grade()"
+        (click)="openExplorerScope(schoolEntry.school)">
+        <mat-icon>school</mat-icon>
+        <span><strong>{{ schoolEntry.school }}</strong><small>{{ schoolEntry.count }} requests</small></span>
+      </button>
+      <div class="explorer-grades">
+        @for (gradeEntry of schoolEntry.grades; track gradeEntry.grade) {
+        <button type="button"
+          [class.active]="school() === schoolEntry.school && grade() === gradeEntry.grade"
+          (click)="openExplorerScope(schoolEntry.school, gradeEntry.grade)">
+          <span>{{ gradeEntry.grade }}</span><small>{{ gradeEntry.count }}</small>
+        </button>
+        }
+      </div>
+    </section>
+    }
+  </aside>
+
+  <main class="workspace-main">
+  <mat-card class="search-grid app-page-stack list-card" data-cy="supplylist-card">
     <div class="tree-container" role="Display Items">
       @for (schoolGroup of groupedSupplyList(); track schoolGroup.school) {
       <section class="school-group">
@@ -178,11 +215,23 @@
           }
         </div>
 
-        @for (gradeGroup of schoolGroup.grades; track gradeGroup.grade) {
+        @for (listGroup of gradeListGroups(schoolGroup.grades); track $index) {
+        <section class="shared-grade-list" [class.is-shared]="listGroup.grades.length > 1">
+          @if (listGroup.grades.length > 1) {
+          <div class="shared-grade-heading" data-cy="grouped-grade-heading">
+            <span class="grade-stack-icon"><mat-icon>layers</mat-icon></span>
+            <div>
+              <span class="section-kicker">Same supply list</span>
+              <h3>{{ gradeGroupTitle(listGroup.grades) }}</h3>
+            </div>
+          </div>
+          }
+        @for (gradeGroup of displayedGradeGroups(listGroup.grades); track gradeGroup.grade) {
         <mat-expansion-panel class="grade-panel"
+          [class.grouped-view-panel]="listGroup.grades.length > 1 && mode() === 'view'"
           (afterExpand)="onGradeExpanded(gradeGroup.teachers)"
-          [expanded]="allExpanded() || isWorkspaceGrade(schoolGroup.school, gradeGroup.grade) || containsHighlightedItem(gradeGroup.teachers)">
-          <mat-expansion-panel-header>
+          [expanded]="(listGroup.grades.length > 1 && mode() === 'view') || allExpanded() || isWorkspaceGrade(schoolGroup.school, gradeGroup.grade) || containsHighlightedItem(gradeGroup.teachers)">
+          <mat-expansion-panel-header class="grade-panel-header">
             <mat-panel-title data-cy="supplylist-grade">{{ gradeGroup.grade }}</mat-panel-title>
             <mat-panel-description>{{ gradeItemCount(gradeGroup.teachers) }} item(s)</mat-panel-description>
           </mat-expansion-panel-header>
@@ -205,6 +254,11 @@
               [queryParams]="addItemQueryParams(schoolGroup.school, gradeGroup.grade)" data-cy="add-item-button">
               <mat-icon>add</mat-icon> Add Item
             </button>
+            <button type="button" mat-stroked-button
+              (click)="duplicateGradeList(schoolGroup.school, gradeGroup.grade, gradeGroup.teachers)"
+              data-cy="duplicate-grade-list">
+              <mat-icon>content_copy</mat-icon> Duplicate List
+            </button>
           </div>
           }
 
@@ -212,9 +266,17 @@
           <section class="teacher-group">
             <h4 class="teacher-heading"><strong>Teacher(s):</strong> {{ teacherGroup.teacher }}</h4>
 
+            <div class="request-column-headings" aria-hidden="true">
+              <span>Request</span>
+              <span>Linked inventory</span>
+              <span>Estimated fulfillment</span>
+              <span>Actions</span>
+            </div>
+
             <ul class="item-list">
               @for (element of teacherGroup.items; track element._id; let itemIndex = $index) {
-              <li class="item-row" [attr.id]="'supply-item-' + element._id"
+              <li class="item-row request-row" [attr.id]="'supply-item-' + element._id"
+                [class.editing-row]="editingItemId === element._id"
                 [class.newly-added]="highlightedItemId() === element._id"
                 [class.source-group-item]="sourceGroupSize(element, teacherGroup.items) > 1"
                 [class.source-group-start]="isSourceGroupStart(itemIndex, teacherGroup.items)"
@@ -224,14 +286,37 @@
                 <div class="source-group-heading" data-cy="source-group-heading">
                   <mat-icon aria-hidden="true">segment</mat-icon>
                   <span>
-                    <strong>One original request · {{ sourceGroupSize(element, teacherGroup.items) }} items</strong>
+                    <strong>{{ sourceGroupHeading(element, teacherGroup.items) }}</strong>
                     <small>{{ element.sourceText }}</small>
+                    @if (element.choiceGroupId) {
+                    <small>Only one option is required. Each option can be linked independently.</small>
+                    }
                   </span>
                 </div>
                 }
 
                 @if (editingItemId === element._id) {
                 <!-- Inline edit mode -->
+                <header class="edit-header">
+                  <div>
+                    <span class="section-kicker">Edit supply request</span>
+                    <h2>{{ element.item?.[0] || 'Request fields' }}</h2>
+                    <p>Compare the original school wording with the generated description.</p>
+                  </div>
+                  <button type="button" mat-icon-button aria-label="Close edit dialog" (click)="cancelEdit()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </header>
+                <div class="source-preview">
+                  <div>
+                    <span>Original school request</span>
+                    <blockquote>{{ element.sourceText || 'No original request was saved.' }}</blockquote>
+                  </div>
+                  <div>
+                    <span>Generated description</span>
+                    <strong>{{ toLabel(element) }}</strong>
+                  </div>
+                </div>
                 <div class="item-edit-grid">
                   <mat-form-field appearance="outline" class="edit-field">
                     <mat-label>Item</mat-label>
@@ -285,10 +370,9 @@
                   <div class="inventory-link-edit-field">
                     <button type="button" mat-stroked-button (click)="openInventoryLinkDialogForSupply(element, false)"
                       data-cy="edit-link-inventory-button">
-                      <mat-icon>link</mat-icon>
-                      Link Inventory
+                      <mat-icon>inventory_2</mat-icon>
+                      {{ linkedInventorySummary(element.invIDs) }}
                     </button>
-                    <span>{{ linkedInventorySummary(element.invIDs) }}</span>
                   </div>
                 </div>
                 <app-term-placement-review
@@ -309,24 +393,49 @@
                 </div>
                 } @else {
                 <!-- Display mode -->
-                <span class="item-label" data-cy="supplylist-item-label">{{ toLabel(element) }}</span>
-                @if (element.choiceGroupId) {
-                <span class="highlight-filter-note" data-cy="choice-group-label">Either/or option</span>
-                }
-                @if (element.sourceText && mode() === 'edit') {
-                <small class="app-text-muted" data-cy="original-request">Original request: {{ element.sourceText }}</small>
-                }
-                @if (isOutsideActiveFilters(element._id)) {
-                <span class="highlight-filter-note" data-cy="highlight-filter-note">New item shown outside active filters</span>
-                }
+                <div class="request-copy">
+                  <span class="generated-label">Generated description</span>
+                  <strong class="item-label" data-cy="supplylist-item-label">{{ toLabel(element) }}</strong>
+                  @if (element.choiceGroupId) {
+                  <small class="highlight-filter-note" data-cy="choice-group-label">Either/or option</small>
+                  }
+                  <small class="original-description" data-cy="original-request">
+                    @if (element.sourceText) {
+                    Original: “{{ element.sourceText }}”
+                    } @else {
+                    Original request was not recorded for this older item.
+                    }
+                  </small>
+                  @if (isOutsideActiveFilters(element._id)) {
+                  <small class="highlight-filter-note" data-cy="highlight-filter-note">Shown outside active filters</small>
+                  }
+                </div>
+                <div class="request-link">
+                  <button type="button" class="linked-inventory-cell" mat-stroked-button
+                    [class.unlinked]="noLinkedInventoryItems(element)"
+                    (click)="openInventoryLinkDialogForSupply(element, true)"
+                    [matTooltip]="canEditSupplyList ? 'View or change linked inventory' : 'View linked inventory'"
+                    data-cy="linked-inventory-cell">
+                    <mat-icon>{{ noLinkedInventoryItems(element) ? 'link_off' : 'link' }}</mat-icon>
+                    <span>{{ linkedInventorySummary(element.invIDs) }}</span>
+                    <mat-icon class="linked-inventory-chevron">chevron_right</mat-icon>
+                  </button>
+                  <small>Click for linked inventory details</small>
+                </div>
+                @let fulfillment = estimatedFulfillment(element);
+                <div class="request-progress" [matTooltip]="fulfillment.explanation">
+                  @if (fulfillment.needed > 0) {
+                  <strong>{{ fulfillment.available }} of {{ fulfillment.needed }} <mat-icon>info</mat-icon></strong>
+                  <mat-progress-bar mode="determinate" [value]="fulfillment.percent"></mat-progress-bar>
+                  <small>Estimated fulfillment · {{ fulfillment.percent }}%</small>
+                  } @else {
+                  <strong>Needs quantity <mat-icon>info</mat-icon></strong>
+                  <mat-progress-bar mode="determinate" [value]="0"></mat-progress-bar>
+                  <small>Estimate unavailable</small>
+                  }
+                </div>
                 @if (mode() !== 'view' && (canEditSupplyList || canDeleteSupplyList)) {
                 <div class="item-actions">
-                  @if (canEditSupplyList && mode() === 'link') {
-                  <button type="button" mat-icon-button matTooltip="Link inventory"
-                    (click)="openInventoryLinkDialogForSupply(element, true)" data-cy="link-inventory-item">
-                    <mat-icon>link</mat-icon>
-                  </button>
-                  }
                   @if (canEditSupplyList && mode() === 'edit') {
                   <button type="button" mat-icon-button matTooltip="Edit" (click)="startEdit(element)" data-cy="edit-item">
                     <mat-icon>edit</mat-icon>
@@ -353,16 +462,30 @@
           }
         </mat-expansion-panel>
         }
+        </section>
+        }
       </section>
       }
     </div>
   </mat-card>
+  </main>
 </div>
 
 @if (canAddSupplyList && mode() === 'edit') {
-<button type="button" mat-fab color="primary" class="add-supplylist-fab" [routerLink]="['/supplylist/new']"
-  [queryParams]="addItemQueryParams()" matTooltip="Add supply list item" aria-label="Add supply list item"
+<button type="button" mat-fab color="primary" class="add-supplylist-fab" [matMenuTriggerFor]="addSupplyMenu"
+  matTooltip="Add supply list requests" aria-label="Add supply list requests"
   data-cy="add-supplylist-fab">
   <mat-icon>add</mat-icon>
 </button>
+<mat-menu #addSupplyMenu="matMenu">
+  <button mat-menu-item [routerLink]="['/supplylist/new']" [queryParams]="addItemQueryParams()">
+    <mat-icon>note_add</mat-icon>
+    <span>Add one request</span>
+  </button>
+  <button mat-menu-item [routerLink]="['/supplylist/workspace']"
+    [queryParams]="workspaceQueryParams(school() || undefined)">
+    <mat-icon>playlist_add</mat-icon>
+    <span>Bulk add a grade list</span>
+  </button>
+</mat-menu>
 }

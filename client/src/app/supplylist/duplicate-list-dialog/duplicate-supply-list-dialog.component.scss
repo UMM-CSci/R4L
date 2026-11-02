@@ -1,0 +1,32 @@
+:host {
+  color: var(--app-text);
+}
+
+.destination-form {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) auto;
+  align-items: start;
+  gap: var(--app-space-sm);
+}
+
+.destination-list {
+  display: grid;
+  gap: var(--app-space-xs);
+  min-height: 72px;
+  margin-top: var(--app-space-md);
+}
+
+.destination-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--app-space-xs) var(--app-space-sm);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-sm);
+}
+
+@media (max-width: 720px) {
+  .destination-form {
+    grid-template-columns: 1fr;
+  }
+}

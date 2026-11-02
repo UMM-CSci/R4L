@@ -9,6 +9,33 @@
       Paste or type the list below. Preview the results, correct any fields, then add the requests or replace this
       grade's current list.
     </p>
+    <section class="grade-targets" aria-label="Destination grades">
+      <div>
+        <strong>Add this list to</strong>
+        <small>Choose every grade that uses the same list. Grades are never guessed.</small>
+      </div>
+      <div class="grade-target-pills">
+        @for (targetGrade of targetGrades; track targetGrade) {
+          <span class="grade-target-pill">
+            {{ targetGrade }}
+            <button mat-icon-button type="button" aria-label="Remove grade"
+              [disabled]="targetGrades.length === 1" (click)="removeTargetGrade(targetGrade)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </span>
+        }
+      </div>
+      <div class="add-grade-target">
+        <mat-form-field appearance="outline">
+          <mat-label>Add another grade</mat-label>
+          <input matInput [(ngModel)]="newTargetGrade" (keyup.enter)="addTargetGrade()"
+            placeholder="For example: Grade 7" data-cy="bulk-target-grade">
+        </mat-form-field>
+        <button mat-stroked-button type="button" (click)="addTargetGrade()" [disabled]="!newTargetGrade.trim()">
+          <mat-icon>add</mat-icon> Add Grade
+        </button>
+      </div>
+    </section>
     <mat-form-field appearance="outline" class="bulk-textarea">
       <mat-label>Supply requests</mat-label>
       <textarea matInput rows="6" [(ngModel)]="text"
@@ -126,10 +153,14 @@
           data-cy="bulk-add-all">
           <mat-icon>playlist_add</mat-icon> Add All to Existing List
         </button>
-        <button type="button" mat-stroked-button color="warn" (click)="confirmReplace()" [disabled]="!canSubmit"
+        <button type="button" mat-stroked-button color="warn" (click)="confirmReplace()"
+          [disabled]="!canSubmit || targetGrades.length !== 1"
           data-cy="bulk-replace-list">
           <mat-icon>published_with_changes</mat-icon> Replace Existing Grade List
         </button>
+        @if (targetGrades.length > 1) {
+          <span class="bulk-help">Replace is available only when one grade is selected, to prevent accidental deletion.</span>
+        }
       </div>
     }
   </mat-card-content>
