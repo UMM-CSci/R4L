@@ -38,5 +38,6 @@ export interface PurchaseListSource {
   supplyListDescription: string;
   studentCount: number;
   quantityPerStudent: number;
+  packageSize?: number;
   totalNeeded: number;
 }

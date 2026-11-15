@@ -16,10 +16,11 @@ describe('PurchaseListSourceInfoDialogComponent', () => {
       school: 'Morris Area Elementary School',
       grade: '5',
       teacher: 'Ms. Doe',
-      requestedItems: ['Markers'],
+      requestedItems: ['Marker'],
       supplyListDescription: '2x Markers',
       studentCount: 12,
       quantityPerStudent: 2,
+      packageSize: 1,
       totalNeeded: 24
     },
     {
@@ -27,11 +28,12 @@ describe('PurchaseListSourceInfoDialogComponent', () => {
       school: 'Morris Area High School',
       grade: 'High School',
       teacher: '',
-      requestedItems: ['Markers'],
-      supplyListDescription: '1x Markers',
+      requestedItems: ['Marker'],
+      supplyListDescription: '1x 12ct Marker',
       studentCount: 6,
       quantityPerStudent: 1,
-      totalNeeded: 6
+      packageSize: 12,
+      totalNeeded: 72
     }
   ];
 
@@ -68,8 +70,8 @@ describe('PurchaseListSourceInfoDialogComponent', () => {
       'Teacher',
       'Supply List Item',
       'Students',
-      'Qty/Student',
-      'Total'
+      'Per Student',
+      'Total Units Needed'
     ]);
   });
 
@@ -86,18 +88,31 @@ describe('PurchaseListSourceInfoDialogComponent', () => {
       'Ms. Doe',
       '2x Markers',
       '12',
-      '2',
-      '24'
+      '2 Markers',
+      '24 Markers'
     ]);
     expect(secondRowCells).toEqual([
       'Morris Area High School',
       'High School',
       'N/A',
-      '1x Markers',
+      '1x 12ct Marker',
       '6',
-      '1',
-      '6'
+      '1 pack × 12 Markers',
+      '72 Markers'
     ]);
+  });
+
+  it('derives package size for a previously saved source that does not contain it', () => {
+    dialogData = {
+      itemDescription: 'Blue markers',
+      sources: [{ ...sources[1], packageSize: undefined }]
+    };
+
+    createComponent();
+
+    const rowCells = cellText(fixture.debugElement.query(By.css('tbody tr')));
+    expect(rowCells[5]).toBe('1 pack × 12 Markers');
+    expect(rowCells[6]).toBe('72 Markers');
   });
 
   it('shows an empty state when there are no sources', () => {

@@ -66,6 +66,7 @@ describe('PurchaseListComponent', () => {
       'description',
       'totalNeeded',
       'quantityOnHand',
+      'shortage',
       'quantityToBuy',
       'fulfillmentPercent',
       'sources'
@@ -74,21 +75,29 @@ describe('PurchaseListComponent', () => {
     expect(component.dataSource.sort).toBe(component.sort());
   });
 
-  it('uses Material sort headers for quantity and status columns', () => {
+  it('uses clear labels for the purchase decision columns', () => {
     fixture.detectChanges();
 
-    const headers = fixture.debugElement.queryAll(By.css('[mat-sort-header]'));
+    const headers = fixture.debugElement.queryAll(By.css('thead th'));
     expect(headers.map(header => header.nativeElement.textContent.trim()))
-      .toEqual(['Needed Units', 'Units On Hand', 'To Buy', 'Status']);
+      .toEqual([
+        'Purchase Item',
+        'Need (units)',
+        'On Hand (units)',
+        'Short (units)',
+        'Buy',
+        'Status',
+        'Why Needed'
+      ]);
   });
 
   it('labels purchase quantities by units and packs', () => {
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.textContent).toContain('5 units');
-    expect(fixture.nativeElement.textContent).toContain('3 units');
     expect(fixture.nativeElement.textContent).toContain('2 packs');
-    expect(fixture.nativeElement.textContent).toContain('10 units');
+    expect(component.shortageUnits(markerItem)).toBe(2);
+    expect(component.shortageUnits(pencilItem)).toBe(0);
+    expect(component.dataSource.sortingDataAccessor(markerItem, 'shortage')).toBe(2);
   });
 
   it('filters and clears rows by description', () => {

@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Sources For {{ data.itemDescription }}</h2>
+
+<mat-dialog-content class="purchase-list-source-dialog">
+  <div class="purchase-list-table-scroll">
+    <table class="purchase-list-source-table">
+      <thead>
+        <tr class="table-header-row">
+          <th class="table-column-school">School</th>
+          <th class="table-column-grade">Grade</th>
+          <th class="table-column-teacher">Teacher</th>
+          <th class="table-column-description">Supply List Item</th>
+          <th class="table-column-stdcount">Students</th>
+          <th class="table-column-quantity">Per Student</th>
+          <th class="table-column-needed">Total Units Needed</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for (source of data.sources; track source.supplyListId) {
+          <tr class="table-row">
+            <td class="table-column-school">{{ source.school }}</td>
+            <td class="table-column-grade">{{ source.grade }}</td>
+            <td class="table-column-teacher">{{ source.teacher || 'N/A' }}</td>
+            <td class="table-column-description">{{ source.supplyListDescription }}</td>
+            <td class="table-column-stdcount table-number">{{ source.studentCount }}</td>
+            <td class="table-column-quantity table-number">{{ perStudentLabel(source) }}</td>
+            <td class="table-column-needed table-number">{{ totalNeededLabel(source) }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td class="purchase-list-source-empty" colspan="7">No Sources Found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</mat-dialog-content>

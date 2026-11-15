@@ -1,0 +1,110 @@
+:host {
+  display: block;
+  color: var(--app-text);
+}
+
+h2[mat-dialog-title] {
+  margin-bottom: 0;
+}
+
+.purchase-list-source-dialog {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  column-gap: var(--app-dialog-column-spacing);
+  row-gap: var(--app-dialog-row-spacing);
+}
+
+.purchase-list-table-scroll {
+  overflow: auto;
+  width: 100%;
+  max-height: min(24rem, 60vh);
+  border: 1px solid color-mix(in srgb, var(--app-primary) 35%, var(--app-border));
+  border-radius: var(--app-radius-sm);
+  background: var(--app-surface);
+}
+
+.purchase-list-source-table {
+  width: 100%;
+  min-width: 52rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: var(--app-surface);
+}
+
+.purchase-list-source-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: var(--app-dialog-row-spacing) var(--app-dialog-column-spacing);
+  color: var(--app-text);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: left;
+  text-transform: uppercase;
+  overflow-wrap: normal;
+  word-break: normal;
+  background: color-mix(in srgb, var(--app-primary) 16%, var(--app-surface));
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--app-primary) 60%, var(--app-divider-color));
+}
+
+.purchase-list-source-table td {
+  padding: var(--app-dialog-row-spacing) var(--app-dialog-column-spacing);
+  color: var(--app-text);
+  font-weight: 650;
+  line-height: 1.45;
+  border-bottom: 1px solid color-mix(in srgb, var(--app-text-muted) 30%, var(--app-divider-color));
+  vertical-align: top;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.purchase-list-source-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--app-bg) 42%, var(--app-surface));
+}
+
+.purchase-list-source-table tbody tr:hover {
+  background: color-mix(in srgb, var(--app-primary) 10%, var(--app-surface));
+}
+
+.table-column-school {
+  width: 18%;
+}
+
+.table-column-grade {
+  width: 10%;
+}
+
+.table-column-teacher {
+  width: 10%;
+}
+
+.table-column-description {
+  width: 22%;
+}
+
+.table-column-stdcount {
+  width: 10%;
+}
+
+.table-column-quantity {
+  width: 16%;
+}
+
+.table-column-needed {
+  width: 14%;
+}
+
+.table-number {
+  font-weight: 800;
+  text-align: left;
+}
+
+.purchase-list-source-empty {
+  color: var(--app-text-muted);
+  font-weight: 800;
+  text-align: center;
+}

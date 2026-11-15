@@ -11,6 +11,7 @@ public class PurchaseListSource {
   public List<String> requestedItems = List.of();
   public int studentCount;
   public int quantityPerStudent;
+  public int packageSize;
   public int totalNeeded;
   public String supplyListDescription;
 }

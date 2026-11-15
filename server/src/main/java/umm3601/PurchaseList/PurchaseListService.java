@@ -499,6 +499,7 @@ public class PurchaseListService {
     source.requestedItems = requestedItems(supplyList);
     source.studentCount = studentCount;
     source.quantityPerStudent = quantityPerStudent;
+    source.packageSize = supplyPackageSize(supplyList);
     source.totalNeeded = totalNeeded;
     source.supplyListDescription = supplyListSourceDescription(supplyList);
     return source;
@@ -876,7 +877,7 @@ public class PurchaseListService {
         int currentQuantityOnHand
     ) {
       int unitsToBuy = Math.max(0, totalNeeded - currentQuantityOnHand);
-      int purchasePackageSize = purchasePackageSize(inventoryByInternalId);
+      int purchasePackageSize = purchasePackageSize();
       int purchaseQuantityToBuy = quantityToBuy(unitsToBuy, purchasePackageSize);
 
       PurchaseListItem itemSnapshot = new PurchaseListItem();
@@ -912,17 +913,17 @@ public class PurchaseListService {
       return quantityToBuy == 1 ? unit : unit + "s";
     }
 
-    private int purchasePackageSize(Map<String, Inventory> inventoryByInternalId) {
+    /**
+     * Chooses the purchasing denomination from the supply request, not from linked stock.
+     * Demand and on-hand inventory have already been normalized to individual units before
+     * this method converts the shortage back to packs. Mixed request package sizes stay as units.
+     */
+    private int purchasePackageSize() {
       Integer demandPackageSize = consistentDemandPackageSize();
       if (demandPackageSize == null || demandPackageSize <= 1) {
         return 1;
       }
-      if (linkedInventoryIds.isEmpty()) {
-        return demandPackageSize;
-      }
-      return linkedPackageSizesMatchDemand(inventoryByInternalId, demandPackageSize)
-        ? demandPackageSize
-        : 1;
+      return demandPackageSize;
     }
 
     private String purchaseDescription(Map<String, Inventory> inventoryByInternalId) {
@@ -930,7 +931,7 @@ public class PurchaseListService {
         return description;
       }
       String inventoryLabel = inventoryItemDisplayWithoutPackageSize(primaryInventory);
-      return fallback(inventoryLabel, fallback(item, description)) + " (mixed package sizes)";
+      return fallback(inventoryLabel, fallback(item, description));
     }
 
     private boolean hasMixedDemandPackageSizes() {
@@ -939,19 +940,6 @@ public class PurchaseListService {
 
     private Integer consistentDemandPackageSize() {
       return demandPackageSizes.size() == 1 ? demandPackageSizes.iterator().next() : null;
-    }
-
-    private boolean linkedPackageSizesMatchDemand(
-        Map<String, Inventory> inventoryByInternalId,
-        int demandPackageSize
-    ) {
-      for (String linkedInventoryId : linkedInventoryIds) {
-        Inventory inventory = inventoryByInternalId.get(linkedInventoryId);
-        if (inventory == null || inventoryPackageSize(inventory) != demandPackageSize) {
-          return false;
-        }
-      }
-      return true;
     }
 
     private boolean hasMixedLinkedPackageSizes(Map<String, Inventory> inventoryByInternalId) {

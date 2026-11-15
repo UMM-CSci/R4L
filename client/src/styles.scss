@@ -108,6 +108,12 @@
   --app-space-lg: 24px;
   --app-space-xl: 32px;
 
+  // Semantic layout spacing distinguishes full-page content from denser dialogs.
+  --app-row-spacing: var(--app-space-lg);
+  --app-column-spacing: var(--app-space-md);
+  --app-dialog-row-spacing: var(--app-space-sm);
+  --app-dialog-column-spacing: var(--app-space-sm);
+
   --app-shadow-sm: 0 2px 8px var(--app-shadow-color);
   --app-shadow-md: 0 8px 22px var(--app-shadow-color);
   --app-shadow-lg: 0 14px 34px var(--app-shadow-color);

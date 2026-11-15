@@ -40,6 +40,7 @@ export class PurchaseListComponent implements OnInit {
     'description',
     'totalNeeded',
     'quantityOnHand',
+    'shortage',
     'quantityToBuy',
     'fulfillmentPercent',
     'sources'
@@ -56,6 +57,13 @@ export class PurchaseListComponent implements OnInit {
   constructor() {
     this.dataSource.filterPredicate = (item, filter) =>
       item.description.toLowerCase().includes(filter);
+    this.dataSource.sortingDataAccessor = (item, column) => {
+      if (column === 'shortage') {
+        return this.shortageUnits(item);
+      }
+      const value = item[column as keyof PurchaseListItem];
+      return typeof value === 'string' || typeof value === 'number' ? value : '';
+    };
 
     effect(() => {
       this.dataSource.data = this.purchaseList()?.items ?? [];
@@ -70,7 +78,7 @@ export class PurchaseListComponent implements OnInit {
 
   openSourceInfoDialog(item: PurchaseListItem): void {
     this.dialog.open(PurchaseListSourceInfoDialogComponent, {
-      width: '760px',
+      width: '960px',
       maxWidth: '96vw',
       data: {
         itemDescription: item.description,
@@ -121,12 +129,12 @@ export class PurchaseListComponent implements OnInit {
     this.applySearch('');
   }
 
-  unitCountLabel(quantity: number): string {
-    return `${quantity} ${quantity === 1 ? 'unit' : 'units'}`;
-  }
-
   quantityToBuyLabel(item: PurchaseListItem): string {
     return `${item.quantityToBuy} ${item.quantityToBuyUnit || this.unitWord(item.quantityToBuy)}`;
+  }
+
+  shortageUnits(item: PurchaseListItem): number {
+    return Math.max(0, item.totalNeeded - item.quantityOnHand);
   }
 
   private normalizedSearchQuery(query: string): string {

@@ -40,6 +40,10 @@ Component SCSS should not contain palette hex values.
 | 16px | `--app-space-md` |
 | 24px | `--app-space-lg` |
 | 32px | `--app-space-xl` |
+| Standard row spacing | `--app-row-spacing` |
+| Standard column spacing | `--app-column-spacing` |
+| Dialog row spacing | `--app-dialog-row-spacing` |
+| Dialog column spacing | `--app-dialog-column-spacing` |
 | Small radius | `--app-radius-sm` |
 | Standard radius | `--app-radius-md` |
 | Card/panel radius | `--app-radius-lg` |

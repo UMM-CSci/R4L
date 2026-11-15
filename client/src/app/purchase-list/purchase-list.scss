@@ -13,7 +13,8 @@
 
 .purchase-list-card mat-card-content {
   display: grid;
-  gap: var(--app-space-lg);
+  column-gap: var(--app-column-spacing);
+  row-gap: var(--app-row-spacing);
 }
 
 .purchase-list-explainer {
@@ -89,6 +90,11 @@
   width: 7.5rem;
 }
 
+.purchase-table th.mat-column-shortage,
+.purchase-table td.mat-column-shortage {
+  width: 7rem;
+}
+
 .purchase-table th.mat-column-fulfillmentPercent,
 .purchase-table td.mat-column-fulfillmentPercent {
   width: 9rem;
@@ -155,6 +161,6 @@
   }
 
   .purchase-table {
-    min-width: 43rem;
+    min-width: 50rem;
   }
 }
