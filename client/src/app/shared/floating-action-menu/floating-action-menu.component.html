@@ -1,0 +1,31 @@
+@if (actions.length > 0) {
+  <div class="floating-action-container">
+    <button
+      mat-fab
+      color="primary"
+      type="button"
+      matTooltip="Options"
+      matTooltipPosition="left"
+      aria-label="Options"
+      data-cy="floating-action-toggle"
+      (click)="toggleMenu()">
+      <mat-icon>{{ expanded() ? 'close' : 'more_vert' }}</mat-icon>
+    </button>
+
+    @if (expanded()) {
+      @for (action of actions; track action.id) {
+        <button
+          mat-fab
+          type="button"
+          class="floating-action"
+          matTooltipPosition="left"
+          [matTooltip]="action.label"
+          [attr.aria-label]="action.label"
+          [attr.data-cy]="'floating-action-' + action.id"
+          (click)="selectAction(action.id)">
+          <mat-icon>{{ action.icon }}</mat-icon>
+        </button>
+      }
+    }
+  </div>
+}

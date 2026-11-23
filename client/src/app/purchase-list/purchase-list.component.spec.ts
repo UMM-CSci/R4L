@@ -9,6 +9,10 @@ import { PurchaseListItem, PurchaseListSnapshot } from './purchase-list';
 import { PurchaseListComponent } from './purchase-list.component';
 import { PurchaseListService } from './purchase-list.service';
 import { PurchaseListSourceInfoDialogComponent } from './purchase-list-source-info-dialog.component';
+import {
+  CsvExportDialogComponent,
+  CsvExportDialogData
+} from '../shared/csv-export/csv-export-dialog.component';
 
 describe('PurchaseListComponent', () => {
   let component: PurchaseListComponent;
@@ -113,6 +117,37 @@ describe('PurchaseListComponent', () => {
         sources: markerItem.sources
       }
     }));
+  });
+
+  it('opens the CSV export dialog with purchase-list rows and columns', () => {
+    fixture.detectChanges();
+
+    fixture.debugElement.query(By.css('[data-cy="floating-action-toggle"]'))
+      .triggerEventHandler('click');
+    fixture.detectChanges();
+    fixture.debugElement.query(By.css('[data-cy="floating-action-export-csv"]'))
+      .triggerEventHandler('click');
+
+    expect(dialog.open).toHaveBeenCalled();
+    const [dialogComponent, config] = dialog.open.calls.mostRecent().args;
+    const data = config?.data as CsvExportDialogData<PurchaseListItem>;
+    expect(dialogComponent).toBe(CsvExportDialogComponent);
+    expect(data.fileName).toBe('purchase-list.csv');
+    expect(data.rows).toEqual([markerItem, pencilItem]);
+    expect(data.columns.map(column => column.header)).toEqual([
+      'Item',
+      'Needed Units',
+      'Units On Hand',
+      'To Buy',
+      'Status'
+    ]);
+    expect(data.columns.map(column => column.value(markerItem))).toEqual([
+      'Blue markers',
+      5,
+      3,
+      '2 packs',
+      '60%'
+    ]);
   });
 
   it('recalculates and replaces the displayed rows', () => {

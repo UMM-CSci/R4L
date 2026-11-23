@@ -125,3 +125,10 @@
     </mat-card-content>
   </mat-card>
 </section>
+
+@if ((purchaseList()?.items?.length ?? 0) > 0) {
+  <app-floating-action-menu
+    [actions]="purchaseListActions"
+    (actionSelected)="handleFloatingAction($event)">
+  </app-floating-action-menu>
+}

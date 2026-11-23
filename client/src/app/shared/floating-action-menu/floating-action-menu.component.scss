@@ -1,0 +1,32 @@
+.floating-action-container {
+  position: fixed;
+  right: var(--app-space-lg);
+  bottom: var(--app-space-md);
+  z-index: 20;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  gap: var(--app-space-sm);
+}
+
+.floating-action {
+  animation: slide-in-up 0.2s ease-in-out;
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .floating-action-container {
+    right: var(--app-space-md);
+  }
+}
