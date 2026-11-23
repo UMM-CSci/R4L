@@ -422,3 +422,10 @@
     </mat-error>
   </div>
   }
+
+  @if (displayedInventory().length > 0) {
+  <app-floating-action-menu
+    [actions]="inventoryActions"
+    (actionSelected)="handleFloatingAction($event)">
+  </app-floating-action-menu>
+}

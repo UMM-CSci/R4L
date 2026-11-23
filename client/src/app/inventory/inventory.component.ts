@@ -43,6 +43,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../auth/auth-service';
 import JsBarcode from 'jsbarcode';
 
+// CSV Imports
+import { CsvExportDialogComponent, CsvExportDialogData } from '../shared/csv-export/csv-export-dialog.component';
+import { CsvColumn } from '../shared/csv-export/csv-export.service';
+import { FloatingAction, FloatingActionMenuComponent } from '../shared/floating-action-menu/floating-action-menu.component';
+
 type ScanCard = {
   id: string;
   barcode: string;
@@ -78,13 +83,33 @@ type ScanCard = {
     ScannerComponent,
     CommonModule,
     MatButtonToggleModule,
-    RouterLink
+    RouterLink,
+    FloatingActionMenuComponent
   ],
 })
 export class InventoryComponent {
   displayedColumnsDetailed: string[] = ['item', 'description', 'brand', 'color', 'size', 'type', 'material', 'packageSize', 'quantity', 'notes'];
   displayedColumnsSimple: string[] = ['description', 'quantity', 'notes'];
   dataSource = new MatTableDataSource<Inventory>([]);
+  readonly inventoryCsvColumns: CsvColumn<Inventory>[] = [
+    {header: 'Item', value: inventory => this.displayCellValue(inventory.item)},
+    {header: 'Description', value: inventory => this.displayCellValue(inventory.description)},
+    {header: 'Brand', value: inventory => this.displayCellValue(inventory.brand)},
+    {header: 'Color', value: inventory => this.displayCellValue(inventory.color)},
+    {header: 'Size', value: inventory => this.displayCellValue(inventory.size)},
+    {header: 'Type', value: inventory => this.displayCellValue(inventory.type)},
+    {header: 'Material', value: inventory => this.displayCellValue(inventory.material)},
+    {header: 'Package Size', value: inventory => this.displayCellValue(inventory.packageSize)},
+    {header: 'Quantity', value: inventory => this.displayCellValue(inventory.quantity)},
+    {header: 'Notes', value: inventory => this.displayCellValue(inventory.notes)},
+  ]
+  readonly inventoryActions: FloatingAction[] = [
+    {
+      id: 'export-csv',
+      label: 'Export CSV',
+      icon: 'table_chart'
+    }
+  ]
   readonly page = viewChild<MatPaginator>(MatPaginator)
   readonly sort = viewChild<MatSort>(MatSort);
 
@@ -672,4 +697,29 @@ export class InventoryComponent {
     ),
     { initialValue: [] }
   );
+
+  openCsvExportDialog(): void {
+    const rows = this.displayedInventory();
+
+    if (rows.length === 0) {
+      return;
+    }
+
+    const data: CsvExportDialogData<Inventory> = {
+      fileName: 'inventory.csv',
+      rows,
+      columns: this.inventoryCsvColumns
+    };
+
+    this.dialog.open(CsvExportDialogComponent, {
+      width: '440px',
+      maxWidth: '92vw',
+      data
+    });
+  }
+  handleFloatingAction(actionId: string): void {
+    if (actionId === 'export-csv') {
+      this.openCsvExportDialog();
+    }
+  }
 }

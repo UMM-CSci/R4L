@@ -1,0 +1,84 @@
+<div class="csv-export-dialog app-dialog-shell">
+  <div class="app-dialog-header">
+    <div>
+      <h2 class="app-dialog-title">Export CSV</h2>
+      <p class="app-dialog-subtitle">
+        Choose the columns to include in the downloaded file.
+      </p>
+    </div>
+  </div>
+
+  <mat-dialog-content class="csv-export-dialog-content app-stack-md">
+    <mat-form-field appearance="outline" class="app-form-field-full">
+      <mat-label>File name</mat-label>
+      <input
+        matInput
+        type="text"
+        autocomplete="off"
+        spellcheck="false"
+        data-cy="csv-file-name"
+        [(ngModel)]="fileName">
+      <mat-hint>The .csv extension is added if omitted.</mat-hint>
+    </mat-form-field>
+
+    <section class="app-panel-muted app-stack-sm" aria-labelledby="csv-export-columns-title">
+      <div class="csv-column-summary app-split">
+        <h3 id="csv-export-columns-title">Columns</h3>
+        <div class="csv-export-size app-cluster" data-cy="csv-export-size" aria-live="polite">
+          <span class="app-badge app-badge-primary">
+            {{ data.rows.length }} {{ data.rows.length === 1 ? 'row' : 'rows' }}
+          </span>
+          <span class="app-badge app-badge-primary">
+            {{ selectedColumns.length }} of {{ data.columns.length }} columns
+          </span>
+        </div>
+      </div>
+
+      <div class="app-action-row">
+        <button
+          mat-stroked-button
+          type="button"
+          data-cy="csv-select-all-columns"
+          [disabled]="selectedColumns.length === data.columns.length"
+          (click)="selectAllColumns()">
+          <mat-icon>done_all</mat-icon>
+          Select all
+        </button>
+        <button
+          mat-stroked-button
+          type="button"
+          data-cy="csv-clear-columns"
+          [disabled]="selectedColumns.length === 0"
+          (click)="clearColumns()">
+          <mat-icon>clear</mat-icon>
+          Clear
+        </button>
+      </div>
+
+      <div class="csv-column-options app-stack-sm">
+        @for (column of data.columns; track column) {
+          <mat-checkbox
+            data-cy="csv-column-option"
+            [checked]="selectedColumns.includes(column)"
+            (change)="setColumnSelected(column, $event.checked)">
+            {{ column.header }}
+          </mat-checkbox>
+        }
+      </div>
+    </section>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="csv-export-dialog-actions app-action-row app-action-row-end" align="end">
+    <button mat-stroked-button type="button" mat-dialog-close>Cancel</button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      data-cy="csv-dialog-export"
+      [disabled]="fileName.trim().length === 0 || data.rows.length === 0 || selectedColumns.length === 0"
+      (click)="exportCsv()">
+      <mat-icon>download</mat-icon>
+      Download CSV
+    </button>
+  </mat-dialog-actions>
+</div>

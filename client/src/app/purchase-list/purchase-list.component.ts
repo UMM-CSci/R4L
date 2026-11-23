@@ -10,6 +10,12 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { CsvExportDialogComponent } from '../shared/csv-export/csv-export-dialog.component';
+import { CsvColumn } from '../shared/csv-export/csv-export.service';
+import {
+  FloatingAction,
+  FloatingActionMenuComponent
+} from '../shared/floating-action-menu/floating-action-menu.component';
 import type { PurchaseListItem, PurchaseListSnapshot } from './purchase-list';
 import { PurchaseListService } from './purchase-list.service';
 import { PurchaseListSourceInfoDialogComponent } from './purchase-list-source-info-dialog.component';
@@ -22,6 +28,7 @@ import { PurchaseListSourceInfoDialogComponent } from './purchase-list-source-in
   imports: [
     MatButtonModule,
     MatCardModule,
+    FloatingActionMenuComponent,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -43,6 +50,16 @@ export class PurchaseListComponent implements OnInit {
     'quantityToBuy',
     'fulfillmentPercent',
     'sources'
+  ];
+  readonly purchaseListCsvColumns: CsvColumn<PurchaseListItem>[] = [
+    { header: 'Item', value: item => item.description },
+    { header: 'Needed Units', value: item => item.totalNeeded },
+    { header: 'Units On Hand', value: item => item.quantityOnHand },
+    { header: 'To Buy', value: item => this.quantityToBuyLabel(item) },
+    { header: 'Status', value: item => `${item.fulfillmentPercent}%` }
+  ];
+  readonly purchaseListActions: FloatingAction[] = [
+    { id: 'export-csv', label: 'Export CSV', icon: 'table_chart' }
   ];
   dataSource = new MatTableDataSource<PurchaseListItem>([]);
   readonly sort = viewChild<MatSort>(MatSort);
@@ -119,6 +136,29 @@ export class PurchaseListComponent implements OnInit {
 
   clearSearch(): void {
     this.applySearch('');
+  }
+
+  handleFloatingAction(actionId: string): void {
+    if (actionId === 'export-csv') {
+      this.openExportDialog();
+    }
+  }
+
+  openExportDialog(): void {
+    const rows = this.purchaseList()?.items ?? [];
+    if (rows.length === 0) {
+      return;
+    }
+
+    this.dialog.open(CsvExportDialogComponent, {
+      width: '440px',
+      maxWidth: '92vw',
+      data: {
+        fileName: 'purchase-list.csv',
+        rows,
+        columns: this.purchaseListCsvColumns
+      }
+    });
   }
 
   unitCountLabel(quantity: number): string {

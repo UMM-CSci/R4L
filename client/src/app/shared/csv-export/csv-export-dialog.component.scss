@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.csv-export-dialog {
+  min-width: min(420px, 100%);
+}
+
+.csv-export-dialog-content {
+  padding: 0;
+}
+
+.csv-column-summary h3 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.csv-column-summary {
+  flex-wrap: wrap;
+}
+
+.csv-export-dialog-actions {
+  padding: 0;
+}
